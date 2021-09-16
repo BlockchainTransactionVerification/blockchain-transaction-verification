@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
 		required:true
 	},
 	  Quantity:{
-		type:Integer,
+		type:Int,
 		required:true
 	},
     Quality:{

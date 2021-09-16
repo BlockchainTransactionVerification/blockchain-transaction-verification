@@ -7,8 +7,8 @@ import sgMail from '@sendgrid/mail'
 //register function to register a user
 export const registerUser = asyncHandler(async(req, res) => {
     console.log("you are in register api")
-    const {Username, Password, Email} = req.body
-    if(!Username || !Password || !Email){
+    const {Username, Password, Email, Firstname, Lastname} = req.body
+    if(!Username || !Password || !Email || !Firstname || !Lastname){
         return res.status(442).json({error:"please add all the fields"})
     }
     //checks database for a user with this username

@@ -13,6 +13,14 @@ const userSchema = mongoose.Schema({
 		type:String,
 		required:true
 	},
+	Firstname:{
+		type:String,
+		required:true
+	},
+	Lastname:{
+		type:String,
+		required:true
+	},
 	temporarytoken: {
 		type: String,
 		required: true
