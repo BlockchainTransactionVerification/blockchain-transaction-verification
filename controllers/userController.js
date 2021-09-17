@@ -93,11 +93,9 @@ export const loginUser  = asyncHandler(async(req, res) => {
                         if(err) throw err;
                         res.json({
                             token,
-                            user: {
-                                id: savedUser._id,
-                                name: savedUser.FirstName,
-                                email: savedUser.Email
-                            }
+                            id: savedUser._id,
+                            name: savedUser.FirstName,
+                            email: savedUser.Email
                         })
                     }
                 )
