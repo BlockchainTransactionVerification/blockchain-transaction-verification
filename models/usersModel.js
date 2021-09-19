@@ -21,7 +21,6 @@ const userSchema = mongoose.Schema({
 	},
     RepFirstName:{
 		type:String,
-		required:true
 	},
 	RepLastName: {
 		type: String,
