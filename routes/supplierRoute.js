@@ -1,4 +1,4 @@
-//import { saveItem} from "../controllers/supplierController.js";
+import { saveItem} from "../controllers/supplierController.js";
 import express from 'express'
 
 import Supply from '../models/supplierModel.js'

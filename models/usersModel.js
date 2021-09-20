@@ -13,13 +13,20 @@ const userSchema = mongoose.Schema({
 		type:String,
 		required:true
 	},
-	Firstname:{
+	CompanyName:{
 		type:String,
-		required:true
 	},
-	Lastname:{
+	BusinessAddress:{
 		type:String,
-		required:true
+	},
+    RepFirstName:{
+		type:String,
+	},
+	RepLastName: {
+		type: String,
+	},
+	Position: {
+		type: String,
 	},
 	temporarytoken: {
 		type: String,

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const userSchema = mongoose.Schema({
+const supplySchema = mongoose.Schema({
     SellerID:{
 		type:String,
 		required:true
@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
 		required:true
 	},
 	  Quantity:{
-		type:Int,
+		type:Number,
 		required:true
 	},
     Quality:{
@@ -34,6 +34,6 @@ const userSchema = mongoose.Schema({
 	}
 })
 
-const User = mongoose.model('Supplys', userSchema)
+const Supply = mongoose.model('Supplys', supplySchema)
 
 export default Supply

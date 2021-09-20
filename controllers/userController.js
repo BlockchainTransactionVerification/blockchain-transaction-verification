@@ -7,8 +7,9 @@ import sgMail from '@sendgrid/mail'
 //register function to register a user
 export const registerUser = asyncHandler(async(req, res) => {
     console.log("you are in register api")
-    const {Username, Password, Email, Firstname, Lastname} = req.body
-    if(!Username || !Password || !Email || !Firstname || !Lastname){
+    const {Username, Password, Email, CompanyName, BusinessAddress, 
+           RepFirstName, RepLastName, Position} = req.body
+    if(!Username || !Password || !Email){
         return res.status(442).json({error:"please add all the fields"})
     }
     //checks database for a user with this username
@@ -25,6 +26,11 @@ export const registerUser = asyncHandler(async(req, res) => {
                  Username,
                  Password:hashedPassword,
                  Email,
+                 CompanyName,
+                 BusinessAddress,
+                 RepFirstName,
+                 RepLastName,
+                 Position,
                  // temporarytoken: jwt.sign(Username, JWT_SECRET)
                  temporarytoken: jwt.sign(Username, process.env.JWT_SECRET),
                  active: false
@@ -93,11 +99,9 @@ export const loginUser  = asyncHandler(async(req, res) => {
                         if(err) throw err;
                         res.json({
                             token,
-                            user: {
-                                id: savedUser._id,
-                                name: savedUser.FirstName,
-                                email: savedUser.Email
-                            }
+                            id: savedUser._id,
+                            name: savedUser.FirstName,
+                            email: savedUser.Email
                         })
                     }
                 )
