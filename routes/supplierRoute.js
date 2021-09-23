@@ -10,7 +10,7 @@ const supplyRouter = express.Router()
 supplyRouter.route('/addItem').post(saveItem)
 
 // express router method to create route for logging in users
-//supplyRouter.route('/login').post(loginUser)
+supplyRouter.route('/getItem').get(getItems)
 
 // express router method to create route for deleting users
 //supplyRouter.route('/delete/:id').delete(deleteUser)

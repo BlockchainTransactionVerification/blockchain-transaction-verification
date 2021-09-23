@@ -8,9 +8,11 @@ import sgMail from '@sendgrid/mail'
 export const saveItem = asyncHandler(async (req, res) => {
     console.log("you are in saveItem api")
     const { SellerID, ItemName, Quantity, Quality, LevelSafety, Region, NDA, Comission } = req.body
-    if (!SellerID || !ItemName || !Quantity || !Quality || !LevelSafety || !Region || !NDA) {
+    if (!SellerID || !ItemName) {
         return res.status(442).json({ error: "please add all the fields" })
     }
+    // to be made required. Taken out for ease of testing.
+    //|| !Quantity || !Quality || !LevelSafety || !Region || !NDA
     const Supplies = new Supply({
         SellerID,
         ItemName,
@@ -30,4 +32,10 @@ export const saveItem = asyncHandler(async (req, res) => {
             })
         })
         .catch((error) => { console.error(error) })
+})
+
+export const getItems = asyncHandler(async (req,res) =>  {
+    return res.json({
+        worked: "WIP"
+    })
 })
