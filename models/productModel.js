@@ -1,36 +1,45 @@
 import mongoose from 'mongoose'
 
 const supplySchema = mongoose.Schema({
-    SellerID:{
-		type:String,
-		required:true
-	},
     ItemName:{
 		type:String,
 		required:true
 	},
-	  Quantity:{
+	Quantity:{
 		type:Number,
 		required:true
 	},
-    Quality:{
+	Quality:{
 		type:String,
 		required:true
 	},
-	  LevelSafety: {
+	Price: {
 		type: String,
 		required: true
 	},
-	  Region: {
+	Brand: {
 		type: String,
 		required: true
 	},
-    NDA: {
+	NDA: {
 		type: Boolean,
 		required: true
 	},
-    Commission: {
-		type: String
+	SellerID: {
+		type: String,
+		required: true
+	},
+	Region: {
+		type: String,
+		required: true
+	},
+	ProdRate: {
+		type: String,
+		required: true
+	},
+    ShipRestrict: {
+		type: String,
+		required: true
 	}
 })
 

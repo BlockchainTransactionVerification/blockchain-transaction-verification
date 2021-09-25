@@ -1,4 +1,4 @@
-import Supply from '../models/supplierModel.js'
+import Supply from '../models/productModel.js'
 import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
@@ -35,7 +35,18 @@ export const saveItem = asyncHandler(async (req, res) => {
 })
 
 export const getItems = asyncHandler(async (req,res) =>  {
+    
+    
+    
+    //Supply.find({field: 'data'})
+
+
+
+
+
+
     return res.json({
         worked: "WIP"
     })
 })
+

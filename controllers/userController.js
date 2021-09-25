@@ -184,3 +184,38 @@ export const verifyUser  = asyncHandler(async(req, res) => {
         })
     })
 })
+
+//update user
+export const updateUser = asyncHandler(async(req, res) => {
+    if(!req.body.id){
+        return res.status(442).json({error:"ID is missing"})
+    }
+    const updates = await User.findById(req.body.id)
+    console.log(updates)
+    if(!updates){
+        return res.status(442).json({error:"User not found"})
+    }
+
+    for(var fieldName in req.body){
+        updates[fieldName] = req.body[fieldName]
+    }
+    if(req.body.Password){
+        await bcrypt.hash(req.body.Password,12)
+        .then(hashedPass =>{
+            updates.Password = hashedPass
+        })
+    }
+
+    updates.save()
+    .then((result, err) => {
+        if(err){
+            return res.status(442).json({error: err})
+        }else{
+            return res.json({
+                success: true,
+                msg: "User has been successfully edited"
+            })
+        }
+    })
+
+})
