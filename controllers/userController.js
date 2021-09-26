@@ -5,6 +5,11 @@ import jwt from 'jsonwebtoken'
 import sgMail from '@sendgrid/mail'
 
 //register function to register a user
+//input - Username, Password, Email, CompanyName, BusinessAddress, RepFirstName, RepLastName, Position
+//output -
+        // success - status: 200; success: true, msg: "User has been successfully activated"
+        // failed - status: 442; error:"some message"
+
 export const registerUser = asyncHandler(async(req, res) => {
     console.log("you are in register api")
     const {Username, Password, Email, CompanyName, BusinessAddress, 
@@ -67,6 +72,11 @@ export const registerUser = asyncHandler(async(req, res) => {
 })
 
 //login function to login a user
+//input - Username, Password
+//output -
+        // success - status: 200;  token, id: savedUser._id, name: savedUser.FirstName, email: savedUser.Email
+        // failed - status: 442; error:"some message"
+
 export const loginUser  = asyncHandler(async(req, res) => {
     console.log("login")
     const {Username,Password} = req.body
@@ -132,6 +142,11 @@ export const deleteUser  = asyncHandler(async(req, res) => {
 })
 
 //function to verify users
+//input - token
+//output -
+        // success - status: 200; success: true, msg: "User has been successfully activated"
+        // failed - status: 442; error:"some message"
+
 export const verifyUser  = asyncHandler(async(req, res) => {
     User.findOne({ temporarytoken: req.params.id }, (err, user) => {
         if (err) throw err; // Throw error if cannot login
@@ -144,7 +159,7 @@ export const verifyUser  = asyncHandler(async(req, res) => {
                 console.log(err);
                 res.status(442).json({ error: "Activation link has expired." }); // Token is expired
             } else if (!user) {
-                res.status(442).json({ error: "Activation link has expired.2" }); // Token may be valid but does not match any user in the database
+                res.status(442).json({ error: "Activation link has expired." }); // Token may be valid but does not match any user in the database
             } else {
                 user.temporarytoken = false; // Remove temporary token
                 user.active = true; // Change account status to Activated
@@ -176,7 +191,7 @@ export const verifyUser  = asyncHandler(async(req, res) => {
                         })
                         res.json({
                             success: true,
-                            msg: "User has been successfully activated9875343"
+                            msg: "User has been successfully activated"
                         })
                     }
                 })
@@ -186,6 +201,11 @@ export const verifyUser  = asyncHandler(async(req, res) => {
 })
 
 //update user
+//input - id and any other valid field for users
+//output -
+        // success - status: 200; success: true, msg: "User has been successfully edited"
+        // failed - status: 442; error:"some message"
+
 export const updateUser = asyncHandler(async(req, res) => {
     if(!req.body.id){
         return res.status(442).json({error:"ID is missing"})
