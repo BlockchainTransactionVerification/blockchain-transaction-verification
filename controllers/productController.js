@@ -34,17 +34,25 @@ export const saveItem = asyncHandler(async (req, res) => {
         .catch((error) => { console.error(error) })
 })
 
+//input: ItemName, Quantity, Price, supplier
+
 export const getItems = asyncHandler(async (req,res) =>  {
-    
-    
+    //if(req.body.supplier)
+        //send back all
+    //else
+        //return limited
+    Supply.find({'ItemName': req.body.ItemName,
+                 'Quantity': req.body.Quantity,
+                 'Price': req.body.Price},function (err, query){
+        if(err){
+            return err
+        }else{
+            //return query
+            console.log(query)
+        }
+    })
     
     //Supply.find({field: 'data'})
-
-
-
-
-
-
     return res.json({
         worked: "WIP"
     })
