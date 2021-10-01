@@ -19,6 +19,7 @@ const transactionSchema = mongoose.Schema({
 	},
 	Documents: [{
 		DocName: String,
+		Responsible: String,
 		Done: Boolean
 	}]
 })
