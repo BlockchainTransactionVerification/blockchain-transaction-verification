@@ -28,6 +28,9 @@ const userSchema = mongoose.Schema({
 	Position: {
 		type: String,
 	},
+	WalletID:{
+		type:String,
+	},
 	temporarytoken: {
 		type: String,
 		required: true
