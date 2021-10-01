@@ -46,7 +46,7 @@ export const addTransaction = asyncHandler(async(req, res) => {
         text: `Hello ${seller.RepFirstName}, You have a new Pending Transaction`,
         //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here`,
         html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here </a> and Log in to check out 
-               your new pending transaction from ${buyer.RepFirstName} from Company Stand in`,
+               your new pending transaction from ${buyer.RepFirstName} from ${buyer.CompanyName}`,
     }
     sgMail.send(msg)
     .then(() => {
