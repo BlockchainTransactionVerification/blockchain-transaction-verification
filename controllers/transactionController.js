@@ -62,6 +62,26 @@ export const addTransaction = asyncHandler(async(req, res) => {
      })
 })
 
+//get documents
+//input - id and Documents
+//output -
+        // success - status: 200; the list of documents and their statuses
+        // failed - status: 442; error:"some message"
+
+export const getDocuments = asyncHandler(async(req, res) => {
+    if(!req.body.id){
+          return res.status(442).json({error:"Transaction ID is missing"})
+    }
+    const updates = await Transaction.findById(req.body.id)
+    console.log(updates)
+    if(!updates){
+        return res.status(442).json({error:"User not found"})
+    }
+    return res.json(updates)
+})
+
+
+
 //update documents
 //input - id and Documents
 //output -
@@ -91,6 +111,4 @@ export const updateDocuments = asyncHandler(async(req, res) => {
               })
           }
       })
-  
-
 })
