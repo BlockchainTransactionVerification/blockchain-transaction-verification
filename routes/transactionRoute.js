@@ -1,4 +1,4 @@
-import { addTransaction, updateTransaction } from "../controllers/productController.js";
+import { addTransaction, updateTransaction } from "../controllers/transactionController.js";
 import express from 'express'
 
 import transaction from '../models/transactionModel.js'
