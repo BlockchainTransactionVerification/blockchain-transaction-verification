@@ -15,8 +15,14 @@ const transactionSchema = mongoose.Schema({
 	},
 	Active: {
 		type: Boolean,
+		default: false,
 		required: true
 	},
+	Pending: {
+		type: Boolean,
+		default: true
+		required: true
+	}
 	Documents: [{
 		DocName: String,
 		Responsible: String,
