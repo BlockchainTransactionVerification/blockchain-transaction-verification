@@ -17,10 +17,10 @@ const transactionSchema = mongoose.Schema({
 		type: Boolean,
 		required: true
 	},
-	Documents: {
-		type: String,
-		required: true
-	}
+	Documents: [{
+		DocName: String,
+		Done: Boolean
+	}]
 })
 
 const Transaction = mongoose.model('Transactions', transactionSchema)
