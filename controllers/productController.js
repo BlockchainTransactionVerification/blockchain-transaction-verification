@@ -1,15 +1,25 @@
-import Supply from '../models/productModel.js'
-import asyncHandler from 'express-async-handler'
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-import sgMail from '@sendgrid/mail'
-
+import Supply from "../models/productModel.js";
+import asyncHandler from "express-async-handler";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import sgMail from "@sendgrid/mail";
 
 export const saveItem = asyncHandler(async (req, res) => {
-    console.log("you are in saveItem api")
-    const { SellerID, ItemName, Quantity, Quality, LevelSafety, Region, NDA, Comission } = req.body
+    console.log("you are in saveItem api");
+    const {
+        SellerID,
+        ItemName,
+        Quantity,
+        Quality,
+        Price,
+        Brand,
+        NDA,
+        Region,
+        ProdRate,
+        ShipRestrict
+    } = req.body;
     if (!SellerID || !ItemName) {
-        return res.status(442).json({ error: "please add all the fields" })
+        return res.status(442).json({ error: "please add all the fields" });
     }
     // to be made required. Taken out for ease of testing.
     //|| !Quantity || !Quality || !LevelSafety || !Region || !NDA
@@ -18,43 +28,54 @@ export const saveItem = asyncHandler(async (req, res) => {
         ItemName,
         Quantity,
         Quality,
-        LevelSafety,
-        Region,
+        Price,
+        Brand,
         NDA,
-        Comission
-    })
+        Region,
+        ProdRate,
+        ShipRestrict
+    });
     Supplies.save()
         .then(() => {
-            console.log('save successful')
+            console.log("save successful");
             res.json({
                 success: true,
-                msg: "This Item has been saved Successfully"
-            })
+                msg: "This Item has been saved Successfully",
+            });
         })
-        .catch((error) => { console.error(error) })
-})
+        .catch((error) => {
+            console.error(error);
+        });
+});
 
 //input: ItemName, Quantity, Price, supplier
 
-export const getItems = asyncHandler(async (req,res) =>  {
+export const getItems = asyncHandler(async (req, res) => {
     //if(req.body.supplier)
-        //send back all
+    //send back all
     //else
-        //return limited
-    Supply.find({'ItemName': req.body.ItemName,
-                 'Quantity': req.body.Quantity,
-                 'Price': req.body.Price},function (err, query){
-        if(err){
-            return err
-        }else{
-            //return query
-            console.log(query)
-        }
-    })
-    
-    //Supply.find({field: 'data'})
-    return res.json({
-        worked: "WIP"
-    })
-})
+    //return limited
 
+    const {ItemName, Quantity, Price, supplier} = req.body;
+    if (!ItemName || !Quantity || !Price || (supplier == null)) {
+        return res.status(442).json({ error: "please add all the fields" });
+    }
+
+
+    if(req.body.supplier){
+        Supply.find({ItemName: req.body.ItemName, 
+                     Quantity: {$lte: req.body.Quantity}, 
+                     Price: {$lte: req.body.Price}})
+        .then(savedItems =>{
+            return res.json(savedItems);
+        }).catch(err=>{console.log(err)})
+    } else{
+        //return limited fields
+        Supply.find({ItemName: req.body.ItemName, 
+            Quantity: {$lte: req.body.Quantity}, 
+            Price: {$lte: req.body.Price}}, 'ItemName Quantity Price')
+        .then(savedItems =>{
+            return res.json(savedItems);
+        }).catch(err=>{console.log(err)})
+    }
+});
