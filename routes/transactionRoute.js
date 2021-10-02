@@ -1,4 +1,4 @@
-import { addTransaction, updateTransaction } from "../controllers/transactionController.js";
+import { addTransaction, getTransaction, getDocuments, updateDocuments } from "../controllers/transactionController.js";
 import express from 'express'
 
 import transaction from '../models/transactionModel.js'
@@ -10,7 +10,7 @@ const transactionRouter = express.Router()
 transactionRouter.route('/addTransaction').post(addTransaction)
 
 // express router method to create route for logging in users
-transactionRouter.route('/updateTransaction').post(updateTransaction)
+transactionRouter.route('/updateTransaction').post(updateDocuments)
 
 // express router method to create route for deleting users
 //productRouter.route('/delete/:id').delete(deleteUser)

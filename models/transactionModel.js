@@ -20,9 +20,9 @@ const transactionSchema = mongoose.Schema({
 	},
 	Pending: {
 		type: Boolean,
-		default: true
+		default: true,
 		required: true
-	}
+	},
 	Documents: [{
 		DocName: String,
 		Responsible: String,

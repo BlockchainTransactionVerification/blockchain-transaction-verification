@@ -1,5 +1,5 @@
 import Transaction from '../models/transactionModel.js'
-import User from '../models/userModel.js'
+import User from '../models/usersModel.js'
 import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
@@ -38,7 +38,7 @@ export const addTransaction = asyncHandler(async(req, res) => {
     })
         
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-    const hrefLink = "https://blkchn-trxn-verif.herokuapp.com/;
+    const hrefLink = "https://blkchn-trxn-verif.herokuapp.com/";
     const msg = {
         to: seller.Email, // Change to your recipient
         from: 'BlockChainUCFSD@gmail.com', // Change to your verified sender
