@@ -1,5 +1,5 @@
 import Transaction from '../models/transactionModel.js'
-import User from '../models/userModel.js'
+import User from '../models/usersModel.js'
 import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
@@ -13,14 +13,15 @@ import sgMail from '@sendgrid/mail'
 
 export const addTransaction = asyncHandler(async(req, res) => {
     console.log("you are in addTransaction")
-    const {BuyerID, SellerID} = req.body
-    if(!BuyerID || !SellerID){
+    const {BuyerID, SellerID, ProdID} = req.body
+    if(!BuyerID || !SellerID || !ProdID){
         return res.status(442).json({error:"please add all the fields"})
     }
     
     const transaction =new Transaction({
-          BuyerID,
-          SellerID
+        ProdID,
+        BuyerID,
+        SellerID
     })
     const buyer = await User.findById(BuyerID)
     const seller = await User.findById(SellerID)
@@ -30,7 +31,7 @@ export const addTransaction = asyncHandler(async(req, res) => {
         return res.status(442).json({error:"User not found"})
     }
     
-    updates.save()
+    transaction.save()
     .then((result, err) => {
         if(err){
             return res.status(442).json({error: err})
@@ -38,14 +39,14 @@ export const addTransaction = asyncHandler(async(req, res) => {
     })
         
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-    const hrefLink = "https://blkchn-trxn-verif.herokuapp.com/;
+    const hrefLink = "https://blkchn-trxn-verif.herokuapp.com/";
     const msg = {
         to: seller.Email, // Change to your recipient
         from: 'BlockChainUCFSD@gmail.com', // Change to your verified sender
         subject: 'New Pending Transaction',
         text: `Hello ${seller.RepFirstName}, You have a new Pending Transaction`,
         //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here`,
-        html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here </a> and Log in to check out 
+        html: `Hello<strong> ${seller.RepFirstName}</strong>,<br><br><a href=${hrefLink}> Click Here </a> and Log in to check out 
                your new pending transaction from ${buyer.RepFirstName} from ${buyer.CompanyName}`,
     }
     sgMail.send(msg)
@@ -81,7 +82,7 @@ export const getTransaction = asyncHandler(async(req, res) => {
 })
 
 //get documents
-//input - id and Documents
+//input - id
 //output -
         // success - status: 200; the list of documents and their statuses
         // failed - status: 442; error:"some message"
@@ -111,11 +112,12 @@ export const updateDocuments = asyncHandler(async(req, res) => {
       if(!req.body.Documents){
         //to be added
       }
-      const updates = await User.findById(req.body.id)
+      const updates = await Transaction.findById(req.body.id)
       if(!updates){
-            return res.status(442).json({error:"Transaction not found"})
+        return res.status(442).json({error:"Transaction not found"})
       }
-      updates[Documents] = req.body[Documents]
+      console.log(updates);
+      updates.Documents = req.body.Documents
       updates.save()
       .then((result, err) => {
           if(err){

@@ -6,7 +6,7 @@ const transactionSchema = mongoose.Schema({
 		required:true
 	},
 	BuyerID:{
-		type:Number,
+		type:String,
 		required:true
 	},
 	SellerID:{
@@ -20,9 +20,9 @@ const transactionSchema = mongoose.Schema({
 	},
 	Pending: {
 		type: Boolean,
-		default: true
+		default: true,
 		required: true
-	}
+	},
 	Documents: [{
 		DocName: String,
 		Responsible: String,
