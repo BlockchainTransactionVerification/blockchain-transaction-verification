@@ -13,14 +13,15 @@ import sgMail from '@sendgrid/mail'
 
 export const addTransaction = asyncHandler(async(req, res) => {
     console.log("you are in addTransaction")
-    const {BuyerID, SellerID} = req.body
-    if(!BuyerID || !SellerID){
+    const {BuyerID, SellerID, ProdID} = req.body
+    if(!BuyerID || !SellerID || !ProdID){
         return res.status(442).json({error:"please add all the fields"})
     }
     
     const transaction =new Transaction({
-          BuyerID,
-          SellerID
+        ProdID,
+        BuyerID,
+        SellerID
     })
     const buyer = await User.findById(BuyerID)
     const seller = await User.findById(SellerID)
@@ -30,7 +31,7 @@ export const addTransaction = asyncHandler(async(req, res) => {
         return res.status(442).json({error:"User not found"})
     }
     
-    updates.save()
+    transaction.save()
     .then((result, err) => {
         if(err){
             return res.status(442).json({error: err})
@@ -45,7 +46,7 @@ export const addTransaction = asyncHandler(async(req, res) => {
         subject: 'New Pending Transaction',
         text: `Hello ${seller.RepFirstName}, You have a new Pending Transaction`,
         //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here`,
-        html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here </a> and Log in to check out 
+        html: `Hello<strong> ${seller.RepFirstName}</strong>,<br><br><a href=${hrefLink}> Click Here </a> and Log in to check out 
                your new pending transaction from ${buyer.RepFirstName} from ${buyer.CompanyName}`,
     }
     sgMail.send(msg)

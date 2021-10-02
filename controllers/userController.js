@@ -178,7 +178,7 @@ export const verifyUser  = asyncHandler(async(req, res) => {
                             subject: 'Verified',
                             text: `Hello ${user.Username}, Your account has been successfully activated!`,
                             //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
-                            html: `Hello<strong> ${user.Username},</strong>,<br><br>Your account has been successfully activated!`,
+                            html: `Hello<strong> ${user.Username}</strong>,<br><br>Your account has been successfully activated!`,
                         }
                         // Send e-mail object to user
                         console.log("sending email");

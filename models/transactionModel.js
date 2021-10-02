@@ -6,7 +6,7 @@ const transactionSchema = mongoose.Schema({
 		required:true
 	},
 	BuyerID:{
-		type:Number,
+		type:String,
 		required:true
 	},
 	SellerID:{
