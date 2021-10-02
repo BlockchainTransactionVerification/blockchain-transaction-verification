@@ -82,7 +82,7 @@ export const getTransaction = asyncHandler(async(req, res) => {
 })
 
 //get documents
-//input - id and Documents
+//input - id
 //output -
         // success - status: 200; the list of documents and their statuses
         // failed - status: 442; error:"some message"
@@ -112,11 +112,12 @@ export const updateDocuments = asyncHandler(async(req, res) => {
       if(!req.body.Documents){
         //to be added
       }
-      const updates = await User.findById(req.body.id)
+      const updates = await Transaction.findById(req.body.id)
       if(!updates){
-            return res.status(442).json({error:"Transaction not found"})
+        return res.status(442).json({error:"Transaction not found"})
       }
-      updates[Documents] = req.body[Documents]
+      console.log(updates);
+      updates.Documents = req.body.Documents
       updates.save()
       .then((result, err) => {
           if(err){
