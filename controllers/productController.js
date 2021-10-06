@@ -1,11 +1,7 @@
 import Supply from "../models/productModel.js";
 import asyncHandler from "express-async-handler";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import sgMail from "@sendgrid/mail";
-import auth from "../auth/auth.js";
 
-export const saveItem = asyncHandler(async(req, auth, res) => {
+export const saveItem = asyncHandler(async(req, res) => {
     console.log("you are in saveItem api");
     const {
         SellerID,

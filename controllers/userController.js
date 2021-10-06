@@ -101,7 +101,6 @@ export const loginUser  = asyncHandler(async(req, res) => {
                 //res.json({msg:"successfully signed in"})
                 const token = jwt.sign(
                     {_id:savedUser._id},
-                    // JWT_SECRET,
                     process.env.JWT_SECRET,
                     { expiresIn: 3600 },
                     (err, token) => {
@@ -109,7 +108,7 @@ export const loginUser  = asyncHandler(async(req, res) => {
                         res.json({
                             token,
                             id: savedUser._id,
-                            name: savedUser.FirstName,
+                            name: savedUser.RepFirstName,
                             email: savedUser.Email
                         })
                     }
