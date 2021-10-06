@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import sgMail from "@sendgrid/mail";
+import auth from "../auth/auth.js";
 
 export const saveItem = asyncHandler(async(req, auth, res) => {
     console.log("you are in saveItem api");
