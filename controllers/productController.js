@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import sgMail from "@sendgrid/mail";
 
-export const saveItem = asyncHandler(async (req, res) => {
+export const saveItem = asyncHandler(async(req, auth, res) => {
     console.log("you are in saveItem api");
     const {
         SellerID,

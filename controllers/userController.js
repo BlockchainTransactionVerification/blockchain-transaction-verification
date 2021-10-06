@@ -36,7 +36,6 @@ export const registerUser = asyncHandler(async(req, res) => {
                  RepFirstName,
                  RepLastName,
                  Position,
-                 // temporarytoken: jwt.sign(Username, JWT_SECRET)
                  temporarytoken: jwt.sign(Username, process.env.JWT_SECRET),
                  active: false
              })
