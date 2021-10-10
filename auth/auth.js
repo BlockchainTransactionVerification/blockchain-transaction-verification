@@ -1,6 +1,7 @@
-const jwt = require('jsonwebtoken');
+import jwt from "jsonwebtoken";
 const auth = (req, res, next) => {
     try {
+        console.log("in authentication")
         const token = req.header("x-auth-token");
         if (!token)
             return res.status(401).json({ msg: "No authentication token, access denied" });
@@ -13,4 +14,4 @@ const auth = (req, res, next) => {
         res.status(500).json({ error: err.message });
     }
 }
-module.exports = auth
+export default auth
