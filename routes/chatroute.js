@@ -3,9 +3,9 @@ const bodyParser = require("body-parser");
 const connectdb = require("./../dbconnect");
 const Chats = require("./../models/Chat");
 
-const router = express.Router();
+const routerChat = express.Router();
 
-router.route("/").get((req, res, next) => {
+routerChat.route("/").get((req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
 
@@ -17,4 +17,4 @@ router.route("/").get((req, res, next) => {
   });
 });
 
-module.exports = router;
+module.exports = routerChat;
