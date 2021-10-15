@@ -62,7 +62,9 @@ export const getItems = asyncHandler(async (req, res) => {
     if(req.body.supplier){
         Supply.find({ItemName: req.body.ItemName, 
                      Quantity: {$lte: req.body.Quantity}, 
-                     Price: {$lte: req.body.Price}})
+                     Price: {$lte: req.body.Price},
+                     Brand: req.body.Brand,
+                     isOnGround: req.body.isOnGround})
         .then(savedItems =>{
             return res.json(savedItems);
         }).catch(err=>{console.log(err)})
