@@ -17,5 +17,4 @@ transactionRouter.route('/getDocuments').get(getDocuments)
 
 transactionRouter.route('/getTransaction').get(getTransaction)
 
-
 export default transactionRouter

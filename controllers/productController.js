@@ -1,10 +1,7 @@
 import Supply from "../models/productModel.js";
 import asyncHandler from "express-async-handler";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import sgMail from "@sendgrid/mail";
 
-export const saveItem = asyncHandler(async (req, res) => {
+export const saveItem = asyncHandler(async(req, res) => {
     console.log("you are in saveItem api");
     const {
         SellerID,
@@ -65,7 +62,9 @@ export const getItems = asyncHandler(async (req, res) => {
     if(req.body.supplier){
         Supply.find({ItemName: req.body.ItemName, 
                      Quantity: {$lte: req.body.Quantity}, 
-                     Price: {$lte: req.body.Price}})
+                     Price: {$lte: req.body.Price},
+                     Brand: req.body.Brand,
+                     isOnGround: req.body.isOnGround})
         .then(savedItems =>{
             return res.json(savedItems);
         }).catch(err=>{console.log(err)})

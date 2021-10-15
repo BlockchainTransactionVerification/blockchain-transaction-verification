@@ -70,10 +70,16 @@ export const addTransaction = asyncHandler(async(req, res) => {
         // failed - status: 442; error:"some message"
 
 export const getTransaction = asyncHandler(async(req, res) => {
-    if(!req.body.id){
-          return res.status(442).json({error:"Transaction ID is missing"})
+    
+    const inputID = new Transaction
+    for(var fieldName in req.body){
+        inputID[fieldName] = req.body[fieldName]
     }
-    const updates = await Transaction.findById(req.body.id)
+    
+    if(!inputID){
+          return res.status(442).json({error:"ID is missing"})
+    }
+    const updates = await Transaction.find( {[fieldName]: inputID[fieldName]})
     console.log(updates)
     if(!updates){
         return res.status(442).json({error:"User not found"})
