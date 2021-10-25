@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { ACCESS_TOKEN_NAME, API_BASE_URL } from '../../constants/apiConstants';
 import axios from 'axios'
 import "./Home.css"
+
 function Dashboard(props) {
     /*useEffect(() => {
         axios.get(API_BASE_URL+'/user/me', { headers: { 'token': localStorage.getItem(ACCESS_TOKEN_NAME) }})
@@ -15,6 +16,7 @@ function Dashboard(props) {
           //redirectToLogin()
         });
       })*/
+      
     function redirectToLogin() {
     props.history.push('/login');
     }
@@ -86,12 +88,19 @@ function Dashboard(props) {
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Inactive</button>
   </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Checklist</button>
+  </li>
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
 </div>
+
+
+
+
   <div class="card-body">
     <h5 class="card-title">Active Transactions</h5>
     <p className="card-text">
@@ -103,6 +112,8 @@ function Dashboard(props) {
   <li className="list-group-item">A fourth item</li>
   <li className="list-group-item">And a fifth one</li>
 
+  
+
 </ul>
 
     </p>
@@ -113,6 +124,8 @@ function Dashboard(props) {
     </div>
   </div>
 </div>
+
+
         
 
     )
