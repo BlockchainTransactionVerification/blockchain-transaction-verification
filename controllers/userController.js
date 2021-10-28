@@ -357,3 +357,11 @@ export const verifyUserMobile  = asyncHandler(async(req, res) => {
         }
     })
 })
+
+
+export const passEmailVerification  = asyncHandler(async(req, res) => {
+    res.json({
+        success: true,
+        msg: "User has been successfully activated"
+    })
+})

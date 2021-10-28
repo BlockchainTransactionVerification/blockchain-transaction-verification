@@ -1,4 +1,4 @@
-import { registerUser, loginUser, deleteUser, verifyUser, updateUser, registerUserMobile, verifyUserMobile} from "../controllers/userController.js";
+import { registerUser, loginUser, deleteUser, verifyUser, updateUser, registerUserMobile, verifyUserMobile, passEmailVerification} from "../controllers/userController.js";
 import express from 'express'
 
 import User from '../models/usersModel.js'
@@ -26,5 +26,11 @@ router.route('/registerMobile').post(registerUserMobile)
 
 // router method to create route for updating user information
 router.route('/verifyMobile').put(verifyUserMobile)
+
+// router method to create route for updating user information
+router.route('/passEmailVerification').put(passEmailVerification)
+
+
+
 
 export default router
