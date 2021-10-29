@@ -70,6 +70,7 @@ export const registerUser = asyncHandler(async(req, res) => {
     })
 })
 
+
 //login function to login a user
 //input - Username, Password
 //output -
@@ -122,6 +123,7 @@ export const loginUser  = asyncHandler(async(req, res) => {
     })
 })
 
+
 // function to delete users
 export const deleteUser  = asyncHandler(async(req, res) => {
     const id = req.params.id;
@@ -138,6 +140,7 @@ export const deleteUser  = asyncHandler(async(req, res) => {
         });
     })
 })
+
 
 //function to verify users
 //input - token
@@ -198,6 +201,7 @@ export const verifyUser  = asyncHandler(async(req, res) => {
     })
 })
 
+
 //update user
 //input - id and any other valid field for users
 //output -
@@ -218,7 +222,7 @@ export const updateUser = asyncHandler(async(req, res) => {
         updates[fieldName] = req.body[fieldName]
     }
     if(req.body.Password){
-        await bcrypt.hash(req.body.Password,12)
+        await bcrypt.hash(Password,12)
         .then(hashedPass =>{
             updates.Password = hashedPass
         })
@@ -237,7 +241,6 @@ export const updateUser = asyncHandler(async(req, res) => {
     })
 
 })
-
 
 
 //register function to register a user via mobile
@@ -359,9 +362,106 @@ export const verifyUserMobile  = asyncHandler(async(req, res) => {
 })
 
 
-export const passEmailVerification  = asyncHandler(async(req, res) => {
-    res.json({
-        success: true,
-        msg: "User has been successfully activated"
+//function to send password reset code to users email
+//input - Email
+//output -
+        // success - status: 200; success: true, msg: "User has been successfully activated"
+        // failed - status: 442; error:"some message"
+export const passResetEmail  = asyncHandler(async(req, res) => {
+    console.log("you are in passResetEmail api")
+    const email = req.body.Email
+    const updates = await User.findOne({Email: email})
+    console.log(updates)
+    if(!updates){
+        return res.status(442).json({error:"User not found"})
+    }
+    updates.temporarytoken = Math.floor(Math.random() * (1000000 - 100000) + 100000)
+    updates.save()
+    .then((user, err)=>{
+        if(err){
+            return res.status(442).json({error: err})
+        }else{
+            console.log("saved successfully")
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+            const hrefLink = "https://localhost:5000/api/ResetPassword/" + user.temporarytoken;
+            const msg = {
+                to: user.Email, // Change to your recipient
+                from: 'BlockChainUCFSD@gmail.com', // Change to your verified sender
+                subject: 'BlockChain Transaction Verification Password Reset',
+                text: `Hello ${user.Username}, Click Here to Reset your Password`,
+                html: `Hello<strong> ${user.Username}</strong>,<br><br><a href=${hrefLink}> Click Here to Reset your Password.</a>`,
+            }
+            sgMail.send(msg)
+            .then(() => {
+                console.log('Email sent')
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+            res.json({
+                //ID: user.id,
+                success: true,
+                msg: "User has been successfully added"
+            });
+        }
+    })
+})
+
+
+//function to verify password reset code and set their new password
+//input - password and param id(the id at the end of the url)
+//output -
+        // success - status: 200; success: true, msg: "password has been successfully reset"
+        // failed - status: 442; error:"some message"
+export const ResetPassword  = asyncHandler(async(req, res) => {
+    if(!req.body.Password){
+        return res.status(442).json({error:"please add all the fields"})
+    }
+    User.findOne({ temporarytoken: req.params.id }, async(err, user) => {
+        if (err) throw err; // Throw error if cannot login
+        if(!user) return res.status(442).json({error:"user not found"})
+        const token = req.params.id // Save the token from URL for verification
+        console.log("the token is", token)
+        // Function to verify the user's token
+        user.temporarytoken = false; // Remove temporary token
+        await bcrypt.hash(req.body.Password,12)
+        .then(hashedPass =>{
+            user.Password = hashedPass
+        })
+        // Mongoose Method to save user into the database
+        user.save(err => {
+            if (err) {
+                console.log(err); // If unable to save user, log error info to console/terminal
+                return res.status(442).json({error:"user not found"})
+            } else {
+                // If save succeeds, create e-mail object
+                // sgMail.setApiKey(SENDGRID_KEY)
+                sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+                console.log("creating email");
+                const msg = {
+                    to: user.Email, // Change to your recipient
+                    from: 'BlockChainUCFSD@gmail.com', // Change to your verified sender
+                    subject: 'Verified',
+                    text: `Hello ${user.Username}, Your Password has been successfully Reset!`,
+                }
+                // Send e-mail object to user
+                console.log("sending email");
+                sgMail.send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+                res.json({
+                    success: true,
+                    msg: "password has been successfully reset"
+                })
+            }
+        })
+    })
+    .catch((error) => {
+        console.error(error)
+        return res.status(442).json({error:"user not found"})
     })
 })
