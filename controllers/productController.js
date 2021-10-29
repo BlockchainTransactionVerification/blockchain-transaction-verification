@@ -53,13 +53,13 @@ export const getItems = asyncHandler(async (req, res) => {
     //else
     //return limited
 
-    const {ItemName, Quantity, Price, supplier} = req.body;
-    if (!ItemName || !Quantity || !Price || (supplier == null)) {
+    const {ItemName, Quantity, Price, isSeller} = req.body;
+    if (!ItemName || !Quantity || !Price || (isSeller == null)) {
         return res.status(442).json({ error: "please add all the fields" });
     }
 
 
-    if(req.body.supplier){
+    if(isSeller){
         Supply.find({ItemName: req.body.ItemName, 
                      Quantity: {$lte: req.body.Quantity}, 
                      Price: {$lte: req.body.Price},
