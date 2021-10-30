@@ -7,8 +7,8 @@ import dotenv  from 'dotenv'
 import cors from 'cors'
 import path from 'path'
 
-const PORT = process.env.PORT || 5000
-
+const PORT = 3000
+//process.env.PORT || 3000
 //connect database
 connectDB()
 

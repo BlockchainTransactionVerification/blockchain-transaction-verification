@@ -1,5 +1,3 @@
-
-
 import mongoose from 'mongoose'
 import User from '../models/usersModel.js'
 import dotenv  from 'dotenv'

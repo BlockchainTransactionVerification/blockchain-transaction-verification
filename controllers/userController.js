@@ -44,7 +44,6 @@ export const registerUser = asyncHandler(async(req, res) => {
                  console.log("saved successfully")
                  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
                  const hrefLink = "https://blkchn-trxn-verif.herokuapp.com/api/verify/" + Users.temporarytoken;
-                 //const hrefLink = "http://localhost:5000/api/verify/" + Users.temporarytoken;
                  const msg = {
                      to: user.Email, // Change to your recipient
                      from: 'BlockChainUCFSD@gmail.com', // Change to your verified sender
@@ -63,7 +62,7 @@ export const registerUser = asyncHandler(async(req, res) => {
                  res.json({
                      //ID: user.id,
                      success: true,
-                     msg: "User has been successfully added"
+                     msg: "User has been successfully activated"
                  });
               })
              .catch(err=>{console.log(err)})
@@ -156,9 +155,9 @@ export const verifyUser  = asyncHandler(async(req, res) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 console.log(err);
-                return res.status(442).json({ error: "Activation link has expired." }); // Token is expired
+                res.status(442).json({ error: "Activation link has expired." }); // Token is expired
             } else if (!user) {
-                return res.status(442).json({ error: "Activation link has expired." }); // Token may be valid but does not match any user in the database
+                res.status(442).json({ error: "Activation link has expired." }); // Token may be valid but does not match any user in the database
             } else {
                 user.temporarytoken = false; // Remove temporary token
                 user.active = true; // Change account status to Activated
@@ -237,124 +236,4 @@ export const updateUser = asyncHandler(async(req, res) => {
         }
     })
 
-})
-
-
-
-//register function to register a user via mobile
-//input - Username, Password, Email, CompanyName, BusinessAddress, RepFirstName, RepLastName, Position, isSellable
-//output -
-        // success - status: 200; success: true, msg: "User has been successfully activated"
-        // failed - status: 442; error:"some message"
-
-export const registerUserMobile = asyncHandler(async(req, res) => {
-    console.log("you are in registerMobile api")
-    const {Username, Password, Email, CompanyName, BusinessAddress, 
-           RepFirstName, RepLastName, Position, isSeller} = req.body
-    if(!Username || !Password || !Email){
-        return res.status(442).json({error:"please add all the fields"})
-    }
-    //checks database for a user with this username
-    User.findOne({Username:Username})
-    .then(savedUser=>{
-        //if a user by this username exists, error
-        if(savedUser){
-            return res.status(442).json({error:"Username Taken"})
-        }
-        //if it does not exist, hash the password
-       bcrypt.hash(Password,12)
-         .then(hashedPassword=>{
-             const Users = new User({
-                 Username,
-                 Password:hashedPassword,
-                 Email,
-                 CompanyName,
-                 BusinessAddress,
-                 RepFirstName,
-                 RepLastName,
-                 Position,
-                 temporarytoken: Math.floor(Math.random() * (1000000 - 100000) + 100000),
-                 active: false,
-                 isSeller
-             })
-             Users.save()
-             .then(user=>{
-                 console.log("saved successfully")
-                 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-                 const msg = {
-                     to: user.Email, // Change to your recipient
-                     from: 'BlockChainUCFSD@gmail.com', // Change to your verified sender
-                     subject: 'Thank you For Registering with BlockChain Transaction Verification',
-                     text: `Hello ${Users.Username}, Here is your 6 digit code: ${Users.temporarytoken}`
-                 }
-                 sgMail.send(msg)
-                 .then(() => {
-                     console.log('Email sent')
-                 })
-                 .catch((error) => {
-                     console.error(error)
-                 })
-                 res.json({
-                     //ID: user.id,
-                     success: true,
-                     msg: "User has been successfully added"
-                 });
-              })
-             .catch(err=>{console.log(err)})
-         }).catch(err=>{console.log(err)})
-    })
-})
-
-
-//function to verify users via mobile
-//input - token
-//output -
-        // success - status: 200; success: true, msg: "User has been successfully activated"
-        // failed - status: 442; error:"some message"
-
-export const verifyUserMobile  = asyncHandler(async(req, res) => {
-    User.findOne({ temporarytoken: req.body.token }, (err, user) => {
-        if (err) throw err; // Throw error if cannot login
-        const token = req.params.token // Save the token from URL for verification
-        console.log("the token is", token)
-        // Function to verify the user's token
-        // jwt.verify(token, JWT_SECRET, (err, decoded) => {
-        if (!user) {
-            return res.status(442).json({ error: "Activation link has expired." }); // Token may be valid but does not match any user in the database
-        } else {
-            user.temporarytoken = false; // Remove temporary token
-            user.active = true; // Change account status to Activated
-            // Mongoose Method to save user into the database
-            user.save(err => {
-                if (err) {
-                    console.log(err); // If unable to save user, log error info to console/terminal
-                } else {
-                    // If save succeeds, create e-mail object
-                    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-                    console.log("creating email");
-                    const msg = {
-                        to: user.Email, // Change to your recipient
-                        from: 'BlockChainUCFSD@gmail.com', // Change to your verified sender
-                        subject: 'Verified',
-                        text: `Hello ${user.Username}, Your account has been successfully activated!`,
-                        //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
-                        html: `Hello<strong> ${user.Username}</strong>,<br><br>Your account has been successfully activated!`,
-                    }
-                    // Send e-mail object to user
-                    console.log("sending email");
-                    sgMail.send(msg)
-                    .then(() => {
-                        console.log('Email sent')
-                    })
-                    .catch((error) => {
-                        console.error(error)
-                    })
-                    res.json({
-                        success: true,
-                        msg: "User has been successfully activated"
-                    })
-                }
-            })
-        }
-    })
 })
