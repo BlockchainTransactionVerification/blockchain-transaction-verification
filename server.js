@@ -19,6 +19,7 @@ const app = express()
 app.use(express.json())
 
 //Creating API for user
+//app.options('*', cors()) // include before other routes
 app.use('/api', userRoutes)
 app.use('/apisup', productRoutes)
 app.use('/apitra', transactionRoutes)
