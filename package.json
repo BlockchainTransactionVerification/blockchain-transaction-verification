@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "start":  "concurrently \"nodemon server.js\" \"cd client && npm start\"",
+    "start": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
     "dev": "concurrently \"nodemon server.js\" \"cd client && npm run start\"",
     "client": "npm start --prefix frontend",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
@@ -19,7 +19,6 @@
   },
   "keywords": [],
   "author": "",
-  "type": "module",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/RollingInCode/blockchain-transaction-verification/issues"
@@ -35,6 +34,7 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.8",
     "mongoose": "^5.13.2"
   },
   "devDependencies": {
