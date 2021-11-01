@@ -15,14 +15,20 @@ export const getTransactions = () => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState();
 
+    console.log("In transactions action");
+    console.log(userInfo.id);
+    console.log(typeof userInfo.id);
+
     const config = {
       headers: {
         "Content-type": "application/json",
       },
     };
 
-    const { data } = await axios.post(
-      `http://localhost:5000/api/getTransactions`,
+    console.log("Made it here");
+
+    const { data } = await axios.get(
+      "http://localhost:5000/apitra/getTransaction",
       { BuyerId: userInfo.id },
       config
     );

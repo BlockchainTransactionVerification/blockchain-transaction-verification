@@ -13,9 +13,11 @@ function BuyerHome({ history }) {
   const transactionsList = useSelector((state) => state.getTransactions);
   const { transactions } = transactionsList;
 
+  console.log(typeof transactions);
+  console.log(transactions);
   /*
-  const activeTransactions = transactions.map((transaction, id) => {
-    if (transaction.Active == true) {
+  const pendingTransactions = transactions.map((transaction, id) => {
+    if (transaction.Pending == true) {
       return (
         <div key={id}>
           <ListGroup.Item>{transaction._id}</ListGroup.Item>
@@ -30,7 +32,7 @@ function BuyerHome({ history }) {
     if (!userInfo) {
       history.push("/login");
     }
-  }, [dispatch, transactions, history, userInfo]);
+  }, [dispatch, history, userInfo]);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -47,7 +49,7 @@ function BuyerHome({ history }) {
       {userInfo.username} is loggged in
       <button onClick={logoutHandler}>logout</button>
       <Tabs
-        defaultActiveKey="profile"
+        defaultActiveKey="active"
         id="uncontrolled-tab-example"
         className="mb-3"
       >

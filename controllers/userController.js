@@ -134,6 +134,7 @@ export const loginUser = asyncHandler(async (req, res) => {
                 token,
                 id: savedUser._id,
                 username: savedUser.Username,
+                seller: savedUser.isSeller,
                 name: savedUser.RepFirstName,
                 email: savedUser.Email,
               });
