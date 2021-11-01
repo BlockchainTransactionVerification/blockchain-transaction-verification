@@ -13,7 +13,16 @@ import sgMail from "@sendgrid/mail";
 
 export const addTransaction = asyncHandler(async (req, res) => {
   console.log("you are in addTransaction");
-  const { BuyerID, SellerID, ProdID } = req.body;
+  const {
+    BuyerID,
+    SellerID,
+    ProdID,
+    Active,
+    Pending,
+    TransactionURL,
+    Title,
+    Documents,
+  } = req.body;
   if (!BuyerID || !SellerID || !ProdID) {
     return res.status(442).json({ error: "please add all the fields" });
   }
@@ -22,6 +31,11 @@ export const addTransaction = asyncHandler(async (req, res) => {
     ProdID,
     BuyerID,
     SellerID,
+    Active,
+    Pending,
+    TransactionURL,
+    Title,
+    Documents,
   });
   const buyer = await User.findById(BuyerID);
   const seller = await User.findById(SellerID);
@@ -30,7 +44,6 @@ export const addTransaction = asyncHandler(async (req, res) => {
   if (!buyer || !seller) {
     return res.status(442).json({ error: "User not found" });
   }
-
   transaction.save().then((result, err) => {
     if (err) {
       return res.status(442).json({ error: err });
@@ -131,6 +144,62 @@ export const updateDocuments = asyncHandler(async (req, res) => {
       return res.json({
         success: true,
         msg: "User has been successfully edited",
+      });
+    }
+  });
+});
+
+//Set the Title
+//input - id and Title
+//output -
+// success - status: 200; success: true, msg: "title has been successfully edited"
+// failed - status: 442; error:"some message"
+
+export const setTitle = asyncHandler(async (req, res) => {
+  if (!req.body.Title || !req.body.id) {
+    return res.status(442).json({ error: "Transaction ID is missing" });
+  }
+  const updates = await Transaction.findById(req.body.id);
+  if (!updates) {
+    return res.status(442).json({ error: "Transaction not found" });
+  }
+  console.log(updates);
+  updates.Title = req.body.Title;
+  updates.save().then((result, err) => {
+    if (err) {
+      return res.status(442).json({ error: err });
+    } else {
+      return res.json({
+        success: true,
+        msg: "Title has been successfully edited",
+      });
+    }
+  });
+});
+
+//Set the Transaction URL for IPFS
+//input - id and TransactionURL
+//output -
+// success - status: 200; success: true, msg: "transactionurl has been successfully edited"
+// failed - status: 442; error:"some message"
+
+export const setURL = asyncHandler(async (req, res) => {
+  if (!req.body.TransactionURL || !req.body.id) {
+    return res.status(442).json({ error: "Transaction ID is missing" });
+  }
+  const updates = await Transaction.findById(req.body.id);
+  if (!updates) {
+    return res.status(442).json({ error: "Transaction not found" });
+  }
+  console.log(updates);
+  updates.TransactionURL = req.body.TransactionURL;
+  updates.save().then((result, err) => {
+    if (err) {
+      return res.status(442).json({ error: err });
+    } else {
+      return res.json({
+        success: true,
+        msg: "TransactionURL has been successfully edited",
       });
     }
   });
