@@ -13,19 +13,17 @@ function BuyerHome({ history }) {
   const transactionsList = useSelector((state) => state.getTransactions);
   const { transactions } = transactionsList;
 
-  console.log(typeof transactions);
-  console.log(transactions);
-  /*
-  const pendingTransactions = transactions.map((transaction, id) => {
-    if (transaction.Pending == true) {
-      return (
-        <div key={id}>
-          <ListGroup.Item>{transaction._id}</ListGroup.Item>
-        </div>
-      );
-    }
-  });
-  */
+  const pendingTransactions =
+    transactions &&
+    transactions.map((transaction, id) => {
+      if (transaction.Pending == true) {
+        return (
+          <div key={id}>
+            <ListGroup.Item>{transaction._id}</ListGroup.Item>
+          </div>
+        );
+      }
+    });
 
   useEffect(() => {
     dispatch(getTransactions());
@@ -58,6 +56,7 @@ function BuyerHome({ history }) {
         </Tab>
         <Tab eventKey="pending" title="Pending Transactions">
           <p>Pending</p>
+          <ListGroup>{pendingTransactions}</ListGroup>
         </Tab>
         <Tab eventKey="completed" title="Completed Transactions">
           <p>Complete</p>
