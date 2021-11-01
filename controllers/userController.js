@@ -95,10 +95,12 @@ export const registerUser = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const loginUser = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   console.log("login");
   const { Username, Password } = req.body;
   if (!Username || !Password) {
     console.log("something is missing");
+    console.log(req.body);
     return res
       .status(442)
       .json({ error: "Please add both Email and Password" });
@@ -127,9 +129,11 @@ export const loginUser = asyncHandler(async (req, res) => {
             { expiresIn: 3600 },
             (err, token) => {
               if (err) throw err;
+              console.log("jwt: " + token);
               res.json({
                 token,
                 id: savedUser._id,
+                username: savedUser.Username,
                 name: savedUser.RepFirstName,
                 email: savedUser.Email,
               });
@@ -150,6 +154,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
 // function to delete users
 export const deleteUser = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   const id = req.params.id;
   if (!id) {
     console.log("id is missing");
@@ -232,6 +237,7 @@ export const verifyUser = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const updateUser = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.id) {
     return res.status(442).json({ error: "ID is missing" });
   }
