@@ -4,6 +4,7 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import sgMail from "@sendgrid/mail";
+import expressAsyncHandler from "express-async-handler";
 
 //register function to register a user
 //input - Username, Password, Email, CompanyName, BusinessAddress, RepFirstName, RepLastName, Position
@@ -84,15 +85,10 @@ export const addTransaction = asyncHandler(async (req, res) => {
 
 export const getTransaction = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  const inputID = new Transaction();
-  for (var fieldName in req.body) {
-    inputID[fieldName] = req.body[fieldName];
-  }
-
-  if (!inputID) {
+  if (!req.body) {
     return res.status(442).json({ error: "ID is missing" });
   }
-  const updates = await Transaction.find({ [fieldName]: inputID[fieldName] });
+  const updates = await Transaction.find(req.body);
   console.log(updates);
   if (!updates) {
     return res.status(442).json({ error: "User not found" });

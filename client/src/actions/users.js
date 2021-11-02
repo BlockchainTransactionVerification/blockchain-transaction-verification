@@ -3,7 +3,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
-} from "../types";
+} from "../constants/userConstants";
 import axios from "axios";
 
 export const login = (username, password) => async (dispatch) => {
