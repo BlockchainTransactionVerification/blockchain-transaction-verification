@@ -100,7 +100,6 @@ export const loginUser = asyncHandler(async (req, res) => {
   const { Username, Password } = req.body;
   if (!Username || !Password) {
     console.log("something is missing");
-    console.log(req.body);
     return res
       .status(442)
       .json({ error: "Please add both Email and Password" });
@@ -117,7 +116,6 @@ export const loginUser = asyncHandler(async (req, res) => {
       console.log("user not verified");
       return res.status(442).json({ error: "the user is not verified" });
     }
-    console.log(Password + "  saved   " + savedUser.Password);
     bcrypt
       .compare(Password, savedUser.Password)
       .then((doMatch) => {
@@ -181,7 +179,6 @@ export const verifyUser = asyncHandler(async (req, res) => {
   User.findOne({ temporarytoken: req.params.id }, (err, user) => {
     if (err) throw err; // Throw error if cannot login
     const token = req.params.id; // Save the token from URL for verification
-    console.log("the token is", token);
     // Function to verify the user's token
     // jwt.verify(token, JWT_SECRET, (err, decoded) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -243,7 +240,6 @@ export const updateUser = asyncHandler(async (req, res) => {
     return res.status(442).json({ error: "ID is missing" });
   }
   const updates = await User.findById(req.body.id);
-  console.log(updates);
   if (!updates) {
     return res.status(442).json({ error: "User not found" });
   }
@@ -355,7 +351,6 @@ export const verifyUserMobile = asyncHandler(async (req, res) => {
   User.findOne({ temporarytoken: req.body.token }, (err, user) => {
     if (err) throw err; // Throw error if cannot login
     const token = req.params.token; // Save the token from URL for verification
-    console.log("the token is", token);
     // Function to verify the user's token
     // jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (!user) {
@@ -408,7 +403,6 @@ export const passResetEmail = asyncHandler(async (req, res) => {
   console.log("you are in passResetEmail api");
   const email = req.body.Email;
   const updates = await User.findOne({ Email: email });
-  console.log(updates);
   if (!updates) {
     return res.status(442).json({ error: "User not found" });
   }
@@ -460,7 +454,6 @@ export const ResetPassword = asyncHandler(async (req, res) => {
     if (err) throw err; // Throw error if cannot login
     if (!user) return res.status(442).json({ error: "user not found" });
     const token = req.params.id; // Save the token from URL for verification
-    console.log("the token is", token);
     // Function to verify the user's token
     user.temporarytoken = false; // Remove temporary token
     await bcrypt.hash(req.body.Password, 12).then((hashedPass) => {

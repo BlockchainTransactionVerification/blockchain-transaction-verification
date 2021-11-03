@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/users";
-import { getTransactions } from "../../actions/transactions";
+import { addTransaction, getTransactions } from "../../actions/transactions";
 import { Tabs, Tab, ListGroup } from "react-bootstrap";
 
 function SellerHome({ history }) {
@@ -40,6 +40,11 @@ function SellerHome({ history }) {
     history.push("/addProduct");
   };
 
+  const addTransactionHandler = () => {
+    console.log("clicked transaction button");
+    dispatch(addTransaction());
+  };
+
   //<Tab eventKey="active" title="Active Transactions">
   //  <p>Active</p>
   //  <ListGroup>{activeTransactions}</ListGroup>
@@ -49,6 +54,7 @@ function SellerHome({ history }) {
     <div>
       {userInfo.username} is loggged in
       <button onClick={logoutHandler}>logout</button>
+      <button onClick={addTransactionHandler}>add Transaction</button>
       <Tabs
         defaultActiveKey="active"
         id="uncontrolled-tab-example"

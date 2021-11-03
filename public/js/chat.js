@@ -1,8 +1,8 @@
 var socket = io();
 var messages = document.getElementById("messages");
 
-(function() {
-  $("form").submit(function(e) {
+(function () {
+  $("form").submit(function (e) {
     let li = document.createElement("li");
     e.preventDefault(); // prevents page reloading
     socket.emit("chat message", $("#message").val());
@@ -16,7 +16,7 @@ var messages = document.getElementById("messages");
     return false;
   });
 
-  socket.on("received", data => {
+  socket.on("received", (data) => {
     let li = document.createElement("li");
     let span = document.createElement("span");
     var messages = document.getElementById("messages");
@@ -27,13 +27,13 @@ var messages = document.getElementById("messages");
 })();
 
 // fetching initial chat messages from the database
-(function() {
+(function () {
   fetch("/chats")
-    .then(data => {
+    .then((data) => {
       return data.json();
     })
-    .then(json => {
-      json.map(data => {
+    .then((json) => {
+      json.map((data) => {
         let li = document.createElement("li");
         let span = document.createElement("span");
         messages.appendChild(li).append(data.message);
@@ -54,7 +54,7 @@ messageInput.addEventListener("keypress", () => {
   socket.emit("typing", { user: "Someone", message: "is typing..." });
 });
 
-socket.on("notifyTyping", data => {
+socket.on("notifyTyping", (data) => {
   typing.innerText = data.user + " " + data.message;
   console.log(data.user + data.message);
 });

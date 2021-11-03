@@ -24,7 +24,6 @@ const AddProduct = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("addproduct.js about to go shiprestrict" + ShipRestrict);
     dispatch(
       addProduct(
         ItemName,

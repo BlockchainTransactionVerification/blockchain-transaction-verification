@@ -31,13 +31,6 @@ export const addProduct = asyncHandler(async (req, res) => {
     ProdRate,
     ShipRestrict,
   });
-  console.log("you are in saveItem api after read in" + req.body);
-  console.log("sellerid" + SellerID);
-  console.log("price:" + Price);
-  console.log("Brand:" + Brand);
-  console.log("Region:" + Region);
-  console.log("ProdRate:" + ProdRate);
-  console.log("ShipRestrict:" + ShipRestrict);
   Supplies.save()
     .then(() => {
       console.log("save successful");

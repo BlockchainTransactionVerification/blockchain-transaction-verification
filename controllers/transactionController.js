@@ -13,6 +13,7 @@ import expressAsyncHandler from "express-async-handler";
 // failed - status: 442; error:"some message"
 
 export const addTransaction = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   console.log("you are in addTransaction");
   const {
     BuyerID,
@@ -40,8 +41,6 @@ export const addTransaction = asyncHandler(async (req, res) => {
   });
   const buyer = await User.findById(BuyerID);
   const seller = await User.findById(SellerID);
-  console.log(buyer);
-  console.log(seller);
   if (!buyer || !seller) {
     return res.status(442).json({ error: "User not found" });
   }
@@ -89,7 +88,6 @@ export const getTransaction = asyncHandler(async (req, res) => {
     return res.status(442).json({ error: "ID is missing" });
   }
   const updates = await Transaction.find(req.body);
-  console.log(updates);
   if (!updates) {
     return res.status(442).json({ error: "User not found" });
   }
@@ -107,7 +105,6 @@ export const getDocuments = asyncHandler(async (req, res) => {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
   const updates = await Transaction.findById(req.body.id, "Documents");
-  console.log(updates);
   if (!updates) {
     return res.status(442).json({ error: "User not found" });
   }
@@ -131,7 +128,6 @@ export const updateDocuments = asyncHandler(async (req, res) => {
   if (!updates) {
     return res.status(442).json({ error: "Transaction not found" });
   }
-  console.log(updates);
   updates.Documents = req.body.Documents;
   updates.save().then((result, err) => {
     if (err) {
@@ -159,7 +155,6 @@ export const setTitle = asyncHandler(async (req, res) => {
   if (!updates) {
     return res.status(442).json({ error: "Transaction not found" });
   }
-  console.log(updates);
   updates.Title = req.body.Title;
   updates.save().then((result, err) => {
     if (err) {
@@ -187,7 +182,6 @@ export const setURL = asyncHandler(async (req, res) => {
   if (!updates) {
     return res.status(442).json({ error: "Transaction not found" });
   }
-  console.log(updates);
   updates.TransactionURL = req.body.TransactionURL;
   updates.save().then((result, err) => {
     if (err) {
