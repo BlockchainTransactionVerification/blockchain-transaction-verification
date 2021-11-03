@@ -39,8 +39,16 @@ const AddProduct = ({ history }) => {
     );
   };
 
+  const HomeHandler = () => {
+    history.push("/SellerHome");
+  };
   return (
-    <div className="loginContainer">
+    <div className="AddProductContainer">
+      <div>
+        <button onClick={HomeHandler} type="button" class="btn btn-secondary">
+          Home
+        </button>
+      </div>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicItemName">
           <Form.Label>ItemName</Form.Label>

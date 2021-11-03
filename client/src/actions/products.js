@@ -8,17 +8,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export const addProduct =
-  (
-    ItemName,
-    Quantity,
-    Quality,
-    Price,
-    Brand,
-    NDA,
-    Region,
-    ProdRate,
-    ShipRestrict
-  ) =>
+  (ItemName, Quantity, Quality, Price, Brand, Region, ProdRate, ShipRestrict) =>
   async (dispatch, getState) => {
     try {
       console.log("in action");
@@ -47,7 +37,6 @@ export const addProduct =
           Quality,
           Price,
           Brand,
-          NDA,
           Region,
           ProdRate,
           ShipRestrict,
