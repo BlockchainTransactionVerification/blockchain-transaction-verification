@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import Login from "./screens/Login/Login";
 import BuyerHome from "./screens/BuyerHome/BuyerHome";
+import SellerHome from "./screens/SellerHome/SellerHome";
+import AddProduct from "./screens/AddProduct/AddProduct";
 import RegistrationForm from "./components/Registration/Registration";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/header";
@@ -34,6 +36,8 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/buyerhome" component={BuyerHome} />
             <Route path="/transaction/:id" component={ViewTransaction} />
+            <Route path="/sellerhome" component={SellerHome} />
+            <Route path="/addProduct" component={AddProduct} />
           </Switch>
         </div>
       </div>

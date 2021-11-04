@@ -4,6 +4,10 @@ import {
   deleteUser,
   verifyUser,
   updateUser,
+  registerUserMobile,
+  verifyUserMobile,
+  passResetEmail,
+  ResetPassword,
 } from "../controllers/userController.js";
 import express from "express";
 import User from "../models/usersModel.js";
@@ -23,5 +27,17 @@ router.route("/verify/:id").put(verifyUser);
 
 // router method to create route for updating user information
 router.route("/update").put(updateUser);
+
+// router method to create route for updating user information
+router.route("/registerMobile").post(registerUserMobile);
+
+// router method to create route for updating user information
+router.route("/verifyMobile").put(verifyUserMobile);
+
+// router method to create route for updating user information
+router.route("/passResetEmail").post(passResetEmail);
+
+// router method to create route for updating user information
+router.route("/ResetPassword/:id").put(ResetPassword);
 
 export default router;

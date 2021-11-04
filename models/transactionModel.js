@@ -25,9 +25,11 @@ const transactionSchema = mongoose.Schema({
   },
   TransactionURL: {
     type: String,
+    default: "",
   },
   Title: {
     type: String,
+    default: "",
   },
   Documents: [
     {
