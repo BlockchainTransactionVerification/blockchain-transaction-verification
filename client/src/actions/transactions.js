@@ -21,9 +21,11 @@ export const getTransactions = () => async (dispatch, getState) => {
       },
     };
 
+    const fieldName = userInfo.isSeller ? "SellerID" : "BuyerID";
+
     const { data } = await axios.get(
       "http://localhost:5000/apitra/getTransaction",
-      { BuyerId: userInfo.id },
+      { [fieldName]: userInfo.id },
       config
     );
 
