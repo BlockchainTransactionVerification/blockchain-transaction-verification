@@ -87,6 +87,10 @@ export const getTransaction = asyncHandler(async (req, res) => {
   if (!req.body) {
     return res.status(442).json({ error: "ID is missing" });
   }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 76de863d930ca4e91f83e200138f075d308362da
   const updates = await Transaction.find(req.body);
   if (!updates) {
     return res.status(442).json({ error: "User not found" });
@@ -190,6 +194,46 @@ export const setURL = asyncHandler(async (req, res) => {
       return res.json({
         success: true,
         msg: "TransactionURL has been successfully edited",
+      });
+    }
+  });
+});
+
+export const updateTransactionStatus = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  if (!req.body.id)
+    return res.status(442).json({
+      error: "Transaction ID is empty. Please pass in a Transaction ID",
+    });
+
+  if (!req.body.Active || !req.body.Pending) {
+    if (!req.body.Active) {
+      return res.status(442).json({
+        error: "Please set Active to true or false.",
+      });
+    } else {
+      return res.status(442).json({
+        error: "Please set Pending to false.",
+      });
+    }
+  }
+
+  const updates = await Transaction.findById(req.body.id);
+
+  if (!updates) {
+    return res.status(442).json({ error: "Transaction not found." });
+  }
+
+  updates.Active = req.body.Active;
+  updates.Pending = req.body.Pending;
+
+  updates.save().then((result, err) => {
+    if (err) {
+      return res.status(442).json({ error: err });
+    } else {
+      return res.json({
+        success: true,
+        msg: "Transaction status has been successfully updated.",
       });
     }
   });

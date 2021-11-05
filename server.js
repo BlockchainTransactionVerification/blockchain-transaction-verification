@@ -2,6 +2,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoute.js";
 import productRoutes from "./routes/productRoute.js";
 import transactionRoutes from "./routes/transactionRoute.js";
+import sopRouter from "./routes/sopRoute.js";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -23,6 +24,7 @@ app.options("*", cors());
 app.use("/api", userRoutes);
 app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
+app.use("/apisop", sopRouter);
 
 app.use(cors);
 

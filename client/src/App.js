@@ -8,6 +8,8 @@ import AddProduct from "./screens/AddProduct/AddProduct";
 import RegistrationForm from "./components/Registration/Registration";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/header";
+import NavBar from "./components/NavBar/index";
+import ViewTransaction from "./screens/ViewTransaction/ViewTransaction";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
   const [title, updateTitle] = useState(null);
@@ -16,7 +18,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header title={title} />
+        <NavBar />
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="/" exact={true}>
@@ -33,6 +35,7 @@ function App() {
             </Route>
             <Route path="/login" component={Login} />
             <Route path="/buyerhome" component={BuyerHome} />
+            <Route path="/transaction/:id" component={ViewTransaction} />
             <Route path="/sellerhome" component={SellerHome} />
             <Route path="/addProduct" component={AddProduct} />
           </Switch>
