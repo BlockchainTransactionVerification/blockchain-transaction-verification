@@ -28,7 +28,7 @@ export const getTransactions = () => async (dispatch, getState) => {
 
     const { data } = await axios.get(
       //"http://localhost:5000/apitra/getTransaction",
-      "https://blkchn-trxn-verif.herokuapp.com/api/getTransaction",
+      "https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction",
       { BuyerId: userInfo.id },
       config
     );
@@ -70,7 +70,7 @@ export const addTransaction =
       console.log("headers got made:" + config.headers);
       const { data } = await axios.post(
         //"http://localhost:5000/apitra/addTransaction",
-        "https://blkchn-trxn-verif.herokuapp.com/api/addTransaction",
+        "https://blkchn-trxn-verif.herokuapp.com/apitra/addTransaction",
         { BuyerId: userInfo.id },
         config
       );
