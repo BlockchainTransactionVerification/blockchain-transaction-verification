@@ -5,8 +5,8 @@ import "./Registration.css";
 import { withRouter } from "react-router-dom";
 
 function RegistrationForm(props) {
-  const BASE_URL = "http://localhost:5000";
-
+  //const BASE_URL = "http://localhost:5000";
+  const BASE_URL = "https://blkchn-trxn-verif.herokuapp.com/";
   const [state, setState] = useState({
     email: "",
     username: "",
