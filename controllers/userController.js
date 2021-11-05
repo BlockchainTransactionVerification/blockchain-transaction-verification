@@ -105,7 +105,7 @@ export const loginUser = asyncHandler(async (req, res) => {
       .json({ error: "Please add both Email and Password" });
   }
   User.findOne({ Username: Username }).then((savedUser) => {
-    //console.log(savedUser);
+    console.log(savedUser);
     if (!savedUser) {
       console.log("username is scuffed");
       return res
@@ -128,7 +128,7 @@ export const loginUser = asyncHandler(async (req, res) => {
             (err, token) => {
               if (err) throw err;
               console.log("jwt: " + token);
-              console.log("backend seller:" + savedUser.isSeller);
+              console.log("backend seller:" + savedUser);
               res.json({
                 token,
                 id: savedUser._id,
