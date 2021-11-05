@@ -14,7 +14,7 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      console.log("seller:" + userInfo.seller);
+      console.log("frontend seller:" + userInfo);
       if (userInfo.isSeller) {
         history.push("/sellerhome");
       } else {
