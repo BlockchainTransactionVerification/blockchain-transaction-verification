@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 
 connectDB();
 
@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-//Express js listen method to run project on http://localhost:5000
+//Express js listen method to run project on http://localhost:PORT
 app.listen(
   PORT,
   console.log(`App is running in ${process.env.NODE_ENV} mode on port ${PORT}`)
