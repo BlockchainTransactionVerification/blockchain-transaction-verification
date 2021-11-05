@@ -30,7 +30,7 @@ function RegistrationForm(props) {
         Email: state.email,
       };
       axios
-        .post(BASE_URL + "/api/register", payload)
+        .post(BASE_URL + "api/register", payload)
         .then(function (response) {
           if (response.status === 200) {
             setState((prevState) => ({
