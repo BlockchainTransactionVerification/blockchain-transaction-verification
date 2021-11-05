@@ -128,6 +128,7 @@ export const loginUser = asyncHandler(async (req, res) => {
             (err, token) => {
               if (err) throw err;
               console.log("jwt: " + token);
+              console.log("seller:" + savedUser.isSeller);
               res.json({
                 token,
                 id: savedUser._id,
