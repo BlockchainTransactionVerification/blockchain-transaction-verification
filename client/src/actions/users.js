@@ -18,7 +18,7 @@ export const login = (username, password) => async (dispatch) => {
 
     const { data } = await axios.post(
       //"http://localhost:5000/api/login",
-      "https://blkchn-trxn-verif.herokuapp.com/",
+      "https://blkchn-trxn-verif.herokuapp.com/login",
       { Username: username, Password: password },
       config
     );
