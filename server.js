@@ -15,6 +15,10 @@ connectDB();
 //dotenv config
 dotenv.config();
 
+const app = express();
+app.use(express.json());
+app.options("*", cors());
+
 //for getting heroku to work
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -23,11 +27,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-
-const app = express();
-app.use(express.json());
-
-app.options("*", cors());
 
 //Creating API for user
 app.use("/api", userRoutes);
