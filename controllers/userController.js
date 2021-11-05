@@ -22,6 +22,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     RepFirstName,
     RepLastName,
     Position,
+    isSeller,
   } = req.body;
   if (!Username || !Password || !Email) {
     return res.status(442).json({ error: "please add all the fields" });
@@ -45,6 +46,7 @@ export const registerUser = asyncHandler(async (req, res) => {
           RepFirstName,
           RepLastName,
           Position,
+          isSeller,
           temporarytoken: jwt.sign(Username, process.env.JWT_SECRET),
           active: false,
         });
@@ -127,8 +129,11 @@ export const loginUser = asyncHandler(async (req, res) => {
             { expiresIn: 3600 },
             (err, token) => {
               if (err) throw err;
-              console.log("jwt: " + token);
               console.log("backend seller:" + savedUser);
+              console.log("backend seller:" + savedUser.isSeller);
+              console.log("backend name:" + savedUser.RepFirstName);
+              console.log("backend email:" + savedUser.Email);
+              console.log("backend username:" + savedUser.Username);
               res.json({
                 token,
                 id: savedUser._id,
