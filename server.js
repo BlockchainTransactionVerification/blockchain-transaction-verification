@@ -17,7 +17,6 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors);
 app.options("*", cors());
 
 //for getting heroku to work
@@ -31,9 +30,7 @@ app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
 app.use("/apisop", sopRouter);
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
+app.use(cors);
 
 //Express js listen method to run project on http://localhost:PORT
 app.listen(
