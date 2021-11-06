@@ -9,6 +9,8 @@ import {
   passResetEmail,
   ResetPassword,
   getCompanyName,
+  passResetEmailMobile,
+  resetPasswordMobile,
 } from "../controllers/userController.js";
 import express from "express";
 const router = express.Router();
@@ -42,5 +44,11 @@ router.route("/ResetPassword/:id").put(ResetPassword);
 
 // router method to create route for updating user information
 router.route("/getCompanyName").put(getCompanyName);
+
+// router method to create route for updating user information
+router.route("/passResetEmailMobile").post(passResetEmailMobile);
+
+// router method to create route for updating user information
+router.route("/resetPasswordMobile").post(resetPasswordMobile);
 
 export default router;
