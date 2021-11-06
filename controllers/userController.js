@@ -459,7 +459,7 @@ export const passResetEmail = asyncHandler(async (req, res) => {
 
 export const passResetEmailMobile = asyncHandler(async (req, res) => {
   console.log("you are in passResetEmailMobile api");
-  const email = req.body.Email;
+  const email = req.body.email;
   const updates = await User.findOne({ Email: email });
   if (!updates) {
     return res.status(442).json({ error: "User not found" });
