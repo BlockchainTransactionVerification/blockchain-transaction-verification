@@ -59,16 +59,6 @@ export const register =
           "Content-type": "application/json",
         },
       };
-      console.log("Username" + username);
-      console.log("Password" + password);
-      console.log("email" + email);
-      console.log("CompanyName" + CompanyName);
-      console.log("BusinessAddress" + BusinessAddress);
-      console.log("RepFirstName" + RepFirstName);
-      console.log("RepLastName" + RepLastName);
-      console.log("Position" + Position);
-      console.log("isSeller" + isSeller);
-      console.log("WalletID" + WalletID);
       const { data } = await axios.post(
         //"http://localhost:5000/api/login",
         "https://blkchn-trxn-verif.herokuapp.com/api/register",

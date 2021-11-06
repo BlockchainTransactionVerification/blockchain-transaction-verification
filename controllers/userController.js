@@ -183,9 +183,9 @@ export const deleteUser = asyncHandler(async (req, res) => {
 
 export const verifyUser = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  User.findOne({ temporarytoken: req.params.id }, (err, user) => {
+  User.findOne({ temporarytoken: req.body.token }, (err, user) => {
     if (err) throw err; // Throw error if cannot login
-    const token = req.params.id; // Save the token from URL for verification
+    const token = req.body.token; // Save the token from URL for verification
     // Function to verify the user's token
     // jwt.verify(token, JWT_SECRET, (err, decoded) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
