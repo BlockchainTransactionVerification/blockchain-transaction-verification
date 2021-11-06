@@ -8,6 +8,7 @@ import {
   verifyUserMobile,
   passResetEmail,
   ResetPassword,
+  getCompanyName,
 } from "../controllers/userController.js";
 import express from "express";
 const router = express.Router();
@@ -22,7 +23,7 @@ router.route("/login").post(loginUser);
 router.route("/delete/:id").delete(deleteUser);
 
 // router method to create route for verifying email
-router.route("/verify/:id").put(verifyUser);
+router.route("/verify").put(verifyUser);
 
 // router method to create route for updating user information
 router.route("/update").put(updateUser);
@@ -38,5 +39,8 @@ router.route("/passResetEmail").post(passResetEmail);
 
 // router method to create route for updating user information
 router.route("/ResetPassword/:id").put(ResetPassword);
+
+// router method to create route for updating user information
+router.route("/getCompanyName").put(getCompanyName);
 
 export default router;

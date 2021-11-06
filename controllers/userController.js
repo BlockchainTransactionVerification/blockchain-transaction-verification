@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import sgMail from "@sendgrid/mail";
+import mongoose from "mongoose";
 
 //register function to register a user
 //input - Username, Password, Email, CompanyName, BusinessAddress, RepFirstName, RepLastName, Position
@@ -502,4 +503,39 @@ export const ResetPassword = asyncHandler(async (req, res) => {
     console.error(error);
     return res.status(442).json({ error: "user not found" });
   });
+});
+
+//get Company Name
+//input - id array
+//output -
+// success - status: 200; an array of JSON objects each with their ID and company name
+// failed - status: 442; error:"some message"
+
+export const getCompanyName = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  console.log("in getcompanyName");
+  if (!req.body.id) {
+    return res.status(442).json({ error: "ID is missing" });
+  }
+  var inputs = [];
+  req.body.id.forEach((element) => {
+    inputs.push(element);
+  });
+
+  inputs = inputs.map(function (el) {
+    return mongoose.Types.ObjectId(el);
+  });
+
+  let outputs = await User.aggregate([
+    {
+      $project: {
+        CompanyName: 1,
+      },
+    },
+    { $match: { _id: { $in: inputs } } },
+  ]);
+  if (!outputs) {
+    return res.status(442).json({ error: "User not found" });
+  }
+  return res.json(outputs);
 });

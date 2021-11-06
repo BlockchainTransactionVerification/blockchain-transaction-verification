@@ -9,7 +9,7 @@ export function Verify(props) {
       setTimeout(function () {
         window.location.href =
           "https://blkchn-trxn-verif.herokuapp.com/api/login";
-      }, 5000);
+      }, 1000);
     } else {
       console.log("token is not here");
     }
