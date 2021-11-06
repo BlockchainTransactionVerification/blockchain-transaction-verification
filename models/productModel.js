@@ -40,6 +40,10 @@ const supplySchema = mongoose.Schema({
     ShipRestrict: {
 		type: String,
 		required: true
+	},
+	isOnGround: {
+		type: Boolean,
+		required: false
 	}
 })
 
