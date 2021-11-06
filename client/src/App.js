@@ -5,7 +5,7 @@ import Login from "./screens/Login/Login";
 import BuyerHome from "./screens/BuyerHome/BuyerHome";
 import SellerHome from "./screens/SellerHome/SellerHome";
 import AddProduct from "./screens/AddProduct/AddProduct";
-import RegistrationForm from "./components/Registration/Registration";
+import RegistrationForm from "./screens/Register/Register";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/header";
 import NavBar from "./components/NavBar/index";

@@ -12,6 +12,12 @@ function RegistrationForm(props) {
     username: "",
     password: "",
     confirmPassword: "",
+    CompanyName: "",
+    BusinessAddress: "",
+    RepFirstName: "",
+    RepLastName: "",
+    Position: "",
+    isSeller: "",
     successMessage: null,
   });
   const handleChange = (e) => {
@@ -28,6 +34,12 @@ function RegistrationForm(props) {
         Username: state.username,
         Password: state.password,
         Email: state.email,
+        CompanyName: state.CompanyName,
+        BusinessAddress: state.BusinessAddress,
+        RepFirstName: state.RepFirstName,
+        RepLastName: state.RepLastName,
+        Position: state.Position,
+        isSeller: state.isSeller,
       };
       axios
         .post(BASE_URL + "api/register", payload)
@@ -61,6 +73,8 @@ function RegistrationForm(props) {
     props.history.push("/login");
   };
   const handleSubmitClick = (e) => {
+    console.log("state buy or sell" + state.isSeller);
+    console.log("state password" + state.password);
     e.preventDefault();
     if (state.password === state.confirmPassword) {
       sendDetailsToServer();
@@ -69,7 +83,7 @@ function RegistrationForm(props) {
     }
   };
   return (
-    <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
+    <div className="registration form">
       <form>
         <div className="form-group text-left">
           <label htmlFor="exampleInputEmail1">Email address</label>
@@ -118,6 +132,70 @@ function RegistrationForm(props) {
             value={state.confirmPassword}
             onChange={handleChange}
           />
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="exampleInputCompanyName1">Company Name</label>
+          <input
+            type="CompanyName"
+            className="form-control"
+            id="CompanyName"
+            placeholder="Company Name"
+            value={state.CompanyName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="exampleInputBusinessAddress1">Business Address</label>
+          <input
+            type="BusinessAddress"
+            className="form-control"
+            id="BusinessAddress"
+            placeholder="Business Address"
+            value={state.BusinessAddress}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="exampleInputRepFirstName1">First Name</label>
+          <input
+            type="RepFirstName"
+            className="form-control"
+            id="RepFirstName"
+            placeholder="First Name"
+            value={state.RepFirstName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="exampleInputRepLastName1">Last Name</label>
+          <input
+            type="RepLastName"
+            className="form-control"
+            id="RepLastName"
+            placeholder="Last Name"
+            value={state.RepLastName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group text-left">
+          <label htmlFor="exampleInputPosition1">Position</label>
+          <input
+            type="Position"
+            className="form-control"
+            id="Position"
+            placeholder="Position"
+            value={state.Position}
+            onChange={handleChange}
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelectIsSeller1">
+            Buy or Sell Product?
+          </label>
+          <select class="form-control" id="isSeller">
+            <option>Seller</option>
+            <option>Purchaser</option>
+          </select>
         </div>
         <button
           type="submit"

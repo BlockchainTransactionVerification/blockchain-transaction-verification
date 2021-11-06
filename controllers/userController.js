@@ -11,8 +11,8 @@ import sgMail from "@sendgrid/mail";
 // failed - status: 442; error:"some message"
 
 export const registerUser = asyncHandler(async (req, res) => {
-  console.log("you are in register api");
   res.set("Access-Control-Allow-Origin", "*");
+  console.log("you are in register api");
   const {
     Username,
     Password,
@@ -182,6 +182,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const verifyUser = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   User.findOne({ temporarytoken: req.params.id }, (err, user) => {
     if (err) throw err; // Throw error if cannot login
     const token = req.params.id; // Save the token from URL for verification
