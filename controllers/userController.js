@@ -143,7 +143,7 @@ export const loginUser = asyncHandler(async (req, res) => {
                 username: savedUser.Username,
                 email: savedUser.Email,
                 companyName: savedUser.CompanyName,
-                cusinessAddress: savedUser.BusinessAddress,
+                businessAddress: savedUser.BusinessAddress,
                 firstName: savedUser.RepFirstName,
                 lastName: savedUser.RepLastName,
                 position: savedUser.Position,
