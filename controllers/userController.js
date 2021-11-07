@@ -146,7 +146,7 @@ export const loginUser = asyncHandler(async (req, res) => {
                 cusinessAddress: savedUser.BusinessAddress,
                 firstName: savedUser.RepFirstName,
                 lastName: savedUser.RepLastName,
-                Position: savedUser.Position,
+                position: savedUser.Position,
                 isSeller: savedUser.isSeller,
                 walletID: savedUser.WalletID,
               });
