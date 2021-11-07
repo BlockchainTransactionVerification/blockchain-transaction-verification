@@ -139,7 +139,16 @@ export const loginUser = asyncHandler(async (req, res) => {
               console.log("backend username:" + savedUser.Username);
               res.json({
                 token,
-                savedUser,
+                id: savedUser._id,
+                username: savedUser.Username,
+                email: savedUser.Email,
+                companyName: savedUser.CompanyName,
+                cusinessAddress: savedUser.BusinessAddress,
+                firstName: savedUser.RepFirstName,
+                lastName: savedUser.RepLastName,
+                Position: savedUser.Position,
+                isSeller: savedUser.isSeller,
+                walletID: savedUser.WalletID,
               });
             }
           );
