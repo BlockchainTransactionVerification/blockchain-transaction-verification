@@ -26,12 +26,14 @@ export const registerUser = asyncHandler(async (req, res) => {
     isSeller,
   } = req.body;
   if (!Username || !Password || !Email) {
+    console.log("register api: please add all the fields");
     return res.status(442).json({ error: "please add all the fields" });
   }
   //checks database for a user with this username
   User.findOne({ Username: Username }).then((savedUser) => {
     //if a user by this username exists, error
     if (savedUser) {
+      console.log("register api: Username Taken");
       return res.status(442).json({ error: "Username Taken" });
     }
     //if it does not exist, hash the password
@@ -58,13 +60,13 @@ export const registerUser = asyncHandler(async (req, res) => {
             const hrefLink =
               "https://blkchn-trxn-verif.herokuapp.com/api/verify/" +
               Users.temporarytoken;
+            //"http://localhost:5000/api/verify/" + Users.temporarytoken;
             const msg = {
               to: user.Email, // Change to your recipient
               from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
               subject:
                 "Thank you For Registering with BlockChain Transaction Verification",
               text: `Hello ${Users.Username}, Click Here to Activate your Account.`,
-              //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here to Activate your Account or don't I am not your mom`,
               html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
             };
             sgMail
@@ -137,11 +139,7 @@ export const loginUser = asyncHandler(async (req, res) => {
               console.log("backend username:" + savedUser.Username);
               res.json({
                 token,
-                id: savedUser._id,
-                username: savedUser.Username,
-                seller: savedUser.isSeller,
-                name: savedUser.RepFirstName,
-                email: savedUser.Email,
+                savedUser,
               });
             }
           );
@@ -184,6 +182,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 
 export const verifyUser = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
+  console.log("verifyUser api");
   User.findOne({ temporarytoken: req.body.token }, (err, user) => {
     if (err) throw err; // Throw error if cannot login
     const token = req.body.token; // Save the token from URL for verification
@@ -254,11 +253,6 @@ export const updateUser = asyncHandler(async (req, res) => {
 
   for (var fieldName in req.body) {
     updates[fieldName] = req.body[fieldName];
-  }
-  if (req.body.Password) {
-    await bcrypt.hash(req.body.Password, 12).then((hashedPass) => {
-      updates.Password = hashedPass;
-    });
   }
 
   updates.save().then((result, err) => {
