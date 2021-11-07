@@ -47,12 +47,79 @@ export const addProduct = asyncHandler(async (req, res) => {
 //input: ItemName, Quantity, Price, supplier
 //input: ItemName, Quantity, Price, supplier
 export const getItems = asyncHandler(async (req, res) => {
-  //if(req.body.supplier)
-  //send back all
-  //else
-  //return limited
-
   res.set("Access-Control-Allow-Origin", "*");
-  const Supplies = await Supply.find(req.body);
-  res.json(Supplies);
+  const { ItemName, Quantity, Price, Brand, isOnGround } = req.body;
+  if (!ItemName || !Quantity || !Price || !Brand) {
+    return res.status(442).json({ error: "please add all the fields" });
+  }
+
+  if (isOnGround) {
+    Supply.find({
+      ItemName: ItemName,
+      isOnGround: isOnGround,
+      $or: [
+        { Quantity: { $lte: Quantity } },
+        { Price: { $lte: Price } },
+        { Brand: Brand },
+      ],
+    })
+      .then((savedItems) => {
+        if (savedItems.length > 0) {
+          return res.json(savedItems);
+        } else {
+          Supply.find({
+            ItemName: ItemName,
+            isOnGround: isOnGround,
+          })
+            .then((savedItems) => {
+              if (savedItems.length > 0) {
+                return res.json(savedItems);
+              } else {
+                return res
+                  .status(442)
+                  .json({ error: "no Items found by that criteria" });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    Supply.find({
+      ItemName: ItemName,
+      $or: [
+        { Quantity: { $lte: Quantity } },
+        { Price: { $lte: Price } },
+        { Brand: Brand },
+      ],
+    })
+      .then((savedItems) => {
+        if (savedItems.length > 0) {
+          return res.json(savedItems);
+        } else {
+          Supply.find({
+            ItemName: ItemName,
+          })
+            .then((savedItems) => {
+              if (savedItems.length > 0) {
+                return res.json(savedItems);
+              } else {
+                return res
+                  .status(442)
+                  .json({ error: "no Items found by that name" });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 });
