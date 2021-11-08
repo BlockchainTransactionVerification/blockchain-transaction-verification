@@ -73,8 +73,6 @@ function RegistrationForm(props) {
     props.history.push("/login");
   };
   const handleSubmitClick = (e) => {
-    console.log("state buy or sell" + state.isSeller);
-    console.log("state password" + state.password);
     e.preventDefault();
     if (state.password === state.confirmPassword) {
       sendDetailsToServer();

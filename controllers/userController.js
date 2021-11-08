@@ -110,7 +110,6 @@ export const loginUser = asyncHandler(async (req, res) => {
       .json({ error: "Please add both Email and Password" });
   }
   User.findOne({ Username: Username }).then((savedUser) => {
-    console.log(savedUser);
     if (!savedUser) {
       console.log("username is scuffed");
       return res
@@ -132,11 +131,6 @@ export const loginUser = asyncHandler(async (req, res) => {
             { expiresIn: 3600 },
             (err, token) => {
               if (err) throw err;
-              console.log("backend seller:" + savedUser);
-              console.log("backend seller:" + savedUser.isSeller);
-              console.log("backend name:" + savedUser.RepFirstName);
-              console.log("backend email:" + savedUser.Email);
-              console.log("backend username:" + savedUser.Username);
               res.json({
                 token,
                 id: savedUser._id,
@@ -191,10 +185,10 @@ export const deleteUser = asyncHandler(async (req, res) => {
 
 export const verifyUser = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  console.log("verifyUser api");
-  User.findOne({ temporarytoken: req.body.token }, (err, user) => {
+  console.log("verifyUser api: ");
+  User.findOne({ temporarytoken: req.params.id }, (err, user) => {
     if (err) throw err; // Throw error if cannot login
-    const token = req.body.token; // Save the token from URL for verification
+    const token = req.params.id; // Save the token from URL for verification
     // Function to verify the user's token
     // jwt.verify(token, JWT_SECRET, (err, decoded) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -214,7 +208,6 @@ export const verifyUser = asyncHandler(async (req, res) => {
             // If save succeeds, create e-mail object
             // sgMail.setApiKey(SENDGRID_KEY)
             sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-            console.log("creating email");
             const msg = {
               to: user.Email, // Change to your recipient
               from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
@@ -224,7 +217,6 @@ export const verifyUser = asyncHandler(async (req, res) => {
               html: `Hello<strong> ${user.Username}</strong>,<br><br>Your account has been successfully activated!`,
             };
             // Send e-mail object to user
-            console.log("sending email");
             sgMail
               .send(msg)
               .then(() => {
@@ -233,10 +225,13 @@ export const verifyUser = asyncHandler(async (req, res) => {
               .catch((error) => {
                 console.error(error);
               });
-            res.json({
-              success: true,
-              msg: "User has been successfully activated",
-            });
+            /* res
+              .json({
+                success: true,
+                msg: "User has been successfully activated",
+              }) */
+            res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
+            //res.redirect(303, "http://localhost:3000/login");
           }
         });
       }
@@ -359,11 +354,10 @@ export const registerUserMobile = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const verifyUserMobile = asyncHandler(async (req, res) => {
-  console.log("token before search :" + req.body.token);
+  console.log("verifyUserMobile");
   User.findOne({ temporarytoken: req.body.token }, (err, user) => {
     if (err) throw err; // Throw error if cannot login
     const token = req.params.token; // Save the token from URL for verification
-    console.log("token :" + token);
     // Function to verify the user's token
     // jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (!user) {
@@ -429,7 +423,9 @@ export const passResetEmail = asyncHandler(async (req, res) => {
       console.log("saved successfully");
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       const hrefLink =
-        "https://localhost:5000/api/ResetPassword/" + user.temporarytoken;
+        "https://blkchn-trxn-verif.herokuapp.com/api/ResetPassword/" +
+        user.temporarytoken;
+      //"https://localhost:5000/api/ResetPassword/" + user.temporarytoken;
       const msg = {
         to: user.Email, // Change to your recipient
         from: "BlockChainUCFSD@gmail.com", // Change to your verified sender

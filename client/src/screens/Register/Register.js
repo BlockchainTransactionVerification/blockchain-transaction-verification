@@ -21,23 +21,28 @@ const RegistrationForm = ({ history }) => {
 
   useEffect(() => {}, [history]);
 
-  const submitHandler = (e) => {
+  const submitHandler = (e, history) => {
     e.preventDefault();
     if (password == confirmPassword && email == confirmEmail) {
-      dispatch(
-        register(
-          username,
-          password,
-          email,
-          CompanyName,
-          BusinessAddress,
-          RepFirstName,
-          RepLastName,
-          Position,
-          isSeller,
-          WalletID
+      if (
+        dispatch(
+          register(
+            username,
+            password,
+            email,
+            CompanyName,
+            BusinessAddress,
+            RepFirstName,
+            RepLastName,
+            Position,
+            isSeller,
+            WalletID
+          )
         )
-      );
+      ) {
+      } else {
+        console.log("error");
+      }
     }
   };
 

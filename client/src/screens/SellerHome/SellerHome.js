@@ -41,7 +41,6 @@ function SellerHome({ history }) {
   };
 
   const addTransactionHandler = () => {
-    console.log("clicked transaction button");
     dispatch(addTransaction());
   };
 

@@ -33,7 +33,6 @@ export const addProduct = asyncHandler(async (req, res) => {
   });
   Supplies.save()
     .then(() => {
-      console.log("save successful");
       res.json({
         success: true,
         msg: "This Item has been saved Successfully",

@@ -1,24 +1,28 @@
 import axios from "axios";
 
-export function Verify(props) {
+export async function Verify(props) {
   try {
-    const token = window.location.pathname.split("/")[2];
+    const token = props.match.params.id;
+
     if (token) {
-      makeAPICall(token);
-      // wait 5 seconds then redirect
-      setTimeout(function () {
-        window.location.href =
-          "https://blkchn-trxn-verif.herokuapp.com/api/login";
-      }, 1000);
+      await axios
+        .put("https://blkchn-trxn-verif.herokuapp.com/api/verify", {
+          token: token,
+        })
+        .then(() => {
+          setTimeout(function () {
+            window.location.href = "https://blkchn-trxn-verif.herokuapp.com/";
+          }, 20000);
+        })
+        .catch((error) => {
+          console.error(error);
+          setTimeout(function () {
+            window.location.href = "https://blkchn-trxn-verif.herokuapp.com/";
+          }, 20000);
+          window.location.href = "https://blkchn-trxn-verif.herokuapp.com/";
+        });
     } else {
       console.log("token is not here");
     }
   } catch (error) {}
-}
-async function makeAPICall(token) {
-  try {
-    await axios.put("/api/verify", { token: token });
-  } catch (error) {
-    console.log("error", error);
-  }
 }

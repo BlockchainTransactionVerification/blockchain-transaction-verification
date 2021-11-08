@@ -25,7 +25,7 @@ router.route("/login").post(loginUser);
 router.route("/delete/:id").delete(deleteUser);
 
 // router method to create route for verifying email
-router.route("/verify").put(verifyUser);
+router.route("/verify/:id").put(verifyUser);
 
 // router method to create route for updating user information
 router.route("/update").put(updateUser);

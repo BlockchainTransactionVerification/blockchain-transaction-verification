@@ -7,6 +7,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
+import { verifyUser } from "./controllers/userController.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,16 +20,29 @@ const app = express();
 app.use(express.json());
 app.options("*", cors());
 
-//for getting heroku to work
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
-
 //Creating API for user
+app.use("/api/verify/:id", verifyUser);
 app.use("/api", userRoutes);
 app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
 app.use("/apisop", sopRouter);
+app.get("*", (req, res) =>
+  res.redirect("https://blkchn-trxn-verif.herokuapp.com/")
+);
+//app.get("*", (req, res) => res.redirect("http://localhost:3000"));
+
+//for getting heroku to work
+const __dirname = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running..");
+  });
+}
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("./public", "index.html"));
+});
 
 app.use(cors);
 

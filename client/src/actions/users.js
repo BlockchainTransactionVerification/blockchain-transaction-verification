@@ -60,7 +60,7 @@ export const register =
         },
       };
       const { data } = await axios.post(
-        //"http://localhost:5000/api/login",
+        //"http://localhost:5000/api/register",
         "https://blkchn-trxn-verif.herokuapp.com/api/register",
         {
           Username: username,
@@ -76,8 +76,11 @@ export const register =
         },
         config
       );
-
       dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
+      if (data) {
+        return true;
+      }
 
       localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
