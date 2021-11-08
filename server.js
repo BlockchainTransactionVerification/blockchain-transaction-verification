@@ -26,9 +26,9 @@ app.use("/api", userRoutes);
 app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
 app.use("/apisop", sopRouter);
-app.get("*", (req, res) =>
+/* app.get("*", (req, res) =>
   res.redirect("https://blkchn-trxn-verif.herokuapp.com/")
-);
+); */
 //app.get("*", (req, res) => res.redirect("http://localhost:3000"));
 
 //for getting heroku to work
