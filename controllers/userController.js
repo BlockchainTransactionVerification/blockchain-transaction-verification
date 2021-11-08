@@ -256,7 +256,9 @@ export const updateUser = asyncHandler(async (req, res) => {
   }
 
   for (var fieldName in req.body) {
-    updates[fieldName] = req.body[fieldName];
+    if (updates[fieldName] != null && !(updates[fieldName] === "")) {
+      updates[fieldName] = req.body[fieldName];
+    }
   }
 
   updates.save().then((result, err) => {
