@@ -29,6 +29,13 @@ export const registerUser = asyncHandler(async (req, res) => {
     console.log("register api: please add all the fields");
     return res.status(442).json({ error: "please add all the fields" });
   }
+  if (isSeller === "0") {
+    isSeller == false;
+  } else if (isSeller === "1") {
+    isSeller == true;
+  } else {
+    res.status(404).json({ error: "no seller status" });
+  }
   //checks database for a user with this username
   User.findOne({ Username: Username }).then((savedUser) => {
     //if a user by this username exists, error
