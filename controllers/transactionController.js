@@ -101,6 +101,7 @@ export const getTransaction = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const getDocuments = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
@@ -118,6 +119,7 @@ export const getDocuments = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const updateDocuments = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
@@ -148,6 +150,7 @@ export const updateDocuments = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const setTitle = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.Title || !req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
@@ -175,6 +178,7 @@ export const setTitle = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const setURL = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.TransactionURL || !req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }

@@ -26,7 +26,7 @@ export const getTransactions = () => async (dispatch, getState) => {
 
     const fieldName = userInfo.isSeller ? "SellerID" : "BuyerID";
 
-    const { data } = await axios.get(
+    const { data } = await axios.post(
       //"http://localhost:5000/apitra/getTransaction",
       "https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction",
       { BuyerId: userInfo.id },
