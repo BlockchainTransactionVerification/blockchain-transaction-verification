@@ -34,7 +34,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   } else if (isSeller === "1") {
     isSeller == true;
   } else {
-    res.status(404).json({ error: "no seller status" });
+    return res.status(404).json({ error: "no seller status" });
   }
   //checks database for a user with this username
   User.findOne({ Username: Username }).then((savedUser) => {
@@ -46,7 +46,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     //if it does not exist, hash the password
     bcrypt
       .hash(Password, 12)
-      .then((hashedPassword) => {
+      .then(async (hashedPassword) => {
         const Users = new User({
           Username,
           Password: hashedPassword,
@@ -80,7 +80,7 @@ export const registerUser = asyncHandler(async (req, res) => {
           text: `Hello ${Users.Username}, Click Here to Activate your Account.`,
           html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
         };
-        sgMail
+        await sgMail
           .send(msg)
           .then((response) => {
             console.log("Email sent from register :" + response);
