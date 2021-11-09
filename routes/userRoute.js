@@ -33,5 +33,7 @@ router.route('/passResetEmail').post(passResetEmail)
 // router method to create route for updating user information
 router.route('/ResetPassword/:id').put(ResetPassword)
 
+router.route('/'). get(onGetAllUsers)
+router.route('/:_id'). get(onGetUserById)
 
 export default router

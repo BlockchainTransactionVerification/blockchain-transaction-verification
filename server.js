@@ -1,12 +1,13 @@
 import http from "http"
 import logger from "morgan"
+import socketio from 'socket.io'
 import connectDB from './config/db.js'
 import userRoutes from './routes/userRoute.js'
 import productRoutes from './routes/productRoute.js'
-import chatRoomRouter from "./routes/chatroom.js"
-import indexRouter from "./routes/index.js"
+import chatRoomRouter from './routes/chatroom.js'
+import indexRouter from './routes/index.js'
 import transactionRoutes from './routes/transactionRoute.js'
-import Websockets from "./utils/Websockets.js"
+import Websockets from './utils/WebSockets.js'
 
 import express from 'express'
 import dotenv  from 'dotenv'

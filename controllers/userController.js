@@ -362,6 +362,25 @@ export const verifyUserMobile  = asyncHandler(async(req, res) => {
 })
 
 
+
+export const onGetAllUsers = asyncHandler (async(req, res) => {
+    try {
+      const users = await UserModel.getUsers();
+      return res.status(200).json({ success: true, users });
+    } catch (error) {
+      return res.status(500).json({ success: false, error: error })
+    }
+  })
+
+  export const onGetUserById = asyncHandler (async(req, res) => {
+    try {
+      const user = await UserModel.getUserById(req.params.id);
+      return res.status(200).json({ success: true, user });
+    } catch (error) {
+      return res.status(500).json({ success: false, error: error })
+    }
+  })
+
 //function to send password reset code to users email
 //input - Email
 //output -
