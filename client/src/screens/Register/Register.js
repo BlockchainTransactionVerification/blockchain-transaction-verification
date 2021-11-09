@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../actions/users";
 import { Form, Button, Col, Row } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 const RegistrationForm = ({}) => {
   const [username, setUsername] = useState("");
