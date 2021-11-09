@@ -88,11 +88,11 @@ export const registerUser = asyncHandler(async (req, res) => {
             console.log("register redirect");
             //res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
             console.log("register did not redirect");
-            /* res.json({
+            res.json({
               //ID: user.id,
               success: true,
               msg: "User has been successfully activated",
-            }); */
+            });
           })
           .catch((err) => {
             console.log(err);
