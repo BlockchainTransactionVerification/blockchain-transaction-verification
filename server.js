@@ -32,7 +32,7 @@ app.use("/apisop", sopRouter);
 //app.get("*", (req, res) => res.redirect("http://localhost:3000"));
 
 //for getting heroku to work
-const __dirname = path.resolve();
+//const __dirname = path.resolve();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 } else {
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve("./public", "index.html"));
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 app.use(cors);
