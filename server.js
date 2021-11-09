@@ -19,7 +19,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.options("*", cors());
-
+const __dirname = path.resolve();
 //Creating API for user
 app.use("/api/verify/:id", verifyUser);
 app.use("/api", userRoutes);
@@ -32,7 +32,6 @@ app.use("/apisop", sopRouter);
 //app.get("*", (req, res) => res.redirect("http://localhost:3000"));
 
 //for getting heroku to work
-//const __dirname = path.resolve();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 } else {
