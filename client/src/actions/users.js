@@ -72,7 +72,7 @@ export const register =
           RepLastName: RepLastName,
           Position: Position,
           isSeller: isSeller,
-          WalletID,
+          WalletID: WalletID,
         },
         config
       );
