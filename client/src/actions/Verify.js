@@ -6,7 +6,7 @@ export async function Verify(props) {
 
     if (token) {
       await axios
-        .put("https://blkchn-trxn-verif.herokuapp.com/api/verify", {
+        .post("https://blkchn-trxn-verif.herokuapp.com/api/verify", {
           token: token,
         })
         .then(() => {
