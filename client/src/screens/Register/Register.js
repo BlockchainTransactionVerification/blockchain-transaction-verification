@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../actions/users";
 import { Form, Button, Col, Row } from "react-bootstrap";
 
-const RegistrationForm = ({ history }) => {
+const RegistrationForm = ({}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
@@ -19,12 +19,6 @@ const RegistrationForm = ({ history }) => {
   const [isRegistered, setIsRegistered] = useState("");
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isRegistered) {
-      history.push("/login");
-    }
-  }, [history, isRegistered]);
 
   const submitHandler = (e, history) => {
     e.preventDefault();
@@ -56,8 +50,12 @@ const RegistrationForm = ({ history }) => {
     }
   };
 
+  if (isRegistered) {
+    return <Redirect to="/login" />;
+  }
+
   return (
-    <div className="loginContainer">
+    <div className="registerContainer">
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Row>
