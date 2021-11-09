@@ -68,9 +68,9 @@ export const registerUser = asyncHandler(async (req, res) => {
             console.log(err);
           });
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const hrefLink =
-          "https://blkchn-trxn-verif.herokuapp.com/api/verify/" +
-          Users.temporarytoken;
+        //const hrefLink =
+        //  "https://blkchn-trxn-verif.herokuapp.com/api/verify/" +
+        //  Users.temporarytoken;
         //"http://localhost:5000/api/verify/" + Users.temporarytoken;
         const msg = {
           to: Users.Email, // Change to your recipient
@@ -78,7 +78,7 @@ export const registerUser = asyncHandler(async (req, res) => {
           subject:
             "Thank you For Registering with BlockChain Transaction Verification",
           text: `Hello ${Users.Username}, Click Here to Activate your Account.`,
-          html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
+          html: `Hello<strong> ${Users.Username}</strong>,<br><br><a> Click Here to Activate your Account.</a>`,
         };
         await sgMail
           .send(msg)

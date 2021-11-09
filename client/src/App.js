@@ -39,7 +39,7 @@ function App() {
             <Route path="/transaction/:id" component={ViewTransaction} />
             <Route path="/sellerhome" component={SellerHome} />
             <Route path="/addProduct" component={AddProduct} />
-
+            <Route path="/verify" component={Verify} />
             <Route path="*" component={Login}></Route>
           </Switch>
         </div>
