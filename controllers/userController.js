@@ -76,21 +76,21 @@ export const registerUser = asyncHandler(async (req, res) => {
               text: `Hello ${Users.Username}, Click Here to Activate your Account.`,
               html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
             };
-            /* sgMail
+            sgMail
               .send(msg)
-              .then(() => {
-                console.log("Email sent from register");
+              .then((response) => {
+                console.log("Email sent from register :" + response);
+                return res.status(200).json({
+                  //ID: user.id,
+                  success: true,
+                  msg: "User has been registered",
+                });
               })
               .catch((error) => {
                 console.log("register catch error: " + error);
                 console.error(error);
-              }); */
+              });
             console.log("register redirect");
-            res.status(200).json({
-              //ID: user.id,
-              success: true,
-              msg: "User has been successfully activated",
-            });
           })
           .catch((err) => {
             console.log(err);
