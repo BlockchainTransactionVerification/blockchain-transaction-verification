@@ -68,9 +68,9 @@ export const registerUser = asyncHandler(async (req, res) => {
             console.log(err);
           });
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        //const hrefLink =
-        //  "https://blkchn-trxn-verif.herokuapp.com/api/verify/" +
-        //  Users.temporarytoken;
+        const hrefLink =
+          "https://blkchn-trxn-verif.herokuapp.com/api/verify/" +
+          Users.temporarytoken;
         //"http://localhost:5000/api/verify/" + Users.temporarytoken;
         const msg = {
           to: Users.Email, // Change to your recipient
