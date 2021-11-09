@@ -37,7 +37,8 @@ const RegistrationForm = ({ history }) => {
             Position,
             isSeller,
             WalletID
-          )
+          ),
+          history.push("/login")
         )
       ) {
       } else {
