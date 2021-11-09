@@ -63,38 +63,38 @@ export const registerUser = asyncHandler(async (req, res) => {
         Users.save()
           .then((user) => {
             console.log("saved successfully");
-            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-            const hrefLink =
-              "https://blkchn-trxn-verif.herokuapp.com/api/verify/" +
-              Users.temporarytoken;
-            //"http://localhost:5000/api/verify/" + Users.temporarytoken;
-            const msg = {
-              to: user.Email, // Change to your recipient
-              from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
-              subject:
-                "Thank you For Registering with BlockChain Transaction Verification",
-              text: `Hello ${Users.Username}, Click Here to Activate your Account.`,
-              html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
-            };
-            await sgMail
-              .send(msg)
-              .then((response) => {
-                console.log("Email sent from register :" + response);
-                return res.status(200).json({
-                  //ID: user.id,
-                  success: true,
-                  msg: "User has been registered",
-                });
-              })
-              .catch((error) => {
-                console.log("register catch error: " + error);
-                console.error(error);
-              });
-            console.log("register redirect");
           })
           .catch((err) => {
             console.log(err);
           });
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        const hrefLink =
+          "https://blkchn-trxn-verif.herokuapp.com/api/verify/" +
+          Users.temporarytoken;
+        //"http://localhost:5000/api/verify/" + Users.temporarytoken;
+        const msg = {
+          to: Users.Email, // Change to your recipient
+          from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
+          subject:
+            "Thank you For Registering with BlockChain Transaction Verification",
+          text: `Hello ${Users.Username}, Click Here to Activate your Account.`,
+          html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
+        };
+        sgMail
+          .send(msg)
+          .then((response) => {
+            console.log("Email sent from register :" + response);
+            return res.status(200).json({
+              //ID: user.id,
+              success: true,
+              msg: "User has been registered",
+            });
+          })
+          .catch((error) => {
+            console.log("register catch error: " + error);
+            console.error(error);
+          });
+        console.log("register redirect");
       })
       .catch((err) => {
         console.log(err);
