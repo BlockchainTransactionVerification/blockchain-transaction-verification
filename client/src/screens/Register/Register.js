@@ -166,7 +166,8 @@ const RegistrationForm = ({ history }) => {
             onChange={(e) => setWalletID(e.target.value)}
           />
           <Form.Label>Are you Selling Product or Buying Product?</Form.Label>
-          <Form.Select
+          <Form.Control
+            as="select"
             aria-label="Default select example"
             value={isSeller}
             defaultValue={"0"}
@@ -174,7 +175,7 @@ const RegistrationForm = ({ history }) => {
           >
             <option value="0">Buyer</option>
             <option value="1">Seller</option>
-          </Form.Select>
+          </Form.Control>
         </Form.Group>
         <div className="btn_container">
           <Button variant="primary" type="submit">
