@@ -75,9 +75,12 @@ export const registerUser = asyncHandler(async (req, res) => {
                 console.log("Email sent");
               })
               .catch((error) => {
+                console.log("register catch error: " + error);
                 console.error(error);
               });
+            console.log("register redirect");
             res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
+            console.log("register did not redirect");
             res.json({
               //ID: user.id,
               success: true,
