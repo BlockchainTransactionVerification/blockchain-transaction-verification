@@ -76,7 +76,7 @@ export const registerUser = asyncHandler(async (req, res) => {
               text: `Hello ${Users.Username}, Click Here to Activate your Account.`,
               html: `Hello<strong> ${Users.Username}</strong>,<br><br><a href=${hrefLink}> Click Here to Activate your Account.</a>`,
             };
-            sgMail
+            await sgMail
               .send(msg)
               .then((response) => {
                 console.log("Email sent from register :" + response);
