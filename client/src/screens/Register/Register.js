@@ -16,10 +16,15 @@ const RegistrationForm = ({ history }) => {
   const [Position, setPosition] = useState("");
   const [isSeller, setisSeller] = useState("");
   const [WalletID, setWalletID] = useState("");
+  const [isRegistered, setIsRegistered] = useState("");
 
   const dispatch = useDispatch();
 
-  useEffect(() => {}, [history]);
+  useEffect(() => {
+    if (isRegistered) {
+      history.push("/login");
+    }
+  }, [history, isRegistered]);
 
   const submitHandler = (e, history) => {
     e.preventDefault();
@@ -41,7 +46,8 @@ const RegistrationForm = ({ history }) => {
             Position,
             isSeller,
             WalletID
-          )
+          ),
+          setIsRegistered(true)
         )
       ) {
       } else {
