@@ -170,7 +170,7 @@ const RegistrationForm = ({ history }) => {
             as="select"
             aria-label="Default select example"
             value={isSeller}
-            defaultValue={"0"}
+            defaultValue={"Buyer"}
             onChange={(e) => setisSeller(e.target.value)}
           >
             <option value="0">Buyer</option>
