@@ -72,7 +72,7 @@ export const registerUser = asyncHandler(async (req, res) => {
             sgMail
               .send(msg)
               .then(() => {
-                console.log("Email sent");
+                console.log("Email sent from register");
               })
               .catch((error) => {
                 console.log("register catch error: " + error);
@@ -81,11 +81,11 @@ export const registerUser = asyncHandler(async (req, res) => {
             console.log("register redirect");
             res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
             console.log("register did not redirect");
-            res.json({
+            /* res.json({
               //ID: user.id,
               success: true,
               msg: "User has been successfully activated",
-            });
+            }); */
           })
           .catch((err) => {
             console.log(err);
@@ -224,7 +224,7 @@ export const verifyUser = asyncHandler(async (req, res) => {
             sgMail
               .send(msg)
               .then(() => {
-                console.log("Email sent");
+                console.log("Email sent from verify User");
               })
               .catch((error) => {
                 console.error(error);
@@ -332,7 +332,7 @@ export const registerUserMobile = asyncHandler(async (req, res) => {
             sgMail
               .send(msg)
               .then(() => {
-                console.log("Email sent");
+                console.log("Email sent from register mobile");
               })
               .catch((error) => {
                 console.error(error);
@@ -392,7 +392,7 @@ export const verifyUserMobile = asyncHandler(async (req, res) => {
           sgMail
             .send(msg)
             .then(() => {
-              console.log("Email sent");
+              console.log("Email sent from verify mobile");
             })
             .catch((error) => {
               console.error(error);
@@ -442,7 +442,7 @@ export const passResetEmail = asyncHandler(async (req, res) => {
       sgMail
         .send(msg)
         .then(() => {
-          console.log("Email sent");
+          console.log("Email sent from reset password email");
         })
         .catch((error) => {
           console.error(error);
@@ -488,7 +488,7 @@ export const passResetEmailMobile = asyncHandler(async (req, res) => {
       sgMail
         .send(msg)
         .then(() => {
-          console.log("Email sent");
+          console.log("Email sent from passresetemailmobile ");
         })
         .catch((error) => {
           console.error(error);
@@ -542,7 +542,7 @@ export const resetPasswordMobile = asyncHandler(async (req, res) => {
         sgMail
           .send(msg)
           .then(() => {
-            console.log("Email sent");
+            console.log("Email sent resetPasswordMobile");
           })
           .catch((error) => {
             console.error(error);
@@ -598,7 +598,7 @@ export const ResetPassword = asyncHandler(async (req, res) => {
         sgMail
           .send(msg)
           .then(() => {
-            console.log("Email sent");
+            console.log("Email sent ResetPassword");
           })
           .catch((error) => {
             console.error(error);
