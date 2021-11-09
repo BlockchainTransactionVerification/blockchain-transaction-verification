@@ -23,7 +23,11 @@ const RegistrationForm = ({ history }) => {
 
   const submitHandler = (e, history) => {
     e.preventDefault();
-    if (password == confirmPassword && email == confirmEmail) {
+    if (
+      password == confirmPassword &&
+      email == confirmEmail &&
+      isSeller != ""
+    ) {
       if (
         dispatch(
           register(
@@ -170,9 +174,10 @@ const RegistrationForm = ({ history }) => {
             as="select"
             aria-label="Default select example"
             value={isSeller}
-            defaultValue={"Buyer"}
+            defaultValue={"Choose..."}
             onChange={(e) => setisSeller(e.target.value)}
           >
+            <option value="">Choose...</option>
             <option value="0">Buyer</option>
             <option value="1">Seller</option>
           </Form.Control>
