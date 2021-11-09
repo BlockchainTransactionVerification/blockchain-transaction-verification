@@ -21,7 +21,7 @@ app.use(express.json());
 app.options("*", cors());
 const __dirname = path.resolve();
 //Creating API for user
-app.use("/api/verify/:id", verifyUser);
+//app.use("/api/verify/:id", verifyUser);
 app.use("/api", userRoutes);
 app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);

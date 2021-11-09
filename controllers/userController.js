@@ -238,11 +238,10 @@ export const verifyUser = asyncHandler(async (req, res) => {
               .catch((error) => {
                 console.error(error);
               });
-            /* res
-              .json({
-                success: true,
-                msg: "User has been successfully activated",
-              }) */
+            res.json({
+              success: true,
+              msg: "User has been successfully activated",
+            });
             //res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
             //res.redirect(303, "http://localhost:3000/login");
           }
