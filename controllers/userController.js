@@ -205,8 +205,11 @@ export const verifyUser = asyncHandler(async (req, res) => {
         res.status(442).json({ error: "Activation link has expired." }); // Token is expired
       } else if (!user) {
         console.log("no user found");
-        res.status(442).json({ error: "no user found" });
-        //res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
+        //res.status(442).json({ error: "no user found" });
+        return res.redirect(
+          303,
+          "https://blkchn-trxn-verif.herokuapp.com/login"
+        );
       } else {
         user.temporarytoken = false; // Remove temporary token
         user.active = true; // Change account status to Activated
