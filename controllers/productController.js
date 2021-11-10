@@ -46,13 +46,35 @@ export const saveItem = asyncHandler(async(req, res) => {
 });
 
 //input: ItemName, Quantity, Price, supplier
-export const getItems = asyncHandler(async (req, res) => {
-  //if(req.body.supplier)
-  //send back all
-  //else
-  //return limited
 
-  res.set("Access-Control-Allow-Origin", "*");
-  const Supplies = await Supply.find(req.body);
-  res.json(Supplies);
+export const getItems = asyncHandler(async (req, res) => {
+    //if(req.body.supplier)
+    //send back all
+    //else
+    //return limited
+
+    const {ItemName, Quantity, Price, isSeller} = req.body;
+    if (!ItemName || !Quantity || !Price || (isSeller == null)) {
+        return res.status(442).json({ error: "please add all the fields" });
+    }
+
+
+    if(isSeller){
+        Supply.find({ItemName: req.body.ItemName, 
+                     Quantity: {$lte: req.body.Quantity}, 
+                     Price: {$lte: req.body.Price},
+                     Brand: req.body.Brand,
+                     isOnGround: req.body.isOnGround})
+        .then(savedItems =>{
+            return res.json(savedItems);
+        }).catch(err=>{console.log(err)})
+    } else{
+        //return limited fields
+        Supply.find({ItemName: req.body.ItemName, 
+            Quantity: {$lte: req.body.Quantity}, 
+            Price: {$lte: req.body.Price}}, 'ItemName Quantity Price')
+        .then(savedItems =>{
+            return res.json(savedItems);
+        }).catch(err=>{console.log(err)})
+    }
 });
