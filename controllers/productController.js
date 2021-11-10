@@ -1,9 +1,9 @@
-import Supply from "../models/productModel.js";
-import asyncHandler from "express-async-handler";
+import Supply from '../models/productModel.js'
+import asyncHandler from 'express-async-handler'
 
 export const addProduct = asyncHandler(async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
-  console.log("you are in saveItem api");
+  res.set('Access-Control-Allow-Origin', '*')
+  console.log('you are in saveItem api')
   const {
     SellerID,
     ItemName,
@@ -14,9 +14,9 @@ export const addProduct = asyncHandler(async (req, res) => {
     Region,
     ProdRate,
     ShipRestrict,
-  } = req.body;
+  } = req.body
   if (!SellerID || !ItemName) {
-    return res.status(442).json({ error: "please add all the fields" });
+    return res.status(442).json({ error: 'please add all the fields' })
   }
   // to be made required. Taken out for ease of testing.
   //|| !Quantity || !Quality || !LevelSafety || !Region || !NDA
@@ -30,19 +30,19 @@ export const addProduct = asyncHandler(async (req, res) => {
     Region,
     ProdRate,
     ShipRestrict,
-  });
+  })
   Supplies.save()
     .then(() => {
-      console.log("save successful");
+      console.log('save successful')
       res.json({
         success: true,
-        msg: "This Item has been saved Successfully",
-      });
+        msg: 'This Item has been saved Successfully',
+      })
     })
     .catch((error) => {
-      console.error(error);
-    });
-});
+      console.error(error)
+    })
+})
 
 //input: ItemName, Quantity, Price, supplier
 
@@ -51,10 +51,11 @@ export const getItems = asyncHandler(async (req, res) => {
   //send back all
   //else
   //return limited
+  //res.set('Access-Control-Allow-Origin', '*')
+  const { ItemName, Quantity, Price, supplier } = req.body
 
-  const { ItemName, Quantity, Price, supplier } = req.body;
   if (!ItemName || !Quantity || !Price || supplier == null) {
-    return res.status(442).json({ error: "please add all the fields" });
+    return res.status(442).json({ error: 'please add all the fields' })
   }
 
   if (req.body.supplier) {
@@ -66,11 +67,11 @@ export const getItems = asyncHandler(async (req, res) => {
       isOnGround: req.body.isOnGround,
     })
       .then((savedItems) => {
-        return res.json(savedItems);
+        return res.json(savedItems)
       })
       .catch((err) => {
-        console.log(err);
-      });
+        console.log(err)
+      })
   } else {
     //return limited fields
     Supply.find(
@@ -79,13 +80,13 @@ export const getItems = asyncHandler(async (req, res) => {
         Quantity: { $lte: req.body.Quantity },
         Price: { $lte: req.body.Price },
       },
-      "ItemName Quantity Price"
+      'ItemName Quantity Price'
     )
       .then((savedItems) => {
-        return res.json(savedItems);
+        return res.json(savedItems)
       })
       .catch((err) => {
-        console.log(err);
-      });
+        console.log(err)
+      })
   }
-});
+})
