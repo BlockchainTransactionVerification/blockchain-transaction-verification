@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 
 connectDB();
 
@@ -17,16 +17,18 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-
 app.options("*", cors());
-
+const __dirname = path.resolve();
 //Creating API for user
+
 app.use("/api", userRoutes);
 app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
 app.use("/apisop", sopRouter);
-
-app.use(cors);
+/* app.get("*", (req, res) =>
+  res.redirect("https://blkchn-trxn-verif.herokuapp.com/")
+); */
+//app.get("*", (req, res) => res.redirect("http://localhost:3000"));
 
 //for getting heroku to work
 if (process.env.NODE_ENV === "production") {
@@ -35,9 +37,15 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running..");
+  });
 }
 
-//Express js listen method to run project on http://localhost:5000
+app.use(cors);
+
+//Express js listen method to run project on http://localhost:PORT
 app.listen(
   PORT,
   console.log(`App is running in ${process.env.NODE_ENV} mode on port ${PORT}`)

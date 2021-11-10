@@ -25,7 +25,8 @@ export const addProduct =
       };
       //var SellerID = userInfo.id;
       const { data } = await axios.post(
-        "http://localhost:5000/apisup/addProduct",
+        //"http://localhost:5000/apisup/addProduct",
+        "https://blkchn-trxn-verif.herokuapp.com/apisup/addProduct",
         {
           SellerID,
           ItemName,

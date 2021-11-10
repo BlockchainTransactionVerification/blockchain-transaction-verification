@@ -25,7 +25,6 @@ export const addTransactionReducer = (state = { transactions: [] }, action) => {
     case ADD_TRANSACTION_REQUEST:
       return {};
     case ADD_TRANSACTION_SUCCESS:
-      console.log("inside reducer");
       return { transactions: action.payload };
     case ADD_TRANSACTION_FAIL:
       return {};

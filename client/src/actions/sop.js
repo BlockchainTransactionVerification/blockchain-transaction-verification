@@ -17,8 +17,9 @@ export const retrieveSopAction = (id) => async (dispatch) => {
 
     const payload = { TransactionID: id };
 
-    const { data } = await axios.get(
-      "http://localhost:5000/apisop/retrieveSOP",
+    const { data } = await axios.post(
+      //"http://localhost:5000/apisop/retrieveSOP",
+      "https://blkchn-trxn-verif.herokuapp.com/apisop/retrieveSOP",
       payload,
       config
     );

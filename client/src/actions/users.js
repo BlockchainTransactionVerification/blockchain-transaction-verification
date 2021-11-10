@@ -3,6 +3,9 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -17,7 +20,8 @@ export const login = (username, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/login",
+      //"http://localhost:5000/api/login",
+      "https://blkchn-trxn-verif.herokuapp.com/api/login",
       { Username: username, Password: password },
       config
     );
@@ -35,6 +39,63 @@ export const login = (username, password) => async (dispatch) => {
     });
   }
 };
+
+export const register =
+  (
+    username,
+    password,
+    email,
+    CompanyName,
+    BusinessAddress,
+    RepFirstName,
+    RepLastName,
+    Position,
+    isSeller,
+    WalletID
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: USER_REGISTER_REQUEST });
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        //"http://localhost:5000/api/register",
+        "https://blkchn-trxn-verif.herokuapp.com/api/register",
+        {
+          Username: username,
+          Password: password,
+          Email: email,
+          CompanyName: CompanyName,
+          BusinessAddress: BusinessAddress,
+          RepFirstName: RepFirstName,
+          RepLastName: RepLastName,
+          Position: Position,
+          isSeller: isSeller,
+          WalletID: WalletID,
+        },
+        config
+      );
+      dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+
+      if (data) {
+        return true;
+      }
+
+      //localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const logout = () => async (dispatch) => {
   localStorage.removeItem("userInfo");

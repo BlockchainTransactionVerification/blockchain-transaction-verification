@@ -39,7 +39,7 @@ const AddProduct = ({ history }) => {
   };
 
   const HomeHandler = () => {
-    history.push("/SellerHome");
+    history.push("/sellerhome");
   };
   return (
     <div className="AddProductContainer">
