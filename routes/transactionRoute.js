@@ -17,9 +17,9 @@ transactionRouter.route("/addTransaction").post(addTransaction);
 transactionRouter.route("/updateDocuments").post(updateDocuments);
 
 // express router method to create route for getting transactions documents
-transactionRouter.route("/getDocuments").post(getDocuments);
+transactionRouter.route("/getDocuments").get(getDocuments);
 
-transactionRouter.route("/getTransaction").post(getTransaction);
+transactionRouter.route("/getTransaction").get(getTransaction);
 
 // express router method to create a route to update a transaction from pending to active, or from active to complete
 transactionRouter

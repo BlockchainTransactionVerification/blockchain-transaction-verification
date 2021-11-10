@@ -5,8 +5,7 @@ import Login from "./screens/Login/Login";
 import BuyerHome from "./screens/BuyerHome/BuyerHome";
 import SellerHome from "./screens/SellerHome/SellerHome";
 import AddProduct from "./screens/AddProduct/AddProduct";
-import RegistrationForm from "./screens/Register/Register";
-import { Verify } from "./actions/Verify";
+import RegistrationForm from "./components/Registration/Registration";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/header";
 import NavBar from "./components/NavBar/index";
@@ -39,8 +38,6 @@ function App() {
             <Route path="/transaction/:id" component={ViewTransaction} />
             <Route path="/sellerhome" component={SellerHome} />
             <Route path="/addProduct" component={AddProduct} />
-            <Route path="/verify" component={Verify} />
-            <Route path="*" component={Login}></Route>
           </Switch>
         </div>
       </div>

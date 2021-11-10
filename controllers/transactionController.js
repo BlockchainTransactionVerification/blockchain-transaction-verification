@@ -87,10 +87,7 @@ export const getTransaction = asyncHandler(async (req, res) => {
   if (!req.body) {
     return res.status(442).json({ error: "ID is missing" });
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> e66573d61889d030257a3f7d7ef5ab5e559b6d67
   const updates = await Transaction.find(req.body);
   if (!updates) {
     return res.status(442).json({ error: "User not found" });
@@ -105,7 +102,6 @@ export const getTransaction = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const getDocuments = asyncHandler(async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
@@ -123,7 +119,6 @@ export const getDocuments = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const updateDocuments = asyncHandler(async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
@@ -154,7 +149,6 @@ export const updateDocuments = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const setTitle = asyncHandler(async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.Title || !req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
@@ -182,7 +176,6 @@ export const setTitle = asyncHandler(async (req, res) => {
 // failed - status: 442; error:"some message"
 
 export const setURL = asyncHandler(async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
   if (!req.body.TransactionURL || !req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }

@@ -7,7 +7,7 @@ const sopRouter = express.Router();
 sopRouter.route("/createSOP").post(createSOP);
 
 // Retrieve SOP
-sopRouter.route("/retrieveSOP").post(retrieveSOP);
+sopRouter.route("/retrieveSOP").get(retrieveSOP);
 
 // Update SOP
 //sopRouter.route("updateSOP").put(updateSOP);

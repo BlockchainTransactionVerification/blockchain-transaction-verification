@@ -14,11 +14,7 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      if (userInfo.seller) {
-        history.push("/sellerhome");
-      } else {
-        history.push("/buyerhome");
-      }
+      history.push("/buyerhome");
     }
   }, [history, userInfo]);
 
