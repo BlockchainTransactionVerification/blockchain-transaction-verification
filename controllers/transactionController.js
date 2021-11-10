@@ -87,7 +87,10 @@ export const getTransaction = asyncHandler(async (req, res) => {
   if (!req.body) {
     return res.status(442).json({ error: "ID is missing" });
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 76de863d930ca4e91f83e200138f075d308362da
   const updates = await Transaction.find(req.body);
   if (!updates) {
     return res.status(442).json({ error: "User not found" });

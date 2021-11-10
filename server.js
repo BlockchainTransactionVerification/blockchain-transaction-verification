@@ -3,13 +3,12 @@ import userRoutes from "./routes/userRoute.js";
 import productRoutes from "./routes/productRoute.js";
 import transactionRoutes from "./routes/transactionRoute.js";
 import sopRouter from "./routes/sopRoute.js";
-import uploadRouter from "./routes/uploadRoute.js";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 connectDB();
 
@@ -26,7 +25,6 @@ app.use("/api", userRoutes);
 app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
 app.use("/apisop", sopRouter);
-app.use("/apiupload", uploadRouter);
 
 app.use(cors);
 

@@ -52,7 +52,40 @@ export const getItems = asyncHandler(async (req, res) => {
   //else
   //return limited
 
-  res.set("Access-Control-Allow-Origin", "*");
-  const Supplies = await Supply.find(req.body);
-  res.json(Supplies);
+  const { ItemName, Quantity, Price, supplier } = req.body;
+  if (!ItemName || !Quantity || !Price || supplier == null) {
+    return res.status(442).json({ error: "please add all the fields" });
+  }
+
+  if (req.body.supplier) {
+    Supply.find({
+      ItemName: req.body.ItemName,
+      Quantity: { $lte: req.body.Quantity },
+      Price: { $lte: req.body.Price },
+      Brand: req.body.Brand,
+      isOnGround: req.body.isOnGround,
+    })
+      .then((savedItems) => {
+        return res.json(savedItems);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    //return limited fields
+    Supply.find(
+      {
+        ItemName: req.body.ItemName,
+        Quantity: { $lte: req.body.Quantity },
+        Price: { $lte: req.body.Price },
+      },
+      "ItemName Quantity Price"
+    )
+      .then((savedItems) => {
+        return res.json(savedItems);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 });

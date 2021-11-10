@@ -4,16 +4,14 @@ import {
   RETRIEVE_SOP_FAIL,
 } from "../constants/sopConstants";
 
-export const retrieveSopReducer = (state = { sops: [] }, action) => {
-  console.log("Inside SOP reducer");
-  console.log(action.payload);
+export const retrieveSopReducer = (state = {}, action) => {
   switch (action.type) {
     case RETRIEVE_SOP_REQUEST:
-      return { loading: true, sops: [] };
+      return {};
     case RETRIEVE_SOP_SUCCESS:
-      return { loading: false, sops: action.payload };
+      return { sops: action.payload };
     case RETRIEVE_SOP_FAIL:
-      return { loading: false, error: action.payload };
+      return { error: action.payload };
     default:
       return state;
   }

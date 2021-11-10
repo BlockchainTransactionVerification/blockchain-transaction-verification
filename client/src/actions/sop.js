@@ -23,8 +23,6 @@ export const retrieveSopAction = (id) => async (dispatch) => {
       config
     );
 
-    console.log("Inside SOP action");
-    console.log(data);
     dispatch({
       type: RETRIEVE_SOP_SUCCESS,
       payload: data,

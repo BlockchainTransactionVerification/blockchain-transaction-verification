@@ -29,6 +29,15 @@ function BuyerHome({ history }) {
           <div key={id}>
             <ListGroup.Item>
               <div>{transaction.Title}</div>
+              <div>
+                <Button
+                  variant="primary"
+                  style={{ float: "right" }}
+                  onClick={() => setModalShow(true)}
+                >
+                  Accept
+                </Button>
+              </div>
             </ListGroup.Item>
           </div>
         );
@@ -70,6 +79,11 @@ function BuyerHome({ history }) {
     dispatch(logout());
     history.push("/login");
   };
+
+  //<Tab eventKey="active" title="Active Transactions">
+  //  <p>Active</p>
+  //  <ListGroup>{activeTransactions}</ListGroup>
+  //</Tab>;
 
   return (
     <div>
