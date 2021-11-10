@@ -270,9 +270,6 @@ export const updateUser = asyncHandler(async (req, res) => {
       updates[fieldName] = req.body[fieldName];
     }
   }
-  for (var fieldname in updates) {
-    console.log("updates fields: " + updates[fieldname]);
-  }
 
   updates.save().then((result, err) => {
     if (err) {
