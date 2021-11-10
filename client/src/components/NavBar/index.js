@@ -25,8 +25,8 @@ const Navbar = () => {
           <NavLink to="/buyerhome" activeStyle>
             Home
           </NavLink>
-          <NavLink to="/MyFiles" activeStyle>
-            My Files
+          <NavLink to="/messages" activeStyle>
+            Messages
           </NavLink>
           <NavLink to="/contact-us" activeStyle>
             Contact Us

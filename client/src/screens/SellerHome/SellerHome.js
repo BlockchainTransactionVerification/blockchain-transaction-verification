@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/users";
-import { addTransaction, getTransactions } from "../../actions/transactions";
-import { Tabs, Tab, ListGroup } from "react-bootstrap";
+import { getTransactions, addTransaction } from "../../actions/transactions";
+import { Button, Tabs, Tab, ListGroup } from "react-bootstrap";
+// This could be used instead of the href in ListGroup components
+import { Link } from "react-router-dom";
+import VerticallyCenteredModal from "../../components/VerticallyCenteredModal/VerticallyCenteredModal";
 
-function SellerHome({ history }) {
+function BuyerHome({ history }) {
+  const [modalShow, setModalShow] = React.useState(false);
+
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -16,10 +21,48 @@ function SellerHome({ history }) {
   const pendingTransactions =
     transactions &&
     transactions.map((transaction, id) => {
-      if (transaction.Pending == true) {
+      if (
+        transaction.Pending == true &&
+        (transaction.BuyerID || transaction.SellerID) == userInfo.id
+      ) {
         return (
           <div key={id}>
-            <ListGroup.Item>{transaction._id}</ListGroup.Item>
+            <ListGroup.Item>
+              <div>{transaction.Title}</div>
+              <div>
+                <Button
+                  variant="primary"
+                  style={{ float: "right" }}
+                  onClick={() => setModalShow(true)}
+                >
+                  Accept
+                </Button>
+              </div>
+            </ListGroup.Item>
+          </div>
+        );
+      }
+    });
+
+  const activeTransactions =
+    transactions &&
+    transactions.map((transaction, id) => {
+      if (
+        transaction.Active == true &&
+        (transaction.BuyerID || transaction.SellerID) == userInfo.id
+      ) {
+        return (
+          <div key={id}>
+            <ListGroup.Item>
+              <Link
+                to={{
+                  pathname: transaction.TransactionURL,
+                  state: { TransactionID: transaction._id },
+                }}
+              >
+                {transaction.Title}
+              </Link>
+            </ListGroup.Item>
           </div>
         );
       }
@@ -36,19 +79,14 @@ function SellerHome({ history }) {
     dispatch(logout());
     history.push("/login");
   };
+
   const addProductHandler = () => {
     history.push("/addProduct");
   };
 
   const addTransactionHandler = () => {
-    console.log("clicked transaction button");
     dispatch(addTransaction());
   };
-
-  //<Tab eventKey="active" title="Active Transactions">
-  //  <p>Active</p>
-  //  <ListGroup>{activeTransactions}</ListGroup>
-  //</Tab>;
 
   return (
     <div>
@@ -62,16 +100,18 @@ function SellerHome({ history }) {
       >
         <Tab eventKey="active" title="Active Transactions">
           <p>Active</p>
+          <ListGroup>{activeTransactions}</ListGroup>
         </Tab>
         <Tab eventKey="pending" title="Pending Transactions">
           <p>Pending</p>
           <ListGroup>{pendingTransactions}</ListGroup>
+          <VerticallyCenteredModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+          />
         </Tab>
         <Tab eventKey="completed" title="Completed Transactions">
           <p>Complete</p>
-        </Tab>
-        <Tab eventKey="messages" title="Messages">
-          <p>Messages</p>
         </Tab>
       </Tabs>
       <button onClick={addProductHandler}>Add Product</button>
@@ -79,4 +119,4 @@ function SellerHome({ history }) {
   );
 }
 
-export default SellerHome;
+export default BuyerHome;
