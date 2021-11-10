@@ -76,7 +76,7 @@ export const registerUser = asyncHandler(async (req, res) => {
           subject:
             "Thank you For Registering with BlockChain Transaction Verification",
           text: `Hello ${Users.Username}, Click Here to Activate your Account.`,
-          html: `Hello<strong> ${Users.Username}</strong>,<br><br><a= "${hrefLink}"> Click Here to Activate your Account.</a>`,
+          html: `Hello<strong> ${Users.Username}</strong>,<br><br><a= ${hrefLink}> Click Here to Activate your Account.</a>`,
         };
         await sgMail
           .send(msg)
