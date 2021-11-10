@@ -54,7 +54,7 @@ export const getItems = asyncHandler(async (req, res) => {
   //res.set('Access-Control-Allow-Origin', '*')
   const { ItemName, Quantity, Price, supplier } = req.body
 
-  if (!ItemName || !Quantity || !Price || supplier == null) {
+  if (!ItemName || !Quantity || !Price ) {
     return res.status(442).json({ error: 'please add all the fields' })
   }
 
