@@ -9,7 +9,7 @@ import auth from "../auth/auth.js";
 productRouter.route("/addProduct").post(auth, addProduct);
 
 // express router method to create route for logging in users
-productRouter.route("/getItem").get(getItems);
+productRouter.route("/getItem").post(getItems);
 
 // express router method to create route for deleting users
 //productRouter.route('/delete/:id').delete(deleteUser)

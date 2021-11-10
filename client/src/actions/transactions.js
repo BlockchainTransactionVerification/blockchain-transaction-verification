@@ -26,9 +26,10 @@ export const getTransactions = () => async (dispatch, getState) => {
 
     const fieldName = userInfo.isSeller ? "SellerID" : "BuyerID";
 
-    const { data } = await axios.get(
-      "http://localhost:5000/apitra/getTransaction",
-      { [fieldName]: userInfo.id },
+    const { data } = await axios.post(
+      //"http://localhost:5000/apitra/getTransaction",
+      "https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction",
+      { BuyerId: userInfo.id },
       config
     );
 
@@ -66,13 +67,12 @@ export const addTransaction =
           "x-auth-token": userInfo.token,
         },
       };
-      console.log("headers got made:" + config.headers);
       const { data } = await axios.post(
-        "http://localhost:5000/apitra/addTransaction",
+        //"http://localhost:5000/apitra/addTransaction",
+        "https://blkchn-trxn-verif.herokuapp.com/apitra/addTransaction",
         { BuyerId: userInfo.id },
         config
       );
-      console.log("post get request:" + data);
       dispatch({
         type: ADD_TRANSACTION_SUCCESS,
         payload: data,

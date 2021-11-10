@@ -1,59 +1,152 @@
 import React, { useState } from 'react'
 import Scroll from './Scroll'
 import SearchList from './SearchList.js'
+import axios from 'axios'
+import SupplyInfo from './SupplyInfo'
+
+var dataResponse = ''
+
+function apiTest(itemName, price, quantity, brand) {
+  var payload = {
+                  "ItemName": itemName,
+                  "Quantity": quantity,
+                  "Price": price,
+                  "Brand" : brand,
+                  
+                }
+  axios({
+    method: "post",
+    url: 'https://blkchn-trxn-verif.herokuapp.com/apisup/getItem',
+    data: payload,
+    headers: { "Content-Type": "application/json",
+              'Access-Control-Allow-Origin' : '*'}
+  })
+    .then(function (response) {
+      //handle success
+      dataResponse = response
+    })
+    .catch(function (response) {
+      //handle error
+      console.log(response)
+    });
+}
+
+function getFilteredItems(itemName, price, quantity, brand) {
+
+  if (itemName == '' || price == '' || quantity == '' || brand == '') {
+    return []
+  }
+
+  console.log(apiTest(itemName, price, quantity, brand))
+  console.log("LOG RESPONSE: " + JSON.stringify(dataResponse.data))
+
+  var filteredItems = []
+
+  if (dataResponse.data != null) {
+    for (let index = 0; index < dataResponse.data.length; ++index) {
+
+      let _itemName = dataResponse.data[index]['ItemName']
+      let _quantity = parseInt(dataResponse.data[index]['Quantity'])
+      let _price = parseFloat(dataResponse.data[index]['Price'])
+      let _brand = dataResponse.data[index]['Brand'] 
+
+      let matchCount = 0
+      if (itemName == _itemName) {
+        matchCount++
+      }
+
+      if (quantity == _quantity) {
+        matchCount++
+      }
+
+      if (price == _price) {
+        matchCount++
+      }
+
+      if (brand == _brand) {
+        matchCount++
+      }
+
+      let _percentMatch = String((matchCount / 4) * 100) + " %"
+
+      let itemInfo = { 
+                        ItemName: _itemName,
+                        Quantity: _quantity,
+                        Price: _price,
+                        Brand: _brand,
+                        PercentMatch: _percentMatch
+                     }
+
+      filteredItems.push(itemInfo)
+      console.log(itemInfo)
+    }
+  }
+
+  return filteredItems
+}
 
 function Search({ details }) {
-  const [searchField, setSearchField] = useState('')
+  const [itemNameText, setItemName] = useState('')
+  const [quantityText, setQuantity] = useState(0)
+  const [priceText, setPrice] = useState(0.0)
+  const [brandText, setBrand] = useState('')
+  const [percentMatchText, setPercentMatch] = useState('')
 
-  const filteredPersons = details.filter((supplier) => {
-    return (
-      supplier.ItemName.toLowerCase().includes(searchField.toLowerCase()) ||
-      supplier.Price.toLowerCase().includes(searchField.toLowerCase()) ||
-      supplier.Quantity.toLowerCase().includes(searchField.toLowerCase()) ||
-      supplier.Region.toLowerCase().includes(searchField.toLowerCase())
-    )
-  })
+  let filteredPersons = getFilteredItems(itemNameText, parseFloat(priceText), parseInt(quantityText), brandText)
 
-  const handleChange = (e) => {
-    setSearchField(e.target.value)
+  const handleChange = (e) => {  
+    const value = e.target.value
+
+    switch(e.target.id) {
+      case 'ItemNameInputId':
+        setItemName(value)
+        break
+      case 'PriceInputId':
+        setPrice(value)
+        break
+      case 'QuantityInputId':
+        setQuantity(value)
+        break
+      case 'BrandInputId':
+        setBrand(value)
+        break;
+    }
   }
 
   function searchList() {
     return (
       <Scroll>
-        <SearchList filteredPersons={filteredPersons} />
+        <SearchList filteredItems={filteredPersons} />
       </Scroll>
     )
   }
 
   return (
     <section className='garamond'>
-      <div className='navy georgia ma0 grow'>
-        <h2 className='f2'>Supplier Search</h2>
-      </div>
+      <div className='navy georgia ma0 grow'></div>
       <div className='pa2'>
-        <input
+        <input id='ItemNameInputId'
           className='pa3 bl br3 grow b--none bg-light-blue ma3'
           type='search'
           placeholder='Item Name'
           onChange={handleChange}
         />{' '}
-        <input
+        <input id='PriceInputId'
           className='pa3 bb br3 grow b--none bg-light-blue ma3'
           type='search'
           placeholder='Price'
           onChange={handleChange}
         />{' '}
-        <input
+        <input id='QuantityInputId'
           className='pa3 bb br3 grow b--none bg-light-blue ma3'
           type='search'
           placeholder='Quantity'
           onChange={handleChange}
         />{' '}
-        <input
+        <input id='BrandInputId'
           className='pa3 bb br3 grow b--none bg-light-blue ma3'
           type='search'
-          placeholder='Region'
+          placeholder='Brand'
           onChange={handleChange}
         />
       </div>
