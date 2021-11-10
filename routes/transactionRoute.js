@@ -1,29 +1,20 @@
-import {
-  addTransaction,
-  getTransaction,
-  getDocuments,
-  updateDocuments,
-  updateTransactionStatus,
-} from "../controllers/transactionController.js";
-import express from "express";
+import { addTransaction, getTransaction, getDocuments, updateDocuments } from "../controllers/transactionController.js";
+import express from 'express'
 
-import transaction from "../models/transactionModel.js";
-const transactionRouter = express.Router();
+import transaction from '../models/transactionModel.js'
+const transactionRouter = express.Router()
 
-// express router method to create route to create a transaction
-transactionRouter.route("/addTransaction").post(addTransaction);
 
-// express router method to create route for updating transaction documents
-transactionRouter.route("/updateDocuments").post(updateDocuments);
 
-// express router method to create route for getting transactions documents
-transactionRouter.route("/getDocuments").post(getDocuments);
+// express router method to create route for uploading information on an item to be sold
+transactionRouter.route('/addTransaction').post(addTransaction)
 
-transactionRouter.route("/getTransaction").post(getTransaction);
+// express router method to create route for logging in users
+transactionRouter.route('/updateDocuments').post(updateDocuments)
 
-// express router method to create a route to update a transaction from pending to active, or from active to complete
-transactionRouter
-  .route("updateTransactionStatus")
-  .post(updateTransactionStatus);
+// express router method to create route for deleting users
+transactionRouter.route('/getDocuments').get(getDocuments)
 
-export default transactionRouter;
+transactionRouter.route('/getTransaction').get(getTransaction)
+
+export default transactionRouter
