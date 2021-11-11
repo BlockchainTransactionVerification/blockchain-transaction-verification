@@ -1,59 +1,49 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../actions/users'
-import { getTransactions } from '../../actions/transactions'
-import { Button, Tabs, Tab, ListGroup } from 'react-bootstrap'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/users";
+import { getTransactions } from "../../actions/transactions";
+import { Button, Tabs, Tab, ListGroup } from "react-bootstrap";
 // This could be used instead of the href in ListGroup components
-import { Link } from 'react-router-dom'
-import VerticallyCenteredModal from '../../components/VerticallyCenteredModal/VerticallyCenteredModal'
-import Search from '../../components/SearchFind/Search'
-import SupplyInfo from '../../components/SearchFind/SupplyInfo'
-import { getItems } from '../../actions/products'
-import axios from 'axios'
+import { Link } from "react-router-dom";
+import Search from "../../components/SearchFind/Search";
+import SupplyInfo from "../../components/SearchFind/SupplyInfo";
+import { getItems } from "../../actions/products";
+import axios from "axios";
 
 function BuyerHome({ history }) {
-  const [modalShow, setModalShow] = React.useState(false)
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-
-  const transactionsList = useSelector((state) => state.getTransactions)
-  const { transactions } = transactionsList
+  const transactionsList = useSelector((state) => state.getTransactions);
+  const { transactions } = transactionsList;
 
   const pendingTransactions =
     transactions &&
     transactions.map((transaction, id) => {
       if (
-        transaction.Pending == true &&
-        (transaction.BuyerID || transaction.SellerID) == userInfo.id
+        transaction.Pending === true &&
+        (transaction.BuyerID === userInfo.id ||
+          transaction.SellerID === userInfo.id)
       ) {
         return (
           <div key={id}>
             <ListGroup.Item>
               <div>{transaction.Title}</div>
-              <div>
-                <Button
-                  variant='primary'
-                  style={{ float: 'right' }}
-                  onClick={() => setModalShow(true)}
-                >
-                  Accept
-                </Button>
-              </div>
             </ListGroup.Item>
           </div>
-        )
+        );
       }
-    })
+    });
 
   const activeTransactions =
     transactions &&
     transactions.map((transaction, id) => {
       if (
-        transaction.Active == true &&
-        (transaction.BuyerID || transaction.SellerID) == userInfo.id
+        transaction.Active === true &&
+        (transaction.BuyerID === userInfo.id ||
+          transaction.SellerID === userInfo.id)
       ) {
         return (
           <div key={id}>
@@ -68,55 +58,48 @@ function BuyerHome({ history }) {
               </Link>
             </ListGroup.Item>
           </div>
-        )
+        );
       }
-    })
+    });
 
   useEffect(() => {
-    dispatch(getTransactions())
+    dispatch(getTransactions());
     if (!userInfo) {
-      history.push('/login')
+      history.push("/login");
     }
-  }, [dispatch, history, userInfo])
+  }, [dispatch, history, userInfo]);
 
   const logoutHandler = () => {
-    dispatch(logout())
-    history.push('/login')
-  }
+    dispatch(logout());
+    history.push("/login");
+  };
 
   return (
     <div>
       {userInfo.username} is loggged in
       <button onClick={logoutHandler}>logout</button>
       <Tabs
-        defaultActiveKey='active'
-        id='uncontrolled-tab-example'
-        className='mb-3'
+        defaultActiveKey="active"
+        id="uncontrolled-tab-example"
+        className="mb-3"
       >
-        <Tab eventKey='active' title='Active Transactions'>
+        <Tab eventKey="active" title="Active Transactions">
           <p>Active</p>
           <ListGroup>{activeTransactions}</ListGroup>
         </Tab>
-        <Tab eventKey='pending' title='Pending Transactions'>
+        <Tab eventKey="pending" title="Pending Transactions">
           <p>Pending</p>
           <ListGroup>{pendingTransactions}</ListGroup>
-          <VerticallyCenteredModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-          />
         </Tab>
-        <Tab eventKey='completed' title='Completed Transactions'>
+        <Tab eventKey="completed" title="Completed Transactions">
           <p>Complete</p>
         </Tab>
-        <Tab eventKey='messages' title='Messages'>
-          <p>Messages</p>
-        </Tab>
-        <Tab eventKey='item search' title='Item Search'>
+        <Tab eventKey="item search" title="Item Search">
           <Search details={SupplyInfo}></Search>
         </Tab>
       </Tabs>
     </div>
-  )
+  );
 }
 
 /*
@@ -177,4 +160,4 @@ function apiTest() {
 }
 */
 
-export default BuyerHome
+export default BuyerHome;
