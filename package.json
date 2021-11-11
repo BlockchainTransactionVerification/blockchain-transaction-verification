@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/RollingInCode/blockchain-transaction-verification#readme",
   "dependencies": {
+    "@fleekhq/fleek-storage-js": "^1.0.20",
     "@sendgrid/mail": "^7.4.6",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
