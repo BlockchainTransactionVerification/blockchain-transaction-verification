@@ -21,7 +21,7 @@ function SellerHome({ history }) {
     transactions &&
     transactions.map((transaction, id) => {
       if (
-        transaction.Pending === true &&
+        transaction.Pending == true &&
         (transaction.BuyerID === userInfo.id ||
           transaction.SellerID === userInfo.id)
       ) {
@@ -48,7 +48,7 @@ function SellerHome({ history }) {
     transactions &&
     transactions.map((transaction, id) => {
       if (
-        transaction.Active === true &&
+        transaction.Active == true &&
         (transaction.BuyerID === userInfo.id ||
           transaction.SellerID === userInfo.id)
       ) {

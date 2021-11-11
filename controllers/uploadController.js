@@ -46,7 +46,7 @@ export const uploadFiles = asyncHandler(async (req, res) => {
 
     try {
       const result = await fleekStorage.upload(input);
-      console.log(res);
+      return res.json(result);
     } catch (e) {
       console.log("error", e);
     }
