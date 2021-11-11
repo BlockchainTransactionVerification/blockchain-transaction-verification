@@ -30,7 +30,7 @@ export const getTransactions = () => async (dispatch, getState) => {
       //"http://localhost:5000/apitra/getTransaction",
       //https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction
       "https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction",
-      { SellerID: userInfo.id },
+      { fieldName: userInfo.id },
       config
     );
 
