@@ -5,6 +5,7 @@ import Login from "./screens/Login/Login";
 import BuyerHome from "./screens/BuyerHome/BuyerHome";
 import SellerHome from "./screens/SellerHome/SellerHome";
 import AddProduct from "./screens/AddProduct/AddProduct";
+import Messenger from "./screens/Messenger/Messenger";
 import RegistrationForm from "./screens/Register/Register";
 import { Verify } from "./actions/Verify";
 import Home from "./components/Home/Home";
@@ -39,6 +40,7 @@ function App() {
             <Route path="/transaction/:id" component={ViewTransaction} />
             <Route path="/sellerhome" component={SellerHome} />
             <Route path="/addProduct" component={AddProduct} />
+            <Route path="/messenger" component={Messenger} />
             <Route path="/verify" component={Verify} />
             <Route path="*" component={Login}></Route>
           </Switch>
