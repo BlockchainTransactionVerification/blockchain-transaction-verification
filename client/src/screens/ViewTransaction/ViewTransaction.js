@@ -5,6 +5,10 @@ import { retrieveSopAction } from "../../actions/sop";
 import { Button, Table } from "react-bootstrap";
 import { MdPendingActions } from "react-icons/md";
 import UploadFilesModal from "../../components/UploadFilesModal/UploadFilesModal";
+import {
+  init,
+  getSelectedAccount,
+} from "../../components/Web3Client/Web3Client.js";
 
 const ViewTransaction = ({ history }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -25,6 +29,24 @@ const ViewTransaction = ({ history }) => {
     sops &&
     sops.map((sop) => {
       return sop.SopTitle;
+    });
+
+  const SopID =
+    sops &&
+    sops.map((sop) => {
+      return sop._id;
+    });
+
+  const SupID =
+    sops &&
+    sops.map((sop) => {
+      return sop.SupplierID;
+    });
+
+  const BuyID =
+    sops &&
+    sops.map((sop) => {
+      return sop.BuyerID;
     });
 
   const openModal = (flag, id) => {
@@ -68,8 +90,11 @@ const ViewTransaction = ({ history }) => {
     });
   }
 
+  let currentSelectedAccount = getSelectedAccount();
+
   useEffect(() => {
     dispatch(retrieveSopAction(TransactionID));
+    init();
     if (!userInfo) {
       history.push("/login");
     }
@@ -96,6 +121,11 @@ const ViewTransaction = ({ history }) => {
         onHide={handleClose}
         modalrowid={modalRowID}
         tid={TransactionID}
+        sopid={SopID}
+        supid={SupID}
+        buyid={BuyID}
+        thisuid={userInfo.id}
+        currentacct={currentSelectedAccount}
       />
     </div>
   );
