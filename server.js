@@ -4,6 +4,7 @@ import productRoutes from "./routes/productRoute.js";
 import transactionRoutes from "./routes/transactionRoute.js";
 import sopRouter from "./routes/sopRoute.js";
 import uploadRouter from "./routes/uploadRoute.js";
+import fileRouter from "./routes/fileRoute.js";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -27,6 +28,7 @@ app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
 app.use("/apisop", sopRouter);
 app.use("/apiupload", uploadRouter);
+app.use("/apifiles", fileRouter);
 /* app.get("*", (req, res) =>
   res.redirect("https://blkchn-trxn-verif.herokuapp.com/")
 ); */

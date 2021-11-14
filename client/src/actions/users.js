@@ -6,6 +6,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  RETRIEVE_WALLETID_REQUEST,
+  RETRIEVE_WALLETID_SUCCESS,
+  RETRIEVE_WALLETID_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -100,4 +103,39 @@ export const register =
 export const logout = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
+};
+
+export const getWalletIdAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: RETRIEVE_WALLETID_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+
+    const payload = { id: id };
+
+    const { data } = await axios.post(
+      // "http://localhost:5000/api/getwalletid"
+      "https://blkchn-trxn-verif.herokuapp.com/api/getwalletid",
+      payload,
+      config
+    );
+
+    dispatch({
+      type: RETRIEVE_WALLETID_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: RETRIEVE_WALLETID_FAIL,
+      payload: message,
+    });
+  }
 };

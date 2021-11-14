@@ -11,6 +11,7 @@ import {
   getCompanyName,
   passResetEmailMobile,
   resetPasswordMobile,
+  getWalletID,
 } from "../controllers/userController.js";
 import express from "express";
 const router = express.Router();
@@ -50,5 +51,8 @@ router.route("/passResetEmailMobile").post(passResetEmailMobile);
 
 // router method to create route for updating user information
 router.route("/resetPasswordMobile").post(resetPasswordMobile);
+
+// router method to get user wallet id
+router.route("/getwalletid").post(getWalletID);
 
 export default router;

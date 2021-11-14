@@ -657,3 +657,18 @@ export const getCompanyName = asyncHandler(async (req, res) => {
   }
   return res.json(outputs);
 });
+
+export const getWalletID = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  const { id } = req.body;
+  if (!id) {
+    return res.status(442).json({ error: "A user _id must be passed in." });
+  }
+  const USER = await User.findById(id);
+
+  if (USER) {
+    return res.json({ WalletID: USER.WalletID });
+  } else {
+    return res.status(442).json({ error: "User not found." });
+  }
+});

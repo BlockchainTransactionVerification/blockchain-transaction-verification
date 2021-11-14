@@ -6,6 +6,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  RETRIEVE_WALLETID_REQUEST,
+  RETRIEVE_WALLETID_SUCCESS,
+  RETRIEVE_WALLETID_FAIL,
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -24,6 +27,19 @@ export const userLoginReducer = (state = {}, action) => {
       return {};
     case USER_REGISTER_FAIL:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const getWalletIdReducer = (state = {}, action) => {
+  switch (action.type) {
+    case RETRIEVE_WALLETID_REQUEST:
+      return {};
+    case RETRIEVE_WALLETID_SUCCESS:
+      return { walletID: action.payload };
+    case RETRIEVE_WALLETID_FAIL:
+      return { error: action.payload };
     default:
       return state;
   }

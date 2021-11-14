@@ -5,11 +5,18 @@ import {
 } from "../constants/uploadConstants";
 import axios from "axios";
 
-// <local> const url = "http://localhost:5000";
-// <production> const url = "https://blkchn-trxn-verif.herokuapp.com";
-const url = "https://blkchn-trxn-verif.herokuapp.com";
+const url = "http://localhost:5000";
+const prod_url = "https://blkchn-trxn-verif.herokuapp.com";
 
 export const uploadFileAction = (file) => async (dispatch) => {
+  // try
+  // dispatch upload request
+  // axios send file to upload endpoint
+  // dispatch upload success
+  // catch error
+  // error
+  // dispatch upload fail
+
   for (var p of file) {
     console.log("In upload action");
     console.log(p);
@@ -24,12 +31,11 @@ export const uploadFileAction = (file) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios
-      .post(url + "/apiupload/files", file, config)
-      .then((res) => {
-        // then print response status
-        console.log(res.statusText);
-      });
+    const { data } = await axios.post(
+      prod_url + "/apiupload/files",
+      file,
+      config
+    );
 
     console.log("Upload action res data");
     console.log(data);
