@@ -76,7 +76,7 @@ export const addTransaction =
           BuyerID: userInfo.id,
           SellerID: supplier.SellerID,
           ProdID: supplier.ProdID,
-          Title: supplier.title,
+          Title: title,
         },
         config
       );

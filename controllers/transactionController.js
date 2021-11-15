@@ -28,6 +28,7 @@ export const addTransaction = asyncHandler(async (req, res) => {
   console.log("addTransaction backend supplier:" + typeof SellerID);
   console.log("addTransaction backend supplier:" + typeof ProdID);
   console.log("addTransaction backend supplier:" + typeof BuyerID);
+  console.log("addTransaction backend supplier:" + Title);
   if (!BuyerID || !SellerID || !ProdID) {
     console.log("One of the fields is missing");
     return res.status(442).json({ error: "please add all the fields" });
