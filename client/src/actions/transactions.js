@@ -73,7 +73,7 @@ export const addTransaction =
         //"http://localhost:5000/apitra/addTransaction",
         "https://blkchn-trxn-verif.herokuapp.com/apitra/addTransaction",
         {
-          BuyerId: userInfo.id,
+          BuyerID: userInfo.id,
           SellerID: supplier.SellerID,
           ProdID: supplier.ProdID,
         },
