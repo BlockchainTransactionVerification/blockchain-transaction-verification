@@ -25,9 +25,9 @@ export const addTransaction = asyncHandler(async (req, res) => {
     Title,
     Documents,
   } = req.body;
-  console.log("addTransaction backend supplier:" + SellerID);
-  console.log("addTransaction backend supplier:" + ProdID);
-  console.log("addTransaction backend supplier:" + BuyerID);
+  console.log("addTransaction backend supplier:" + typeof SellerID);
+  console.log("addTransaction backend supplier:" + typeof ProdID);
+  console.log("addTransaction backend supplier:" + typeof BuyerID);
   if (!BuyerID || !SellerID || !ProdID) {
     console.log("One of the fields is missing");
     return res.status(442).json({ error: "please add all the fields" });
@@ -43,8 +43,10 @@ export const addTransaction = asyncHandler(async (req, res) => {
     Title,
     Documents,
   });
-  const buyer = await User.findById(String.toString(BuyerID));
-  const seller = await User.findById(String.toString(SellerID));
+  const buyIDString = String.toString(BuyerID);
+  const sellIDString = String.toString(SellerID);
+  const buyer = await User.findById(buyIDString);
+  const seller = await User.findById(sellIDString);
   if (!buyer || !seller) {
     console.log("User not found");
     return res.status(442).json({ error: "User not found" });
