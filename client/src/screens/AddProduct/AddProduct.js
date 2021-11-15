@@ -130,7 +130,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
         <div className="btn_container">
           <Button variant="primary" type="submit">
-            Sign in
+            Add Product
           </Button>
         </div>
       </Form>

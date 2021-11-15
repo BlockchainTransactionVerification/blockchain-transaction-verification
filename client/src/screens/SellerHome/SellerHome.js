@@ -87,7 +87,6 @@ function SellerHome({ history }) {
   return (
     <div>
       {userInfo.username} is loggged in
-      <button onClick={logoutHandler}>logout</button>
       <Tabs
         defaultActiveKey="active"
         id="uncontrolled-tab-example"
