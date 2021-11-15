@@ -35,13 +35,13 @@ function BuyerHome({ history }) {
             <ListGroup.Item>
               <div>{transaction.Title}</div>
               <div>
-                <Button
+                {/* <Button
                   variant="primary"
                   style={{ float: "right" }}
                   onClick={() => setModalShow(true)}
                 >
                   Accept
-                </Button>
+                </Button> */}
               </div>
             </ListGroup.Item>
           </div>
