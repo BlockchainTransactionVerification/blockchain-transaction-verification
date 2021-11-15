@@ -9,6 +9,7 @@ export const Nav = styled.nav`
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);
   z-index: 10;
+  box-shadow: 0 0 20px gray;
 `;
 
 export const NavLink = styled(Link)`
@@ -21,7 +22,7 @@ export const NavLink = styled(Link)`
   cursor: pointer;
 
   &.active {
-    color: #15cdfc;
+    color: #f9d450;
   }
 `;
 
@@ -60,6 +61,24 @@ export const NavBtn = styled.nav`
 `;
 
 export const NavBtnLink = styled(Link)`
+  border-radius: 4px;
+  background: #f9d450;
+  padding: 10px 22px;
+  color: #010606;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+`;
+
+export const NavBtnLinkLogout = styled.button`
   border-radius: 4px;
   background: #f9d450;
   padding: 10px 22px;
