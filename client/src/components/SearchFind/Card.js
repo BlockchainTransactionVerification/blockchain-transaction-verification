@@ -10,7 +10,7 @@ function Card({ supplier }) {
   const handleClose = () => setShow(false);
   const addTransactionHandler = (title) => {
     if (title) {
-      dispatch(addTransaction(title));
+      dispatch(addTransaction(title, supplier));
     }
     setTitle("");
     handleClose();
