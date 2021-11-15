@@ -25,6 +25,30 @@ const Navbar = () => {
     console.log(userInfo.id);
   } */
 
+  const PushHome = () => {
+    if (userInfo) {
+      if (userInfo.isSeller) {
+        return (
+          <NavLink to="/sellerhome" activeStyle>
+            Home
+          </NavLink>
+        );
+      } else {
+        return (
+          <NavLink to="/buyerhome" activeStyle>
+            Home
+          </NavLink>
+        );
+      }
+    } else {
+      return (
+        <NavLink to="/login" activeStyle>
+          Home
+        </NavLink>
+      );
+    }
+  };
+
   const DisplayLoginOrLogout = () => {
     if (!userInfo) {
       return <NavBtnLink to="/login">Sign In</NavBtnLink>;
@@ -53,9 +77,7 @@ const Navbar = () => {
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to="/buyerhome" activeStyle>
-            Home
-          </NavLink>
+          <PushHome />
           <NavLink to="/contact-us" activeStyle>
             Contact Us
           </NavLink>
