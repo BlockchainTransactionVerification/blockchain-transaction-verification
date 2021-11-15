@@ -51,14 +51,11 @@ export const getTransactions = () => async (dispatch, getState) => {
 
 export const addTransaction =
   (title, supplier) => async (dispatch, getState) => {
+    console.log("you are in addTransaction frontside");
     try {
       dispatch({
         type: ADD_TRANSACTION_REQUEST,
       });
-      console.log("you are in addTransaction frontside");
-      console.log("addTransaction frontside supplier:" + supplier.SellerID);
-      console.log("addTransaction frontside supplier:" + supplier.ProdID);
-      console.log("addTransaction frontside supplier:" + userInfo.id);
       const {
         userLogin: { userInfo },
       } = getState();
@@ -69,6 +66,9 @@ export const addTransaction =
           "x-auth-token": userInfo.token,
         },
       };
+      console.log("addTransaction frontside supplier:" + supplier.SellerID);
+      console.log("addTransaction frontside supplier:" + supplier.ProdID);
+      console.log("addTransaction frontside supplier:" + userInfo.id);
       const { data } = await axios.post(
         //"http://localhost:5000/apitra/addTransaction",
         "https://blkchn-trxn-verif.herokuapp.com/apitra/addTransaction",
