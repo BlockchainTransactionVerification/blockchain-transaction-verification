@@ -14,7 +14,7 @@ import expressAsyncHandler from "express-async-handler";
 
 export const addTransaction = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  console.log("you are in addTransaction");
+  console.log("you are in addTransaction backend");
   const {
     BuyerID,
     SellerID,
@@ -25,7 +25,11 @@ export const addTransaction = asyncHandler(async (req, res) => {
     Title,
     Documents,
   } = req.body;
+  console.log("addTransaction frontside supplier:" + SellerID);
+  console.log("addTransaction frontside supplier:" + ProdID);
+  console.log("addTransaction frontside supplier:" + BuyerID);
   if (!BuyerID || !SellerID || !ProdID) {
+    console.log("One of the fields is missing");
     return res.status(442).json({ error: "please add all the fields" });
   }
 
@@ -42,10 +46,12 @@ export const addTransaction = asyncHandler(async (req, res) => {
   const buyer = await User.findById(BuyerID);
   const seller = await User.findById(SellerID);
   if (!buyer || !seller) {
+    console.log("User not found");
     return res.status(442).json({ error: "User not found" });
   }
   transaction.save().then((result, err) => {
     if (err) {
+      console.log("error saving the transaction");
       return res.status(442).json({ error: err });
     }
   });

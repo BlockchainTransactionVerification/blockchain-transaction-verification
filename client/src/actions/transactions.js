@@ -58,7 +58,7 @@ export const addTransaction =
       console.log("you are in addTransaction frontside");
       console.log("addTransaction frontside supplier:" + supplier.SellerID);
       console.log("addTransaction frontside supplier:" + supplier.ProdID);
-      console.log("addTransaction frontside supplier:" + supplier.BuyerId);
+      console.log("addTransaction frontside supplier:" + userInfo.id);
       const {
         userLogin: { userInfo },
       } = getState();
@@ -74,8 +74,8 @@ export const addTransaction =
         "https://blkchn-trxn-verif.herokuapp.com/apitra/addTransaction",
         {
           BuyerId: userInfo.id,
-          ProdID: supplier.ProdID,
           SellerID: supplier.SellerID,
+          ProdID: supplier.ProdID,
         },
         config
       );
