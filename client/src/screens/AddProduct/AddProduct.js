@@ -24,18 +24,29 @@ const AddProduct = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      addProduct(
-        ItemName,
-        Quantity,
-        Quality,
-        Price,
-        Brand,
-        Region,
-        ProdRate,
-        ShipRestrict
-      )
-    );
+    if (
+      ItemName &&
+      Quantity &&
+      Quality &&
+      Price &&
+      Brand &&
+      Region &&
+      ProdRate &&
+      ShipRestrict
+    ) {
+      dispatch(
+        addProduct(
+          ItemName,
+          Quantity,
+          Quality,
+          Price,
+          Brand,
+          Region,
+          ProdRate,
+          ShipRestrict
+        )
+      );
+    }
   };
 
   const HomeHandler = () => {
@@ -50,7 +61,7 @@ const AddProduct = ({ history }) => {
       </div>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicItemName">
-          <Form.Label>ItemName</Form.Label>
+          <Form.Label>Item Name</Form.Label>
           <Form.Control
             type="ItemName"
             value={ItemName}
@@ -110,7 +121,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicProdRate">
-          <Form.Label>ProdRate</Form.Label>
+          <Form.Label>Production Rate</Form.Label>
           <Form.Control
             type="ProdRate"
             value={ProdRate}
@@ -120,7 +131,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicShipRestrict">
-          <Form.Label>ShipRestrict</Form.Label>
+          <Form.Label>Shipping Restrictions</Form.Label>
           <Form.Control
             type="ShipRestrict"
             value={ShipRestrict}
