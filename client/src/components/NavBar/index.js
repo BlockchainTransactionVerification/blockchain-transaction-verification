@@ -26,18 +26,20 @@ const Navbar = () => {
   } */
 
   const PushHome = () => {
-    if (userInfo.isSeller) {
-      return (
-        <NavLink to="/sellerhome" activeStyle>
-          Home
-        </NavLink>
-      );
-    } else {
-      return (
-        <NavLink to="/buyerhome" activeStyle>
-          Home
-        </NavLink>
-      );
+    if (userInfo) {
+      if (userInfo.isSeller == true) {
+        return (
+          <NavLink to="/sellerhome" activeStyle>
+            Home
+          </NavLink>
+        );
+      } else {
+        return (
+          <NavLink to="/buyerhome" activeStyle>
+            Home
+          </NavLink>
+        );
+      }
     }
   };
 
