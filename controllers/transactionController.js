@@ -45,8 +45,10 @@ export const addTransaction = asyncHandler(async (req, res) => {
   });
   const buyIDString = String.toString(BuyerID);
   const sellIDString = String.toString(SellerID);
-  const buyer = await User.findById(buyIDString);
-  const seller = await User.findById(sellIDString);
+  const buyer = await User.findById(BuyerID);
+  console.log("found buyer");
+  const seller = await User.findById(SellerID);
+  console.log("found seller");
   if (!buyer || !seller) {
     console.log("User not found");
     return res.status(442).json({ error: "User not found" });
