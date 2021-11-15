@@ -2,31 +2,31 @@ import {
   ADD_PRODUCT_REQUEST,
   ADD_PRODUCT_SUCCESS,
   ADD_PRODUCT_FAIL,
-} from '../constants/productConstants'
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+} from "../constants/productConstants";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const addProduct =
   (ItemName, Quantity, Quality, Price, Brand, Region, ProdRate, ShipRestrict) =>
   async (dispatch, getState) => {
     try {
-      dispatch({ type: ADD_PRODUCT_REQUEST })
+      dispatch({ type: ADD_PRODUCT_REQUEST });
       const {
         userLogin: { userInfo },
-      } = getState()
-      var token = userInfo.token
-      var SellerID = userInfo.id
+      } = getState();
+      var token = userInfo.token;
+      var SellerID = userInfo.id;
       const config = {
         headers: {
-          'Content-type': 'application/json',
-          'x-auth-token': token,
+          "Content-type": "application/json",
+          "x-auth-token": token,
         },
-      }
+      };
       //var SellerID = userInfo.id;
       const { data } = await axios.post(
         //"http://localhost:5000/apisup/addProduct",
-        'https://blkchn-trxn-verif.herokuapp.com/apisup/addProduct',
+        "https://blkchn-trxn-verif.herokuapp.com/apisup/addProduct",
         {
           SellerID,
           ItemName,
@@ -39,9 +39,9 @@ export const addProduct =
           ShipRestrict,
         },
         config
-      )
+      );
 
-      dispatch({ type: ADD_PRODUCT_SUCCESS, payload: data })
+      dispatch({ type: ADD_PRODUCT_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
         type: ADD_PRODUCT_FAIL,
@@ -49,29 +49,30 @@ export const addProduct =
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
-      })
+      });
     }
-  }
+  };
 
 export const getItems =
-  (ItemName, Quantity, Price, Supplier, Brand, isOnGround) => async (dispatch, getState) => {
+  (ItemName, Quantity, Price, Supplier, Brand, isOnGround) =>
+  async (dispatch, getState) => {
     try {
-      dispatch({ type: ADD_PRODUCT_REQUEST })
+      dispatch({ type: ADD_PRODUCT_REQUEST });
       const {
         userLogin: { userInfo },
-      } = getState()
-      var token = userInfo.token
-      var SellerID = userInfo.id
+      } = getState();
+      var token = userInfo.token;
+      var SellerID = userInfo.id;
       const config = {
         headers: {
-          'Content-type': 'application/json',
-          'x-auth-token': token,
+          "Content-type": "application/json",
+          "x-auth-token": token,
         },
-      }
+      };
       //var SellerID = userInfo.id;
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         //"http://localhost:5000/apisup/addProduct",
-        'https://blkchn-trxn-verif.herokuapp.com/apisup/getItem',
+        "https://blkchn-trxn-verif.herokuapp.com/apisup/getItem",
         {
           ItemName,
           Quantity,
@@ -81,9 +82,9 @@ export const getItems =
           isOnGround,
         },
         config
-      )
-      console.log(data)
-      dispatch({ type: ADD_PRODUCT_SUCCESS, payload: data })
+      );
+      console.log(data);
+      dispatch({ type: ADD_PRODUCT_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
         type: ADD_PRODUCT_FAIL,
@@ -91,6 +92,6 @@ export const getItems =
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
-      })
+      });
     }
-  }
+  };

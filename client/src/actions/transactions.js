@@ -28,7 +28,6 @@ export const getTransactions = () => async (dispatch, getState) => {
 
     const { data } = await axios.post(
       //"http://localhost:5000/apitra/getTransaction",
-      //https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction
       "https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction",
       { [fieldName]: userInfo.id },
       config

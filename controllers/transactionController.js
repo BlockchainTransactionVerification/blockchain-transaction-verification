@@ -71,6 +71,7 @@ export const addTransaction = asyncHandler(async (req, res) => {
     });
   res.json({
     //ID: user.id,
+    transaction,
     success: true,
     msg: "User has been successfully activated",
   });
@@ -112,6 +113,11 @@ export const getDocuments = asyncHandler(async (req, res) => {
   return res.json(updates);
 });
 
+export const getPendingTransaction = asyncHandler(async (req, res) => {
+  const document = await Transaction.find({ Pending: false });
+  console.log(document);
+});
+
 //update documents
 //input - id and Documents
 //output -
@@ -124,7 +130,7 @@ export const updateDocuments = asyncHandler(async (req, res) => {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
   if (!req.body.Documents) {
-    //to be added
+    return res.status(442).json({ error: "Documents is missing" });
   }
   const updates = await Transaction.findById(req.body.id);
   if (!updates) {

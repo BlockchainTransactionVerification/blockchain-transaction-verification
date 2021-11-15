@@ -4,6 +4,7 @@ import {
   getDocuments,
   updateDocuments,
   updateTransactionStatus,
+  getPendingTransaction,
 } from "../controllers/transactionController.js";
 import express from "express";
 
@@ -18,6 +19,8 @@ transactionRouter.route("/updateDocuments").post(updateDocuments);
 
 // express router method to create route for getting transactions documents
 transactionRouter.route("/getDocuments").post(getDocuments);
+
+transactionRouter.route("/getPendingTransactions").get(getPendingTransaction);
 
 transactionRouter.route("/getTransaction").post(getTransaction);
 

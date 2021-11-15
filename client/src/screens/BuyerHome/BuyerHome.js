@@ -5,12 +5,15 @@ import { getTransactions } from "../../actions/transactions";
 import { Button, Tabs, Tab, ListGroup } from "react-bootstrap";
 // This could be used instead of the href in ListGroup components
 import { Link } from "react-router-dom";
+import VerticallyCenteredModal from "../../components/VerticallyCenteredModal/VerticallyCenteredModal";
 import Search from "../../components/SearchFind/Search";
 import SupplyInfo from "../../components/SearchFind/SupplyInfo";
 import { getItems } from "../../actions/products";
 import axios from "axios";
 
 function BuyerHome({ history }) {
+  const [modalShow, setModalShow] = useState(false);
+
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -31,6 +34,15 @@ function BuyerHome({ history }) {
           <div key={id}>
             <ListGroup.Item>
               <div>{transaction.Title}</div>
+              <div>
+                <Button
+                  variant="primary"
+                  style={{ float: "right" }}
+                  onClick={() => setModalShow(true)}
+                >
+                  Accept
+                </Button>
+              </div>
             </ListGroup.Item>
           </div>
         );
@@ -90,9 +102,16 @@ function BuyerHome({ history }) {
         <Tab eventKey="pending" title="Pending Transactions">
           <p>Pending</p>
           <ListGroup>{pendingTransactions}</ListGroup>
+          <VerticallyCenteredModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+          />
         </Tab>
         <Tab eventKey="completed" title="Completed Transactions">
           <p>Complete</p>
+        </Tab>
+        <Tab eventKey="messages" title="Messages">
+          <p>Messages</p>
         </Tab>
         <Tab eventKey="item search" title="Item Search">
           <Search details={SupplyInfo}></Search>
@@ -101,6 +120,33 @@ function BuyerHome({ history }) {
     </div>
   );
 }
+
+/* return (
+  <div>
+    {userInfo.username} is loggged in
+    <button onClick={logoutHandler}>logout</button>
+    <Tabs
+      defaultActiveKey="active"
+      id="uncontrolled-tab-example"
+      className="mb-3"
+    >
+      <Tab eventKey="active" title="Active Transactions">
+        <p>Active</p>
+        <ListGroup>{activeTransactions}</ListGroup>
+      </Tab>
+      <Tab eventKey="pending" title="Pending Transactions">
+        <p>Pending</p>
+        <ListGroup>{pendingTransactions}</ListGroup>
+      </Tab>
+      <Tab eventKey="completed" title="Completed Transactions">
+        <p>Complete</p>
+      </Tab>
+      <Tab eventKey="item search" title="Item Search">
+        <Search details={SupplyInfo}></Search>
+      </Tab>
+    </Tabs>
+  </div>
+); */
 
 /*
 function apiTest() {
