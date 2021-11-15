@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+html,body,.App,#root,:root,.loginContainer{
+  min-width:100vw;
+  min-height: 100vh;
+}
+.loginContainer{
+  display: flex; justify-content: center;
+  background: url("./images/mask_background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.loginContainer label{
+  color:black;
+}
