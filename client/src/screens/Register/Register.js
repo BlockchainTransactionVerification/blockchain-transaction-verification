@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../actions/users";
 import { Form, Button, Col, Row } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 const RegistrationForm = ({ history }) => {
   const [username, setUsername] = useState("");
@@ -16,6 +17,7 @@ const RegistrationForm = ({ history }) => {
   const [Position, setPosition] = useState("");
   const [isSeller, setisSeller] = useState("");
   const [WalletID, setWalletID] = useState("");
+  const [isRegistered, setIsRegistered] = useState("");
 
   const dispatch = useDispatch();
   const formStyle ={backgroundColor: '#FFFFFF',padding:20, borderRadius: 20};
@@ -25,7 +27,11 @@ const RegistrationForm = ({ history }) => {
 
   const submitHandler = (e, history) => {
     e.preventDefault();
-    if (password == confirmPassword && email == confirmEmail) {
+    if (
+      password == confirmPassword &&
+      email == confirmEmail &&
+      isSeller != ""
+    ) {
       if (
         dispatch(
           register(
@@ -39,7 +45,8 @@ const RegistrationForm = ({ history }) => {
             Position,
             isSeller,
             WalletID
-          )
+          ),
+          setIsRegistered(true)
         )
       ) {
       } else {
@@ -47,6 +54,10 @@ const RegistrationForm = ({ history }) => {
       }
     }
   };
+
+  if (isRegistered) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <div className="loginContainer">
@@ -186,10 +197,10 @@ const RegistrationForm = ({ history }) => {
             as="select"
             aria-label="Default select example"
             value={isSeller}
-            defaultValue={"Buyer"}
+            defaultValue={"Choose..."}
             onChange={(e) => setisSeller(e.target.value)}
           >
-          
+            <option value="">Choose...</option>
             <option value="0">Buyer</option>
             <option value="1">Seller</option>
           </Form.Control>
