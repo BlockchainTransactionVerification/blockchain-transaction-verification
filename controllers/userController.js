@@ -71,6 +71,7 @@ export const registerUser = asyncHandler(async (req, res) => {
         const hrefLink = `https://blkchn-trxn-verif.herokuapp.com/api/verify/${Users.temporarytoken}`;
         //"http://localhost:5000/api/verify/" + Users.temporarytoken;
         console.log("href : " + hrefLink);
+      console.log("token : " + Users.temporarytoken);
         const msg = {
           to: Users.Email, // Change to your recipient
           from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
