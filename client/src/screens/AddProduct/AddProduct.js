@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { addProduct } from "../../actions/products.js";
+import "./formInput.css";
 
 const AddProduct = ({ history }) => {
   const [ItemName, setItemName] = useState("");
@@ -61,7 +62,7 @@ const AddProduct = ({ history }) => {
       </div>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicItemName">
-          <Form.Label>Item Name</Form.Label>
+          <Form.Label className="formInput">Item Name</Form.Label>
           <Form.Control
             type="ItemName"
             value={ItemName}
@@ -71,7 +72,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicQuantity">
-          <Form.Label>Quantity</Form.Label>
+          <Form.Label className="formInput">Quantity</Form.Label>
           <Form.Control
             type="Quantity"
             value={Quantity}
@@ -81,7 +82,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicQuality">
-          <Form.Label>Quality</Form.Label>
+          <Form.Label className="formInput">Quality</Form.Label>
           <Form.Control
             type="Quality"
             value={Quality}
