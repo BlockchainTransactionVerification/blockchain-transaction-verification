@@ -62,7 +62,7 @@ const AddProduct = ({ history }) => {
       </div>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicItemName">
-          <Form.Label className="formInput">Item Name</Form.Label>
+          <Form.Label className="addProductInput">Item Name</Form.Label>
           <Form.Control
             type="ItemName"
             value={ItemName}
@@ -72,7 +72,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicQuantity">
-          <Form.Label className="formInput">Quantity</Form.Label>
+          <Form.Label className="addProductInput">Quantity</Form.Label>
           <Form.Control
             type="Quantity"
             value={Quantity}
@@ -82,7 +82,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicQuality">
-          <Form.Label className="formInput">Quality</Form.Label>
+          <Form.Label className="addProductInput">Quality</Form.Label>
           <Form.Control
             type="Quality"
             value={Quality}
