@@ -6,6 +6,7 @@ import { Form, Button } from "react-bootstrap";
 const Login = ({ history }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [validated, setValidated] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -23,14 +24,19 @@ const Login = ({ history }) => {
   }, [history, userInfo]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
     dispatch(login(username, password));
   };
 
   return (
     <div className="loginContainer">
       <div className="formContainer">
-        <Form onSubmit={submitHandler}>
+        <Form noValidate validated={validated} onSubmit={submitHandler}>
           <Form.Group controlId="formBasicUsername">
             <div className="formInput">
               <Form.Label>Username</Form.Label>
@@ -41,6 +47,9 @@ const Login = ({ history }) => {
                 placeholder="Enter username"
                 onChange={(e) => setUsername(e.target.value)}
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid Username.
+              </Form.Control.Feedback>
             </div>
           </Form.Group>
 
