@@ -28,7 +28,6 @@ export const getTransactions = () => async (dispatch, getState) => {
 
     const { data } = await axios.post(
       //"http://localhost:5000/apitra/getTransaction",
-      //https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction
       "https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction",
       { [fieldName]: userInfo.id },
       config
@@ -51,13 +50,12 @@ export const getTransactions = () => async (dispatch, getState) => {
 };
 
 export const addTransaction =
-  (/*some kind of way to get the product they are interested in*/) =>
-  async (dispatch, getState) => {
+  (title, supplier) => async (dispatch, getState) => {
+    console.log("you are in addTransaction frontside");
     try {
       dispatch({
         type: ADD_TRANSACTION_REQUEST,
       });
-      console.log("you are in addTransaction frontside");
       const {
         userLogin: { userInfo },
       } = getState();
@@ -68,10 +66,18 @@ export const addTransaction =
           "x-auth-token": userInfo.token,
         },
       };
+      console.log("addTransaction frontside supplier:" + supplier.SellerID);
+      console.log("addTransaction frontside supplier:" + supplier.ProdID);
+      console.log("addTransaction frontside supplier:" + userInfo.id);
       const { data } = await axios.post(
         //"http://localhost:5000/apitra/addTransaction",
         "https://blkchn-trxn-verif.herokuapp.com/apitra/addTransaction",
-        { BuyerId: userInfo.id },
+        {
+          BuyerID: userInfo.id,
+          SellerID: supplier.SellerID,
+          ProdID: supplier.ProdID,
+          Title: title,
+        },
         config
       );
       dispatch({

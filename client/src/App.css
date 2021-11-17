@@ -1,12 +1,29 @@
 .App {
   text-align: center;
+ 
+}
+html,body,.App,#root,:root,.formContainer{
+  min-width:20vw;
+  min-height: 10vh;
+}
+.formContainer{
+  max-width: 500px;
+  border:5px solid transparent;
+  border-radius: 50px;
+  padding: 20px;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+.formInput{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

@@ -25,7 +25,7 @@ connectDB();
 //dotenv config
 dotenv.config();
 
-app.use(logger("dev"));
+const app = express();
 app.use(express.json());
 app.options("*", cors());
 //app.use(express.urlencoded({ extended: false }));

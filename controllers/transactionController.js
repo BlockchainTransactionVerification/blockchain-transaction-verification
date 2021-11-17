@@ -14,7 +14,7 @@ import expressAsyncHandler from "express-async-handler";
 
 export const addTransaction = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  console.log("you are in addTransaction");
+  console.log("you are in addTransaction backend");
   const {
     BuyerID,
     SellerID,
@@ -25,7 +25,12 @@ export const addTransaction = asyncHandler(async (req, res) => {
     Title,
     Documents,
   } = req.body;
+  console.log("addTransaction backend supplier:" + typeof SellerID);
+  console.log("addTransaction backend supplier:" + typeof ProdID);
+  console.log("addTransaction backend supplier:" + typeof BuyerID);
+  console.log("addTransaction backend supplier:" + Title);
   if (!BuyerID || !SellerID || !ProdID) {
+    console.log("One of the fields is missing");
     return res.status(442).json({ error: "please add all the fields" });
   }
 
@@ -39,13 +44,19 @@ export const addTransaction = asyncHandler(async (req, res) => {
     Title,
     Documents,
   });
+  const buyIDString = String.toString(BuyerID);
+  const sellIDString = String.toString(SellerID);
   const buyer = await User.findById(BuyerID);
+  console.log("found buyer");
   const seller = await User.findById(SellerID);
+  console.log("found seller");
   if (!buyer || !seller) {
+    console.log("User not found");
     return res.status(442).json({ error: "User not found" });
   }
   transaction.save().then((result, err) => {
     if (err) {
+      console.log("error saving the transaction");
       return res.status(442).json({ error: err });
     }
   });
@@ -71,6 +82,7 @@ export const addTransaction = asyncHandler(async (req, res) => {
     });
   res.json({
     //ID: user.id,
+    transaction,
     success: true,
     msg: "User has been successfully activated",
   });
@@ -112,6 +124,11 @@ export const getDocuments = asyncHandler(async (req, res) => {
   return res.json(updates);
 });
 
+export const getPendingTransaction = asyncHandler(async (req, res) => {
+  const document = await Transaction.find({ Pending: false });
+  console.log(document);
+});
+
 //update documents
 //input - id and Documents
 //output -
@@ -124,7 +141,7 @@ export const updateDocuments = asyncHandler(async (req, res) => {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
   if (!req.body.Documents) {
-    //to be added
+    return res.status(442).json({ error: "Documents is missing" });
   }
   const updates = await Transaction.findById(req.body.id);
   if (!updates) {

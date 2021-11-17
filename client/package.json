@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.4",
     "axios-react": "^2.0.8",
+    "form-data": "^3.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.1",
     "react-dom": "^17.0.2",
@@ -20,7 +21,6 @@
     "redux-thunk": "^2.4.0",
     "socket.io-client": "^4.3.2",
     "styled-components": "^5.3.3",
-    "timeago.js": "^4.0.2",
     "web-vitals": "^1.1.2",
     "web3": "^1.6.0"
   },

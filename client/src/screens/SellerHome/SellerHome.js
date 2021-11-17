@@ -84,15 +84,9 @@ function SellerHome({ history }) {
     history.push("/addProduct");
   };
 
-  const addTransactionHandler = () => {
-    dispatch(addTransaction());
-  };
-
   return (
     <div>
       {userInfo.username} is loggged in
-      <button onClick={logoutHandler}>logout</button>
-      <button onClick={addTransactionHandler}>add Transaction</button>
       <Tabs
         defaultActiveKey="active"
         id="uncontrolled-tab-example"

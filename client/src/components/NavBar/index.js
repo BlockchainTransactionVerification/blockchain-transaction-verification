@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/users";
+import { useHistory } from "react-router-dom";
 import {
   Nav,
   NavLink,
@@ -6,9 +9,61 @@ import {
   NavMenu,
   NavBtn,
   NavBtnLink,
+  NavBtnLinkLogout,
 } from "./NavbarElements";
 
 const Navbar = () => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  /*   console.log("Navbar");
+  if (userInfo) {
+    console.log("User ID");
+    console.log(userInfo.id);
+  } */
+
+  const PushHome = () => {
+    if (userInfo) {
+      if (userInfo.isSeller) {
+        return (
+          <NavLink to="/sellerhome" activeStyle>
+            Home
+          </NavLink>
+        );
+      } else {
+        return (
+          <NavLink to="/buyerhome" activeStyle>
+            Home
+          </NavLink>
+        );
+      }
+    } else {
+      return (
+        <NavLink to="/login" activeStyle>
+          Home
+        </NavLink>
+      );
+    }
+  };
+
+  const DisplayLoginOrLogout = () => {
+    if (!userInfo) {
+      return <NavBtnLink to="/login">Sign In</NavBtnLink>;
+    } else {
+      return (
+        <NavBtnLinkLogout onClick={logoutHandler}>Logout</NavBtnLinkLogout>
+      );
+    }
+  };
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    history.push("/login");
+  };
+
   return (
     <>
       <Nav>
@@ -22,12 +77,7 @@ const Navbar = () => {
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to="/login" activeStyle>
-            Home
-          </NavLink>
-          <NavLink to="/MyFiles" activeStyle>
-            My Files
-          </NavLink>
+          <PushHome />
           <NavLink to="/contact-us" activeStyle>
             Contact Us
           </NavLink>
@@ -36,7 +86,7 @@ const Navbar = () => {
           </NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to="/login">Sign In</NavBtnLink>
+          <DisplayLoginOrLogout />
         </NavBtn>
       </Nav>
     </>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { addProduct } from "../../actions/products.js";
+import "./formInput.css";
 
 const AddProduct = ({ history }) => {
   const [ItemName, setItemName] = useState("");
@@ -24,18 +25,29 @@ const AddProduct = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      addProduct(
-        ItemName,
-        Quantity,
-        Quality,
-        Price,
-        Brand,
-        Region,
-        ProdRate,
-        ShipRestrict
-      )
-    );
+    if (
+      ItemName &&
+      Quantity &&
+      Quality &&
+      Price &&
+      Brand &&
+      Region &&
+      ProdRate &&
+      ShipRestrict
+    ) {
+      dispatch(
+        addProduct(
+          ItemName,
+          Quantity,
+          Quality,
+          Price,
+          Brand,
+          Region,
+          ProdRate,
+          ShipRestrict
+        )
+      );
+    }
   };
 
   const HomeHandler = () => {
@@ -50,7 +62,7 @@ const AddProduct = ({ history }) => {
       </div>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="formBasicItemName">
-          <Form.Label>ItemName</Form.Label>
+          <Form.Label className="addProductInput">Item Name</Form.Label>
           <Form.Control
             type="ItemName"
             value={ItemName}
@@ -60,7 +72,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicQuantity">
-          <Form.Label>Quantity</Form.Label>
+          <Form.Label className="addProductInput">Quantity</Form.Label>
           <Form.Control
             type="Quantity"
             value={Quantity}
@@ -70,7 +82,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicQuality">
-          <Form.Label>Quality</Form.Label>
+          <Form.Label className="addProductInput">Quality</Form.Label>
           <Form.Control
             type="Quality"
             value={Quality}
@@ -110,7 +122,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicProdRate">
-          <Form.Label>ProdRate</Form.Label>
+          <Form.Label>Production Rate</Form.Label>
           <Form.Control
             type="ProdRate"
             value={ProdRate}
@@ -120,7 +132,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicShipRestrict">
-          <Form.Label>ShipRestrict</Form.Label>
+          <Form.Label>Shipping Restrictions</Form.Label>
           <Form.Control
             type="ShipRestrict"
             value={ShipRestrict}
@@ -130,7 +142,7 @@ const AddProduct = ({ history }) => {
         </Form.Group>
         <div className="btn_container">
           <Button variant="primary" type="submit">
-            Sign in
+            Add Product
           </Button>
         </div>
       </Form>

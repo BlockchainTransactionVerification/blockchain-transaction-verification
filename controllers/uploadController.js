@@ -18,7 +18,6 @@ export const uploadFiles = asyncHandler(async (req, res) => {
 
   form.parse(req, function (err, fields, files) {
     console.log(files);
-    console.log(files);
 
     Object.keys(files).forEach(function (name) {
       console.log("Got file named " + name);
@@ -27,7 +26,10 @@ export const uploadFiles = asyncHandler(async (req, res) => {
 
       fs.readFile(filePath, async (err, data) => {
         if (!err) {
+          console.log("Inside readFile function");
           testFunctionUpload(data);
+        } else {
+          console.log("ReadFile Error: " + err);
         }
       });
     });
@@ -36,6 +38,7 @@ export const uploadFiles = asyncHandler(async (req, res) => {
   const testFunctionUpload = async (data) => {
     const date = new Date();
     const timestamp = date.getTime();
+    console.log("Inside testFunctionUpload");
 
     const input = {
       apiKey,
@@ -43,10 +46,14 @@ export const uploadFiles = asyncHandler(async (req, res) => {
       key: `file-${timestamp}`,
       data,
     };
-
+    console.log("testFunctionUpload input apikey" + input.apiKey);
+    console.log("testFunctionUpload apisecret" + input.apiSecret);
+    console.log("testFunctionUpload key" + input.key);
+    console.log("testFunctionUpload data" + input.data);
     try {
       const result = await fleekStorage.upload(input);
-      return res.json(result);
+      console.log("hash: " + result.hash);
+      return res.json({ hash: result.hash });
     } catch (e) {
       console.log("error", e);
     }

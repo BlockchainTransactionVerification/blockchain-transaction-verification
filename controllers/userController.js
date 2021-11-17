@@ -71,6 +71,7 @@ export const registerUser = asyncHandler(async (req, res) => {
         const hrefLink = `https://blkchn-trxn-verif.herokuapp.com/api/verify/${Users.temporarytoken}`;
         //"http://localhost:5000/api/verify/" + Users.temporarytoken;
         console.log("href : " + hrefLink);
+      console.log("token : " + Users.temporarytoken);
         const msg = {
           to: Users.Email, // Change to your recipient
           from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
@@ -656,4 +657,19 @@ export const getCompanyName = asyncHandler(async (req, res) => {
     return res.status(442).json({ error: "User not found" });
   }
   return res.json(outputs);
+});
+
+export const getWalletID = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  const { id } = req.body;
+  if (!id) {
+    return res.status(442).json({ error: "A user _id must be passed in." });
+  }
+  const USER = await User.findById(id);
+
+  if (USER) {
+    return res.json({ WalletID: USER.WalletID });
+  } else {
+    return res.status(442).json({ error: "User not found." });
+  }
 });
