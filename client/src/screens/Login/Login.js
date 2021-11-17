@@ -24,13 +24,17 @@ const Login = ({ history }) => {
   }, [history, userInfo]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
     const form = e.currentTarget;
+    console.log("just made form")
     if (form.checkValidity() === false) {
+      console.log("validity is false")
+      e.preventDefault();
       e.stopPropagation();
     } else{
+      console.log("validity else")
       dispatch(login(username, password));
     }
+    setValidated(true);
   };
 
   return (
