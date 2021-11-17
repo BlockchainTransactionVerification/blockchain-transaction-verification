@@ -24,20 +24,14 @@ const Login = ({ history }) => {
   }, [history, userInfo]);
 
   const submitHandler = (e) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }else{
-      dispatch(login(username, password));
-    }
-    setValidated(true);
+    e.preventDefault();
+    dispatch(login(username, password));
   };
 
   return (
     <div className="loginContainer">
       <div className="formContainer">
-        <Form noValidate validated={validated} onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler}>
           <Form.Group controlId="formBasicUsername">
             <div className="formInput">
               <Form.Label>Username</Form.Label>
