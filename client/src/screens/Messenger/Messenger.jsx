@@ -1,12 +1,13 @@
 import "./messenger.css";
-import Topbar from "../../components/topbar/Topbar";
-import Conversation from "../../components/conversations/Conversation";
+import Topbar from "../../components/Header/header";
+import Conversation from "../../components/Conversations/Conversation.jsx";
 import Message from "../../components/message/Message";
-
+//import MatchesList from "../../components/matches/Matches";
 import { useContext, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
-import { io } from "socket.io-client";
+import { io } from 'socket.io-client';
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -14,7 +15,7 @@ export default function Messenger() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const [onlineUsers, setOnlineUsers] = useState([]);
+  //const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useRef();
   const { user } = useContext(AuthContext);
   const scrollRef = useRef();
@@ -36,16 +37,16 @@ export default function Messenger() {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
       setOnlineUsers(
         user.followings.filter((f) => users.some((u) => u.userId === f))
       );
-    });
-  }, [user]);
+    //});
+  }, [user]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     const getConversations = async () => {
       try {
         const res = await axios.get("/conversations/" + user._id);
@@ -55,7 +56,7 @@ export default function Messenger() {
       }
     };
     getConversations();
-  }, [user._id]);
+  }, [user._id]);*/
 
   useEffect(() => {
     const getMessages = async () => {
@@ -144,7 +145,7 @@ export default function Messenger() {
             )}
           </div>
         </div>
-       
+        
       </div>
     </>
   );
