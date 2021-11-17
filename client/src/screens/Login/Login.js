@@ -33,6 +33,7 @@ const Login = ({ history }) => {
       setValidated(true);
     } else{
       console.log("validity else")
+      e.preventDefault();
       dispatch(login(username, password));
     }
   };
