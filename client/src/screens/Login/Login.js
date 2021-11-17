@@ -30,11 +30,11 @@ const Login = ({ history }) => {
       console.log("validity is false")
       e.preventDefault();
       e.stopPropagation();
+      setValidated(true);
     } else{
       console.log("validity else")
       dispatch(login(username, password));
     }
-    setValidated(true);
   };
 
   return (
