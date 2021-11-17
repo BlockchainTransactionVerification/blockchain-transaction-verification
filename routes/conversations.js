@@ -1,9 +1,12 @@
-const router = require("express").Router();
-const Conversation = require("../models/Conversation");
+//const router = require("express").Router();
+//const Conversation = require("../models/Conversation");
+import Conversation from "../models/Conversation.js";
+import express from "express";
+const conversationRoute = express.Router();
 
 //new conv
 
-router.post("/", async (req, res) => {
+conversationRoute.post("/", async (req, res) => {
   const newConversation = new Conversation({
     members: [req.body.senderId, req.body.receiverId],
   });
@@ -18,7 +21,7 @@ router.post("/", async (req, res) => {
 
 //get conv of a user
 
-router.get("/:userId", async (req, res) => {
+conversationRoute.get("/:userId", async (req, res) => {
   try {
     const conversation = await Conversation.find({
       members: { $in: [req.params.userId] },
@@ -31,7 +34,7 @@ router.get("/:userId", async (req, res) => {
 
 // get conv includes two userId
 
-router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
+conversationRoute.get("/find/:firstUserId/:secondUserId", async (req, res) => {
   try {
     const conversation = await Conversation.findOne({
       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
@@ -41,5 +44,4 @@ router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-module.exports = router;
+ export default conversationRoute;

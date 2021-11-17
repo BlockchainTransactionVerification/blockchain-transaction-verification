@@ -1,9 +1,12 @@
-const router = require("express").Router();
-const Message = require("../models/Message");
+//const router = require("express").Router();
+//const Message = require("../models/Message");
+import Message from "../models/Message.js";
+import express from "express";
+const messageRouter = express.Router();
 
 //add
 
-router.post("/", async (req, res) => {
+messageRouter.post("/", async (req, res) => {
   const newMessage = new Message(req.body);
 
   try {
@@ -16,7 +19,7 @@ router.post("/", async (req, res) => {
 
 //get
 
-router.get("/:conversationId", async (req, res) => {
+messageRouter.get("/:conversationId", async (req, res) => {
   try {
     const messages = await Message.find({
       conversationId: req.params.conversationId,
@@ -27,4 +30,4 @@ router.get("/:conversationId", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default messageRouter;

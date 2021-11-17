@@ -1,14 +1,15 @@
 //import http from "http"
-import logger from "morgan"
+//import logger from "morgan"
 //import socketio from 'socket.io'
 import connectDB from './config/db.js'
 import userRoutes from './routes/userRoute.js'
 import productRoutes from './routes/productRoute.js'
-import conversationRoute from './routes/conversations'
+import conversationRoute from './routes/conversations.js'
 import sopRouter from "./routes/sopRoute.js";
 import uploadRouter from "./routes/uploadRoute.js";
 import fileRouter from "./routes/fileRoute.js";
-import indexRouter from './routes/index.js'
+import messageRouter from './routes/messages.js';
+//import indexRouter from './routes/index.js'
 import transactionRoutes from './routes/transactionRoute.js'
 //import Websockets from './utils/WebSockets.js'
 
@@ -36,7 +37,7 @@ app.use("/api", userRoutes);
 app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
 app.use("/api/conversations", conversationRoute);
-app.use("/api/messages", messageRoute);
+app.use("/api/messages", messageRouter);
 app.use("/apisop", sopRouter);
 app.use("/apiupload", uploadRouter);
 app.use("/apifiles", fileRouter);
