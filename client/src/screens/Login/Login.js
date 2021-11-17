@@ -48,7 +48,7 @@ const Login = ({ history }) => {
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid Username.
+                Please provide a Username.
               </Form.Control.Feedback>
             </div>
           </Form.Group>
@@ -63,6 +63,9 @@ const Login = ({ history }) => {
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <Form.Control.Feedback type="invalid">
+                Please provide a Password.
+              </Form.Control.Feedback>
             </div>
           </Form.Group>
           <div className="btn_container">
