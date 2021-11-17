@@ -28,9 +28,10 @@ const Login = ({ history }) => {
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
+    }else{
+      dispatch(login(username, password));
     }
     setValidated(true);
-    dispatch(login(username, password));
   };
 
   return (
