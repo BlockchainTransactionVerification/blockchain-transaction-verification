@@ -25,7 +25,7 @@ export const login = (username, password) => async (dispatch) => {
     console.log("login frontend base url: " + BASE_URL);
     console.log("plus api: " + BASE_URL + "api/login");
     const { data } = await axios.post(
-      BASE_URL + "api/login",
+      "api/login",
       { Username: username, Password: password },
       config
     );
