@@ -33,7 +33,7 @@ export const uploadFileAction = (file) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      prod_url + "/apiupload/files",
+      prod_url + "apiupload/files",
       file,
       config
     );

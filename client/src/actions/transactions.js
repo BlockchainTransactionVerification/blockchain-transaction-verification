@@ -28,7 +28,7 @@ export const getTransactions = () => async (dispatch, getState) => {
     const fieldName = userInfo.isSeller ? "SellerID" : "BuyerID";
 
     const { data } = await axios.post(
-      BASE_URL + "apitra/getTransaction",
+      "apitra/getTransaction",
       { [fieldName]: userInfo.id },
       config
     );
@@ -70,7 +70,7 @@ export const addTransaction =
       console.log("addTransaction frontside supplier:" + supplier.ProdID);
       console.log("addTransaction frontside supplier:" + userInfo.id);
       const { data } = await axios.post(
-        BASE_URL + "apitra/addTransaction",
+        "apitra/addTransaction",
         {
           BuyerID: userInfo.id,
           SellerID: supplier.SellerID,

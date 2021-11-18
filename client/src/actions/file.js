@@ -30,11 +30,7 @@ export const createFileAction =
         SharedWith: shared,
       };
 
-      const { data } = await axios.post(
-        BASE_URL + "apifiles/createfile",
-        payload,
-        config
-      );
+      const { data } = await axios.post("apifiles/createfile", payload, config);
 
       dispatch({
         type: CREATE_FILE_SUCCESS,
@@ -66,12 +62,7 @@ export const getFileCidAction = (cid) => async (dispatch) => {
       CID: cid,
     };
 
-    const { data } = await axios.post(
-      //"http://localhost:5000/apifiles/getcid"
-      BASE_URL + "apifiles/getcid",
-      payload,
-      config
-    );
+    const { data } = await axios.post("apifiles/getcid", payload, config);
 
     dispatch({
       type: GET_FILE_CID_SUCCESS,

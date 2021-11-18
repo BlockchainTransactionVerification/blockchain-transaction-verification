@@ -7,7 +7,7 @@ export async function Verify(props) {
 
     if (token) {
       await axios
-        .post(BASE_URL + "api/verify", {
+        .post("api/verify", {
           token: token,
         })
         .then(() => {

@@ -26,7 +26,7 @@ export const addProduct =
       };
       //var SellerID = userInfo.id;
       const { data } = await axios.post(
-        BASE_URL + "apisup/addProduct",
+        "apisup/addProduct",
         {
           SellerID,
           ItemName,
@@ -71,7 +71,7 @@ export const getItems =
       };
       //var SellerID = userInfo.id;
       const { data } = await axios.post(
-        BASE_URL + "apisup/getItem",
+        "apisup/getItem",
         {
           ItemName,
           Quantity,

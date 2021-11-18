@@ -67,7 +67,7 @@ export const register =
         },
       };
       const { data } = await axios.post(
-        BASE_URL + "api/register",
+        "api/register",
         {
           Username: username,
           Password: password,
@@ -117,11 +117,7 @@ export const getWalletIdAction = (id) => async (dispatch) => {
 
     const payload = { id: id };
 
-    const { data } = await axios.post(
-      BASE_URL + "api/getwalletid",
-      payload,
-      config
-    );
+    const { data } = await axios.post("api/getwalletid", payload, config);
 
     dispatch({
       type: RETRIEVE_WALLETID_SUCCESS,
