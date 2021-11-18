@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Scroll from "./Scroll";
 import SearchList from "./SearchList.js";
 import axios from "axios";
-import SupplyInfo from "./SupplyInfo";
+//import SupplyInfo from "./SupplyInfo";
+import { BASE_URL } from "../../constants/URLConstant";
 
 var dataResponse = "";
 
@@ -15,7 +16,7 @@ function apiTest(itemName, price, quantity, brand) {
   };
   axios({
     method: "post",
-    url: "https://blkchn-trxn-verif.herokuapp.com/apisup/getItem",
+    url: BASE_URL + "apisup/getItem",
     data: payload,
     headers: {
       "Content-Type": "application/json",

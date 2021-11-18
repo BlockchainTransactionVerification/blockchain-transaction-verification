@@ -10,6 +10,7 @@ import {
   RETRIEVE_WALLETID_SUCCESS,
   RETRIEVE_WALLETID_FAIL,
 } from "../constants/userConstants";
+import { BASE_URL } from "../constants/URLConstant";
 import axios from "axios";
 
 export const login = (username, password) => async (dispatch) => {
@@ -23,8 +24,7 @@ export const login = (username, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      //"http://localhost:5000/api/login",
-      "https://blkchn-trxn-verif.herokuapp.com/api/login",
+      BASE_URL + "api/login",
       { Username: username, Password: password },
       config
     );
@@ -66,8 +66,7 @@ export const register =
         },
       };
       const { data } = await axios.post(
-        //"http://localhost:5000/api/register",
-        "https://blkchn-trxn-verif.herokuapp.com/api/register",
+        BASE_URL + "api/register",
         {
           Username: username,
           Password: password,
@@ -118,8 +117,7 @@ export const getWalletIdAction = (id) => async (dispatch) => {
     const payload = { id: id };
 
     const { data } = await axios.post(
-      // "http://localhost:5000/api/getwalletid"
-      "https://blkchn-trxn-verif.herokuapp.com/api/getwalletid",
+      BASE_URL + "api/getwalletid",
       payload,
       config
     );

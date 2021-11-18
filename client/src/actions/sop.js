@@ -3,6 +3,7 @@ import {
   RETRIEVE_SOP_SUCCESS,
   RETRIEVE_SOP_FAIL,
 } from "../constants/sopConstants";
+import { BASE_URL } from "../constants/URLConstant";
 import axios from "axios";
 
 export const retrieveSopAction = (id) => async (dispatch) => {
@@ -18,9 +19,7 @@ export const retrieveSopAction = (id) => async (dispatch) => {
     const payload = { TransactionID: id };
 
     const { data } = await axios.post(
-      //"http://localhost:5000/apisop/retrieveSOP",
-      /* "https://blkchn-trxn-verif.herokuapp.com/apisop/retrieveSOP" */
-      "https://blkchn-trxn-verif.herokuapp.com/apisop/retrieveSOP",
+      BASE_URL + "apisop/retrieveSOP",
       payload,
       config
     );

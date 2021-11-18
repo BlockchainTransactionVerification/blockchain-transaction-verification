@@ -44,48 +44,55 @@ export const addTransaction = asyncHandler(async (req, res) => {
     Title,
     Documents,
   });
-  const buyIDString = String.toString(BuyerID);
-  const sellIDString = String.toString(SellerID);
-  const buyer = await User.findById(BuyerID);
-  console.log("found buyer");
-  const seller = await User.findById(SellerID);
-  console.log("found seller");
-  if (!buyer || !seller) {
-    console.log("User not found");
-    return res.status(442).json({ error: "User not found" });
-  }
-  transaction.save().then((result, err) => {
-    if (err) {
-      console.log("error saving the transaction");
-      return res.status(442).json({ error: err });
-    }
-  });
+  //const buyIDString = String.toString(BuyerID);
+  //const sellIDString = String.toString(SellerID);
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const hrefLink = "https://blkchn-trxn-verif.herokuapp.com/";
-  const msg = {
-    to: seller.Email, // Change to your recipient
-    from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
-    subject: "New Pending Transaction",
-    text: `Hello ${seller.RepFirstName}, You have a new Pending Transaction`,
-    //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here`,
-    html: `Hello<strong> ${seller.RepFirstName}</strong>,<br><br><a href=${hrefLink}> Click Here </a> and Log in to check out 
-               your new pending transaction from ${buyer.RepFirstName} from ${buyer.CompanyName}`,
-  };
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log("Email sent");
-    })
-    .catch((error) => {
-      console.error(error);
+  try {
+    const buyer = await User.findById(BuyerID);
+    console.log("found buyer");
+    const seller = await User.findById(SellerID);
+    console.log("found seller");
+    if (!buyer || !seller) {
+      console.log("User not found");
+      return res.status(442).json({ error: "User not found" });
+    }
+
+    transaction.save().then((result, err) => {
+      if (err) {
+        console.log("error saving the transaction");
+        return res.status(442).json({ error: err });
+      }
     });
-  res.json({
-    //ID: user.id,
-    transaction,
-    success: true,
-    msg: "User has been successfully activated",
-  });
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const hrefLink = process.env.BASE_URL;
+    const msg = {
+      to: seller.Email, // Change to your recipient
+      from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
+      subject: "New Pending Transaction",
+      text: `Hello ${seller.RepFirstName}, You have a new Pending Transaction`,
+      //html: `Hello<strong> ${Users.FirstName}</strong>,<br><br> Click Here`,
+      html: `Hello<strong> ${seller.RepFirstName}</strong>,<br><br><a href=${hrefLink}> Click Here </a> and Log in to check out 
+                 your new pending transaction from ${buyer.RepFirstName} from ${buyer.CompanyName}`,
+    };
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log("Email sent");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    res.json({
+      //ID: user.id,
+      transaction,
+      success: true,
+      msg: "User has been successfully activated",
+    });
+  } catch {
+    console.log("something happened trying to find buyer and seller");
+    return res.status(442).json({ error: "Buyer or Seller was not found" });
+  }
 });
 
 //get transaction
@@ -99,11 +106,16 @@ export const getTransaction = asyncHandler(async (req, res) => {
   if (!req.body) {
     return res.status(442).json({ error: "ID is missing" });
   }
-  const updates = await Transaction.find(req.body);
-  if (!updates) {
-    return res.status(442).json({ error: "User not found" });
+  try {
+    const updates = await Transaction.find(req.body);
+    if (!updates) {
+      return res.status(442).json({ error: "User not found" });
+    }
+    return res.json(updates);
+  } catch {
+    console.log("something happened finding the transaction");
+    return res.status(442).json({ error: "Transactions not found." });
   }
-  return res.json(updates);
 });
 
 //get documents
@@ -117,11 +129,16 @@ export const getDocuments = asyncHandler(async (req, res) => {
   if (!req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
-  const updates = await Transaction.findById(req.body.id, "Documents");
-  if (!updates) {
-    return res.status(442).json({ error: "User not found" });
+  try {
+    const updates = await Transaction.findById(req.body.id, "Documents");
+    if (!updates) {
+      return res.status(442).json({ error: "User not found" });
+    }
+    return res.json(updates);
+  } catch {
+    console.log("something happened retrieving the documents");
+    return res.status(442).json({ error: "documents could not be found." });
   }
-  return res.json(updates);
 });
 
 export const getPendingTransaction = asyncHandler(async (req, res) => {
@@ -143,21 +160,29 @@ export const updateDocuments = asyncHandler(async (req, res) => {
   if (!req.body.Documents) {
     return res.status(442).json({ error: "Documents is missing" });
   }
-  const updates = await Transaction.findById(req.body.id);
-  if (!updates) {
-    return res.status(442).json({ error: "Transaction not found" });
-  }
-  updates.Documents = req.body.Documents;
-  updates.save().then((result, err) => {
-    if (err) {
-      return res.status(442).json({ error: err });
-    } else {
-      return res.json({
-        success: true,
-        msg: "User has been successfully edited",
-      });
+
+  try {
+    const updates = await Transaction.findById(req.body.id);
+    if (!updates) {
+      return res.status(442).json({ error: "Transaction not found" });
     }
-  });
+    updates.Documents = req.body.Documents;
+    updates.save().then((result, err) => {
+      if (err) {
+        return res.status(442).json({ error: err });
+      } else {
+        return res.json({
+          success: true,
+          msg: "User has been successfully edited",
+        });
+      }
+    });
+  } catch {
+    console.log("something happened retrieving the transaction");
+    return res
+      .status(442)
+      .json({ error: "something happened retrieving the transaction" });
+  }
 });
 
 //Set the Title
@@ -171,21 +196,29 @@ export const setTitle = asyncHandler(async (req, res) => {
   if (!req.body.Title || !req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
-  const updates = await Transaction.findById(req.body.id);
-  if (!updates) {
-    return res.status(442).json({ error: "Transaction not found" });
-  }
-  updates.Title = req.body.Title;
-  updates.save().then((result, err) => {
-    if (err) {
-      return res.status(442).json({ error: err });
-    } else {
-      return res.json({
-        success: true,
-        msg: "Title has been successfully edited",
-      });
+
+  try {
+    const updates = await Transaction.findById(req.body.id);
+    if (!updates) {
+      return res.status(442).json({ error: "Transaction not found" });
     }
-  });
+    updates.Title = req.body.Title;
+    updates.save().then((result, err) => {
+      if (err) {
+        return res.status(442).json({ error: err });
+      } else {
+        return res.json({
+          success: true,
+          msg: "Title has been successfully edited",
+        });
+      }
+    });
+  } catch {
+    console.log("something happened retrieving the transaction");
+    return res
+      .status(442)
+      .json({ error: "something happened retrieving the transaction" });
+  }
 });
 
 //Set the Transaction URL for IPFS
@@ -199,21 +232,29 @@ export const setURL = asyncHandler(async (req, res) => {
   if (!req.body.TransactionURL || !req.body.id) {
     return res.status(442).json({ error: "Transaction ID is missing" });
   }
-  const updates = await Transaction.findById(req.body.id);
-  if (!updates) {
-    return res.status(442).json({ error: "Transaction not found" });
-  }
-  updates.TransactionURL = req.body.TransactionURL;
-  updates.save().then((result, err) => {
-    if (err) {
-      return res.status(442).json({ error: err });
-    } else {
-      return res.json({
-        success: true,
-        msg: "TransactionURL has been successfully edited",
-      });
+
+  try {
+    const updates = await Transaction.findById(req.body.id);
+    if (!updates) {
+      return res.status(442).json({ error: "Transaction not found" });
     }
-  });
+    updates.TransactionURL = req.body.TransactionURL;
+    updates.save().then((result, err) => {
+      if (err) {
+        return res.status(442).json({ error: err });
+      } else {
+        return res.json({
+          success: true,
+          msg: "TransactionURL has been successfully edited",
+        });
+      }
+    });
+  } catch {
+    console.log("something happened retrieving the transaction");
+    return res
+      .status(442)
+      .json({ error: "something happened retrieving the transaction" });
+  }
 });
 
 export const updateTransactionStatus = asyncHandler(async (req, res) => {
@@ -235,23 +276,30 @@ export const updateTransactionStatus = asyncHandler(async (req, res) => {
     }
   }
 
-  const updates = await Transaction.findById(req.body.id);
+  try {
+    const updates = await Transaction.findById(req.body.id);
 
-  if (!updates) {
-    return res.status(442).json({ error: "Transaction not found." });
-  }
-
-  updates.Active = req.body.Active;
-  updates.Pending = req.body.Pending;
-
-  updates.save().then((result, err) => {
-    if (err) {
-      return res.status(442).json({ error: err });
-    } else {
-      return res.json({
-        success: true,
-        msg: "Transaction status has been successfully updated.",
-      });
+    if (!updates) {
+      return res.status(442).json({ error: "Transaction not found." });
     }
-  });
+
+    updates.Active = req.body.Active;
+    updates.Pending = req.body.Pending;
+
+    updates.save().then((result, err) => {
+      if (err) {
+        return res.status(442).json({ error: err });
+      } else {
+        return res.json({
+          success: true,
+          msg: "Transaction status has been successfully updated.",
+        });
+      }
+    });
+  } catch {
+    console.log("something happened retrieving the transaction");
+    return res
+      .status(442)
+      .json({ error: "something happened retrieving the transaction" });
+  }
 });

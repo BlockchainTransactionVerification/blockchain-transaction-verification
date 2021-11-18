@@ -68,10 +68,10 @@ export const registerUser = asyncHandler(async (req, res) => {
             console.log(err);
           });
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const hrefLink = `https://blkchn-trxn-verif.herokuapp.com/api/verify/${Users.temporarytoken}`;
+        const hrefLink = `https://wownice.club/api/verify/${Users.temporarytoken}`;
         //"http://localhost:5000/api/verify/" + Users.temporarytoken;
         console.log("href : " + hrefLink);
-      console.log("token : " + Users.temporarytoken);
+        console.log("token : " + Users.temporarytoken);
         const msg = {
           to: Users.Email, // Change to your recipient
           from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
@@ -207,10 +207,7 @@ export const verifyUser = asyncHandler(async (req, res) => {
       } else if (!user) {
         console.log("no user found");
         //res.status(442).json({ error: "no user found" });
-        return res.redirect(
-          303,
-          "https://blkchn-trxn-verif.herokuapp.com/login"
-        );
+        return res.redirect(303, process.env.BASE_URL + "login");
       } else {
         user.temporarytoken = false; // Remove temporary token
         user.active = true; // Change account status to Activated
@@ -260,30 +257,34 @@ export const verifyUser = asyncHandler(async (req, res) => {
 
 export const updateUser = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  if (!req.body.id) {
-    return res.status(442).json({ error: "ID is missing" });
-  }
-  const updates = await User.findById(req.body.id);
-  if (!updates) {
+  try {
+    if (!req.body.id) {
+      return res.status(442).json({ error: "ID is missing" });
+    }
+    const updates = await User.findById(req.body.id);
+    if (!updates) {
+      return res.status(442).json({ error: "User not found" });
+    }
+
+    for (var fieldName in req.body) {
+      if (req.body[fieldName]) {
+        updates[fieldName] = req.body[fieldName];
+      }
+    }
+
+    updates.save().then((result, err) => {
+      if (err) {
+        return res.status(442).json({ error: err });
+      } else {
+        return res.json({
+          success: true,
+          msg: "User has been successfully edited",
+        });
+      }
+    });
+  } catch {
     return res.status(442).json({ error: "User not found" });
   }
-
-  for (var fieldName in req.body) {
-    if (req.body[fieldName]) {
-      updates[fieldName] = req.body[fieldName];
-    }
-  }
-
-  updates.save().then((result, err) => {
-    if (err) {
-      return res.status(442).json({ error: err });
-    } else {
-      return res.json({
-        success: true,
-        msg: "User has been successfully edited",
-      });
-    }
-  });
 });
 
 export const registerUserMobile = asyncHandler(async (req, res) => {
@@ -438,8 +439,7 @@ export const passResetEmail = asyncHandler(async (req, res) => {
       console.log("saved successfully");
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       const hrefLink =
-        "https://blkchn-trxn-verif.herokuapp.com/api/ResetPassword/" +
-        user.temporarytoken;
+        process.env.BASE_URL + "api/ResetPassword/" + user.temporarytoken;
       //"https://localhost:5000/api/ResetPassword/" + user.temporarytoken;
       const msg = {
         to: user.Email, // Change to your recipient

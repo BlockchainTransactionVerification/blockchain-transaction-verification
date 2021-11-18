@@ -6,6 +6,7 @@ import {
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "../constants/URLConstant";
 
 export const addProduct =
   (ItemName, Quantity, Quality, Price, Brand, Region, ProdRate, ShipRestrict) =>
@@ -25,8 +26,7 @@ export const addProduct =
       };
       //var SellerID = userInfo.id;
       const { data } = await axios.post(
-        //"http://localhost:5000/apisup/addProduct",
-        "https://blkchn-trxn-verif.herokuapp.com/apisup/addProduct",
+        BASE_URL + "apisup/addProduct",
         {
           SellerID,
           ItemName,
@@ -71,8 +71,7 @@ export const getItems =
       };
       //var SellerID = userInfo.id;
       const { data } = await axios.post(
-        //"http://localhost:5000/apisup/addProduct",
-        "https://blkchn-trxn-verif.herokuapp.com/apisup/getItem",
+        BASE_URL + "apisup/getItem",
         {
           ItemName,
           Quantity,

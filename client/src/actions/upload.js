@@ -3,10 +3,11 @@ import {
   UPLOAD_FILE_SUCCESS,
   UPLOAD_FILE_FAIL,
 } from "../constants/uploadConstants";
+import { BASE_URL } from "../constants/URLConstant";
 import axios from "axios";
 
 const url = "http://localhost:5000";
-const prod_url = "https://blkchn-trxn-verif.herokuapp.com";
+const prod_url = BASE_URL;
 
 export const uploadFileAction = (file) => async (dispatch) => {
   // try

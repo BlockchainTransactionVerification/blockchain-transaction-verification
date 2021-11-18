@@ -53,7 +53,7 @@ export const createSOP = asyncHandler(async (req, res) => {
   }
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const hrefLink = "https://blkchn-trxn-verif.herokuapp.com/";
+  const hrefLink = process.env.BASE_URL;
   const msg = {
     to: buyer.Email, // Change to your recipient
     from: "BlockChainUCFSD@gmail.com", // Change to your verified sender

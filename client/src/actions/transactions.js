@@ -6,6 +6,7 @@ import {
   ADD_TRANSACTION_SUCCESS,
   ADD_TRANSACTION_FAIL,
 } from "../constants/transactionConstants";
+import { BASE_URL } from "../constants/URLConstant";
 import axios from "axios";
 
 export const getTransactions = () => async (dispatch, getState) => {
@@ -27,8 +28,7 @@ export const getTransactions = () => async (dispatch, getState) => {
     const fieldName = userInfo.isSeller ? "SellerID" : "BuyerID";
 
     const { data } = await axios.post(
-      //"http://localhost:5000/apitra/getTransaction",
-      "https://blkchn-trxn-verif.herokuapp.com/apitra/getTransaction",
+      BASE_URL + "apitra/getTransaction",
       { [fieldName]: userInfo.id },
       config
     );
@@ -70,8 +70,7 @@ export const addTransaction =
       console.log("addTransaction frontside supplier:" + supplier.ProdID);
       console.log("addTransaction frontside supplier:" + userInfo.id);
       const { data } = await axios.post(
-        //"http://localhost:5000/apitra/addTransaction",
-        "https://blkchn-trxn-verif.herokuapp.com/apitra/addTransaction",
+        BASE_URL + "apitra/addTransaction",
         {
           BuyerID: userInfo.id,
           SellerID: supplier.SellerID,

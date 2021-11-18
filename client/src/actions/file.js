@@ -6,6 +6,7 @@ import {
   GET_FILE_CID_SUCCESS,
   GET_FILE_CID_FAIL,
 } from "../constants/fileConstants";
+import { BASE_URL } from "../constants/URLConstant";
 import axios from "axios";
 
 export const createFileAction =
@@ -30,8 +31,7 @@ export const createFileAction =
       };
 
       const { data } = await axios.post(
-        // "http://localhost:5000/apifiles/createfile"
-        "https://blkchn-trxn-verif.herokuapp.com/apifiles/createfile",
+        BASE_URL + "apifiles/createfile",
         payload,
         config
       );
@@ -68,7 +68,7 @@ export const getFileCidAction = (cid) => async (dispatch) => {
 
     const { data } = await axios.post(
       //"http://localhost:5000/apifiles/getcid"
-      "https://blkchn-trxn-verif.herokuapp.com/apifiles/getcid",
+      BASE_URL + "apifiles/getcid",
       payload,
       config
     );
