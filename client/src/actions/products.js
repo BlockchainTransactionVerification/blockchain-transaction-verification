@@ -69,10 +69,8 @@ export const getItems =
           "x-auth-token": token,
         },
       };
-      //var SellerID = userInfo.id;
-      console.log("getItems baseURL: " + axios.defaults.baseURL);
-      axios.defaults.baseURL = "wownice.club";
-      console.log("getItems baseURL: " + axios.defaults.baseURL);
+
+      //console.log("getItems baseURL: " + axios.defaults.baseURL);
       //axios.defaults.baseURL = "wownice.club/";
       const { data } = await axios.post(
         "apisup/getItem",

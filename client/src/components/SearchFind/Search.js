@@ -16,7 +16,7 @@ function apiTest(itemName, price, quantity, brand) {
   };
   axios({
     method: "post",
-    url: BASE_URL + "apisup/getItem",
+    url: "apisup/getItem",
     data: payload,
     headers: {
       "Content-Type": "application/json",
