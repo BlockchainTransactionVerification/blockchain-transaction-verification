@@ -8,6 +8,7 @@ import axios from "axios";
 
 export const retrieveSopAction = (id) => async (dispatch) => {
   try {
+    console.log("in actionsSOP : " + axios.defaults.baseURL);
     dispatch({ type: RETRIEVE_SOP_REQUEST });
 
     const config = {
@@ -17,9 +18,7 @@ export const retrieveSopAction = (id) => async (dispatch) => {
     };
 
     const payload = { TransactionID: id };
-
     const { data } = await axios.post("apisop/retrieveSOP", payload, config);
-
     dispatch({
       type: RETRIEVE_SOP_SUCCESS,
       payload: data,
