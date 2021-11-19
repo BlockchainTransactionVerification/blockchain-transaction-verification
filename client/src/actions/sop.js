@@ -18,7 +18,7 @@ export const retrieveSopAction = (id) => async (dispatch) => {
 
     const payload = { TransactionID: id };
 
-    const { data } = await axios.post("apisop/retrieveSOP", payload, config);
+    const { data } = await axios.post(`apisop/retrieveSOP`, payload, config);
 
     dispatch({
       type: RETRIEVE_SOP_SUCCESS,
