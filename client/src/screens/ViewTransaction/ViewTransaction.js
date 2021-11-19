@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveSopAction } from "../../actions/sop";
 import { Button, Table } from "react-bootstrap";
@@ -10,11 +9,10 @@ import {
   getSelectedAccount,
 } from "../../components/Web3Client/Web3Client.js";
 
-const ViewTransaction = ({ history }) => {
+const ViewTransaction = ({ match, history }) => {
   const [modalShow, setModalShow] = useState(false);
   const [modalRowID, setModalRowID] = useState("");
-  const location = useLocation();
-  const { TransactionID } = location.state;
+  const { TransactionID } = match.params.id;
 
   // Invalid hook call error will be thrown if you do not add () to useDispatch!
   const dispatch = useDispatch();
