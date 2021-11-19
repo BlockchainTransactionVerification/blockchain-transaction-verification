@@ -55,14 +55,7 @@ function SellerHome({ history }) {
         return (
           <div key={id}>
             <ListGroup.Item>
-              <Link
-                to={{
-                  pathname: transaction.TransactionURL,
-                  state: { TransactionID: transaction._id },
-                }}
-              >
-                {transaction.Title}
-              </Link>
+              <a href={transaction.TransactionURL}>{transaction.Title}</a>
             </ListGroup.Item>
           </div>
         );
