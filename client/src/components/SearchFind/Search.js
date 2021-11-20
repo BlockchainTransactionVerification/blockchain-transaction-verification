@@ -4,6 +4,7 @@ import SearchList from "./SearchList.js";
 import axios from "axios";
 //import SupplyInfo from "./SupplyInfo";
 import { BASE_URL } from "../../constants/URLConstant";
+import CustomAccoridon from './CustomAccoridon' 
 
 var dataResponse = "";
 
@@ -123,11 +124,19 @@ function Search({ details }) {
   };
 
   function searchList() {
+    /*
     return (
       <Scroll>
         <SearchList filteredItems={filteredPersons} />
       </Scroll>
     );
+    */
+
+    return (
+      <Scroll>
+        <CustomAccoridon filteredItems={filteredPersons} />
+      </Scroll>
+    )
   }
 
   return (
