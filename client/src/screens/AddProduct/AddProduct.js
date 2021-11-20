@@ -13,6 +13,7 @@ const AddProduct = ({ history }) => {
   const [Region, setRegion] = useState("");
   const [ProdRate, setProdRate] = useState("");
   const [ShipRestrict, setShipRestrict] = useState("");
+  const [isOnGround, setisOnGround] = useState("");
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -44,7 +45,8 @@ const AddProduct = ({ history }) => {
           Brand,
           Region,
           ProdRate,
-          ShipRestrict
+          ShipRestrict,
+          isOnGround
         )
       );
     }
@@ -140,6 +142,22 @@ const AddProduct = ({ history }) => {
             onChange={(e) => setShipRestrict(e.target.value)}
           />
         </Form.Group>
+        <Form.Group controlId="formBasicIsOnGround">
+          <Form.Label>Is this Product on the Ground?</Form.Label>
+          <Form.Control
+            required
+            as="select"
+            aria-label="Default select example"
+            value={isOnGround}
+            defaultValue={"Choose..."}
+            onChange={(e) => setisOnGround(e.target.value)}
+          >
+            <option value="">Choose...</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </Form.Control>
+        </Form.Group>
+
         <div className="btn_container">
           <Button variant="primary" type="submit">
             Add Product

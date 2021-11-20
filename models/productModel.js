@@ -42,7 +42,7 @@ const supplySchema = mongoose.Schema({
   },
   isOnGround: {
     type: Boolean,
-    required: false,
+    required: true,
   },
 });
 

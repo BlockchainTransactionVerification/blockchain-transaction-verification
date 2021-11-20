@@ -14,6 +14,7 @@ export const addProduct = asyncHandler(async (req, res) => {
     Region,
     ProdRate,
     ShipRestrict,
+    isOnGround,
   } = req.body;
   if (!SellerID || !ItemName) {
     return res.status(442).json({ error: "please add all the fields" });
@@ -30,6 +31,7 @@ export const addProduct = asyncHandler(async (req, res) => {
     Region,
     ProdRate,
     ShipRestrict,
+    isOnGround,
   });
   Supplies.save()
     .then(() => {
@@ -47,10 +49,38 @@ export const addProduct = asyncHandler(async (req, res) => {
 //input: ItemName, Quantity, Price, supplier
 export const getItems = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  const { ItemName, Quantity, Price, Brand, isOnGround } = req.body;
-  if (!ItemName || !Quantity || !Price || !Brand) {
+  var { ItemName, Quantity, Price, Brand, isOnGround } = req.body;
+  /* if (!ItemName || !Quantity || !Price || !Brand) {
     return res.status(442).json({ error: "please add all the fields" });
+  } */
+
+  var query = [];
+
+  if (ItemName === "" || ItemName == null) {
+    console.log("query name");
+    ItemName = " ";
   }
+  if (Quantity == null) {
+    Quantity = 0;
+  }
+  if (Price == null) {
+    Price = 0;
+  }
+  if (Brand === "" || Brand == null) {
+    Brand = " ";
+  }
+
+  /*   if (isOnGround) {
+    if (query.length == 4) {
+      return res.json(groundAllFields(ItemName, Quantity, Price, Brand));
+    } else if (null) {
+    }
+  } else {
+  }*/
+  console.log("query name: " + ItemName);
+  console.log("query quan: " + Quantity);
+  console.log("query price: " + Price);
+  console.log("query brand: " + Brand);
 
   if (isOnGround) {
     Supply.find({

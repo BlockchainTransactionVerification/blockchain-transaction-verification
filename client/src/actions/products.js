@@ -9,7 +9,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../constants/URLConstant";
 
 export const addProduct =
-  (ItemName, Quantity, Quality, Price, Brand, Region, ProdRate, ShipRestrict) =>
+  (
+    ItemName,
+    Quantity,
+    Quality,
+    Price,
+    Brand,
+    Region,
+    ProdRate,
+    ShipRestrict,
+    isOnGround
+  ) =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: ADD_PRODUCT_REQUEST });
@@ -37,6 +47,7 @@ export const addProduct =
           Region,
           ProdRate,
           ShipRestrict,
+          isOnGround,
         },
         config
       );
