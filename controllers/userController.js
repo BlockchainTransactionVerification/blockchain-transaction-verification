@@ -68,7 +68,7 @@ export const registerUser = asyncHandler(async (req, res) => {
             console.log(err);
           });
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const hrefLink = `https://wownice.club/api/verify/${Users.temporarytoken}`;
+        const hrefLink = `http://wownice.club/api/verify/${Users.temporarytoken}`;
         //"http://localhost:5000/api/verify/" + Users.temporarytoken;
         console.log("href : " + hrefLink);
         console.log("token : " + Users.temporarytoken);
@@ -122,12 +122,12 @@ export const loginUser = asyncHandler(async (req, res) => {
     if (!savedUser) {
       console.log("username is scuffed");
       return res
-        .status(442)
+        .status(401)
         .json({ error: "Please add both Email and Password" });
     }
     if (savedUser.active == false) {
       console.log("user not verified");
-      return res.status(442).json({ error: "the user is not verified" });
+      return res.status(401).json({ error: "the user is not verified" });
     }
     bcrypt
       .compare(Password, savedUser.Password)
@@ -158,7 +158,7 @@ export const loginUser = asyncHandler(async (req, res) => {
         } else {
           console.log("pass is scuffed");
           return res
-            .status(442)
+            .status(401)
             .json({ error: "Please add both Email and Password" });
         }
       })
@@ -236,10 +236,7 @@ export const verifyUser = asyncHandler(async (req, res) => {
               .catch((error) => {
                 console.error(error);
               });
-            res.json({
-              success: true,
-              msg: "User has been successfully activated",
-            });
+            return res.redirect(303, process.env.BASE_URL + "login");
             //res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
             //res.redirect(303, "http://localhost:3000/login");
           }
