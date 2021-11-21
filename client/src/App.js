@@ -9,6 +9,7 @@ import RegistrationForm from "./screens/Register/Register";
 import { Verify } from "./actions/Verify";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/header";
+//import Messenger from "./screens/Messenger/Messenger";
 import NavBar from "./components/NavBar/index";
 import ViewTransaction from "./screens/ViewTransaction/ViewTransaction";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -37,6 +38,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/buyerhome" component={BuyerHome} />
             <Route path="/transaction/:id" component={ViewTransaction} />
+            //<Route path="/messenger" component={Messenger} />
             <Route path="/sellerhome" component={SellerHome} />
             <Route path="/addProduct" component={AddProduct} />
             <Route path="/verify" component={Verify} />
