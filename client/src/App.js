@@ -38,7 +38,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/buyerhome" component={BuyerHome} />
             <Route path="/transaction/:id" component={ViewTransaction} />
-            //<Route path="/messenger" component={Messenger} />
+           
             <Route path="/sellerhome" component={SellerHome} />
             <Route path="/addProduct" component={AddProduct} />
             <Route path="/verify" component={Verify} />
