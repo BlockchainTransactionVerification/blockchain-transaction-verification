@@ -207,7 +207,7 @@ export const verifyUser = asyncHandler(async (req, res) => {
       } else if (!user) {
         console.log("no user found");
         //res.status(442).json({ error: "no user found" });
-        return res.redirect(303, process.env.BASE_URL + "login");
+        return res.redirect(303, "login");
       } else {
         user.temporarytoken = false; // Remove temporary token
         user.active = true; // Change account status to Activated
@@ -236,7 +236,7 @@ export const verifyUser = asyncHandler(async (req, res) => {
               .catch((error) => {
                 console.error(error);
               });
-            return res.redirect(303, "http://wownice.club/login");
+            return res.redirect(303, "/login");
             //res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
             //res.redirect(303, "http://localhost:3000/login");
           }
