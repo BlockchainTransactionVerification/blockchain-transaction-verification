@@ -5,9 +5,11 @@ import { addTransaction, getTransactions } from "../../actions/transactions";
 import { Button, Tabs, Tab, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import VerticallyCenteredModal from "../../components/VerticallyCenteredModal/VerticallyCenteredModal";
+import AddProductModal from "../../components/AddProductModal/AddProductModal";
 
 function SellerHome({ history }) {
   const [modalShow, setModalShow] = React.useState(false);
+  const [AddProductModalShow, setAddProductModalShow] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -101,7 +103,13 @@ function SellerHome({ history }) {
           <p>Complete</p>
         </Tab>
       </Tabs>
-      <button onClick={addProductHandler}>Add Product</button>
+      <Button variant="primary" onClick={() => setAddProductModalShow(true)}>
+        Add Product
+      </Button>
+      <AddProductModal
+        show={AddProductModalShow}
+        onHide={() => setAddProductModalShow(false)}
+      />
     </div>
   );
 }
