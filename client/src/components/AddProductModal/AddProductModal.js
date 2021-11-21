@@ -13,21 +13,21 @@ function AddProductModal(props) {
   const [ProdRate, setProdRate] = useState("");
   const [ShipRestrict, setShipRestrict] = useState("");
   const [isOnGround, setisOnGround] = useState("");
+  const [validated, setValidated] = useState(false);
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    console.log("hitting handler");
-    if (
-      ItemName &&
-      Quantity &&
-      Quality &&
-      Price &&
-      Brand &&
-      Region &&
-      ProdRate &&
-      ShipRestrict
-    ) {
+    const form = e.currentTarget;
+    console.log("just made form");
+    if (form.checkValidity() === false) {
+      console.log("validity is false");
+      e.preventDefault();
+      e.stopPropagation();
+      setValidated(true);
+    } else {
+      console.log("validity else");
+      e.preventDefault();
+      console.log("hitting handler");
       console.log("inside IF");
       dispatch(
         addProduct(
@@ -55,12 +55,13 @@ function AddProductModal(props) {
       <Modal.Body>
         <h4>Add Product</h4>
         <div className="AddProductContainer">
-          <Form onSubmit={submitHandler}>
+          <Form noValidate validated={validated} onSubmit={submitHandler}>
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="formBasicItemName">
                   <Form.Label className="addProductInput">Item Name</Form.Label>
                   <Form.Control
+                    required
                     type="ItemName"
                     value={ItemName}
                     placeholder="Enter the Name of the Item"
@@ -72,6 +73,7 @@ function AddProductModal(props) {
                 <Form.Group className="mb-3" controlId="formBasicQuantity">
                   <Form.Label className="addProductInput">Quantity</Form.Label>
                   <Form.Control
+                    required
                     type="Quantity"
                     value={Quantity}
                     placeholder="Enter the Quantity"
@@ -85,6 +87,7 @@ function AddProductModal(props) {
                 <Form.Group className="mb-3" controlId="formBasicQuality">
                   <Form.Label className="addProductInput">Quality</Form.Label>
                   <Form.Control
+                    required
                     type="Quality"
                     value={Quality}
                     placeholder="Enter the Item Quality"
@@ -96,6 +99,7 @@ function AddProductModal(props) {
                 <Form.Group className="mb-3" controlId="formBasicPrice">
                   <Form.Label>Price</Form.Label>
                   <Form.Control
+                    required
                     type="Price"
                     value={Price}
                     placeholder="Enter the Item Price per Unit"
@@ -109,6 +113,7 @@ function AddProductModal(props) {
                 <Form.Group className="mb-3" controlId="formBasicBrand">
                   <Form.Label>Brand</Form.Label>
                   <Form.Control
+                    required
                     type="Brand"
                     value={Brand}
                     placeholder="Enter the Item Brand"
@@ -120,6 +125,7 @@ function AddProductModal(props) {
                 <Form.Group className="mb-3" controlId="formBasicRegion">
                   <Form.Label>Region</Form.Label>
                   <Form.Control
+                    required
                     type="Region"
                     value={Region}
                     placeholder="Enter the Region the product will ship from"
@@ -133,6 +139,7 @@ function AddProductModal(props) {
                 <Form.Group className="mb-3" controlId="formBasicProdRate">
                   <Form.Label>Production Rate</Form.Label>
                   <Form.Control
+                    required
                     type="ProdRate"
                     value={ProdRate}
                     placeholder="Enter the Item Production Rate"
@@ -144,6 +151,7 @@ function AddProductModal(props) {
                 <Form.Group className="mb-3" controlId="formBasicShipRestrict">
                   <Form.Label>Shipping Restrictions</Form.Label>
                   <Form.Control
+                    required
                     type="ShipRestrict"
                     value={ShipRestrict}
                     placeholder="Enter any Shipping Restrictions"
