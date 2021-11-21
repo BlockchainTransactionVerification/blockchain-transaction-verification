@@ -236,7 +236,7 @@ export const verifyUser = asyncHandler(async (req, res) => {
               .catch((error) => {
                 console.error(error);
               });
-            return res.redirect(303, process.env.BASE_URL + "login");
+            return res.redirect(303, "http://wownice.club/login");
             //res.redirect(303, "https://blkchn-trxn-verif.herokuapp.com/login");
             //res.redirect(303, "http://localhost:3000/login");
           }
