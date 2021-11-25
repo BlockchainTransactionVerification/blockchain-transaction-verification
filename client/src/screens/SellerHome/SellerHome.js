@@ -75,9 +75,6 @@ function SellerHome({ history }) {
     dispatch(logout());
     history.push("/login");
   };
-  const addProductHandler = () => {
-    history.push("/addProduct");
-  };
 
   return (
     <div>

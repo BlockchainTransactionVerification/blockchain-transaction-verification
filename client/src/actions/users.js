@@ -34,6 +34,7 @@ export const login = (username, password) => async (dispatch) => {
 
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
+    alert("Username or Password is incorrect");
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
@@ -90,6 +91,7 @@ export const register =
 
       //localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
+      alert("Username or Email is Taken");
       dispatch({
         type: USER_REGISTER_FAIL,
         payload:

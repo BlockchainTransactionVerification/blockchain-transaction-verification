@@ -69,18 +69,10 @@ export const getItems = asyncHandler(async (req, res) => {
   if (Brand === "" || Brand == null) {
     Brand = " ";
   }
-
-  /*   if (isOnGround) {
-    if (query.length == 4) {
-      return res.json(groundAllFields(ItemName, Quantity, Price, Brand));
-    } else if (null) {
-    }
-  } else {
-  }*/
   console.log("query name: " + ItemName);
   console.log("query quan: " + Quantity);
   console.log("query price: " + Price);
-  console.log("query brand: " + Brand);
+  console.log("is ground: " + isOnGround);
 
   if (isOnGround) {
     Supply.find({

@@ -42,6 +42,7 @@ function AddProductModal(props) {
           isOnGround
         )
       );
+      alert("Item submitted to the Market!");
     }
   };
 
