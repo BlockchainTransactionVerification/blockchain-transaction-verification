@@ -170,7 +170,7 @@ const ViewTransaction = ({ match, history }) => {
 
   const CheckIfComplete = () => {
     var allDone = [];
-    var doneFlag = true;
+    var doneFlag = false;
 
     if (sops) {
       sops.map((sop) => {
@@ -192,6 +192,8 @@ const ViewTransaction = ({ match, history }) => {
     for (const element of allDone) {
       if (element === false) {
         doneFlag = false;
+      } else {
+        doneFlag = true;
       }
     }
 
