@@ -1,25 +1,24 @@
 //import http from "http"
 //import logger from "morgan"
 //import socketio from 'socket.io'
-import connectDB from './config/db.js'
-import userRoutes from './routes/userRoute.js'
-import productRoutes from './routes/productRoute.js'
-import conversationRoute from './routes/conversations.js'
+import connectDB from "./config/db.js";
+import userRoutes from "./routes/userRoute.js";
+import productRoutes from "./routes/productRoute.js";
+import conversationRoute from "./routes/conversations.js";
 import sopRouter from "./routes/sopRoute.js";
 import uploadRouter from "./routes/uploadRoute.js";
 import fileRouter from "./routes/fileRoute.js";
-import messageRouter from './routes/messages.js';
+import messageRouter from "./routes/messages.js";
 //import indexRouter from './routes/index.js'
-import transactionRoutes from './routes/transactionRoute.js'
+import transactionRoutes from "./routes/transactionRoute.js";
 //import Websockets from './utils/WebSockets.js'
 
-import express from 'express'
-import dotenv  from 'dotenv'
-import cors from 'cors'
-import path from 'path'
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import path from "path";
 
 const PORT = process.env.PORT || 3000;
-
 
 connectDB();
 
@@ -34,6 +33,7 @@ const __dirname = path.resolve();
 //Creating API for user
 
 app.use("/api", userRoutes);
+app.use("/transaction", transactionRoutes);
 app.use("/apisup", productRoutes);
 app.use("/apitra", transactionRoutes);
 app.use("/api/conversations", conversationRoute);

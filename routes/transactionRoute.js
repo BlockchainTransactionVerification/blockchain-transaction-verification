@@ -6,6 +6,8 @@ import {
   updateTransactionStatus,
   getPendingTransaction,
 } from "../controllers/transactionController.js";
+
+import { createSOP, retrieveSOP } from "../controllers/sopController.js";
 import express from "express";
 
 import transaction from "../models/transactionModel.js";
@@ -28,5 +30,15 @@ transactionRouter.route("/getTransaction").post(getTransaction);
 transactionRouter
   .route("/updateTransactionStatus")
   .post(updateTransactionStatus);
+
+transactionRouter
+  .route("/apitra/updateTransactionStatus")
+  .post(updateTransactionStatus);
+
+// Create SOP
+sopRouter.route("/apisop/createSOP").post(createSOP);
+
+// Retrieve SOP
+sopRouter.route("/apisop/retrieveSOP").post(retrieveSOP);
 
 export default transactionRouter;
