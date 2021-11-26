@@ -26,7 +26,7 @@ transactionRouter.route("/getTransaction").post(getTransaction);
 
 // express router method to create a route to update a transaction from pending to active, or from active to complete
 transactionRouter
-  .route("updateTransactionStatus")
+  .route("/updateTransactionStatus")
   .post(updateTransactionStatus);
 
 export default transactionRouter;
