@@ -36,9 +36,9 @@ transactionRouter
   .post(updateTransactionStatus);
 
 // Create SOP
-sopRouter.route("/apisop/createSOP").post(createSOP);
+transactionRouter.route("/apisop/createSOP").post(createSOP);
 
 // Retrieve SOP
-sopRouter.route("/apisop/retrieveSOP").post(retrieveSOP);
+transactionRouter.route("/apisop/retrieveSOP").post(retrieveSOP);
 
 export default transactionRouter;
