@@ -74,7 +74,7 @@ const ViewTransaction = ({ match, history }) => {
 
     if (account) {
       const { data } = await axios.post(
-        BASE_URL + "apifiles/getcid",
+        "apifiles/getcid",
         {
           rdid: rowID,
         },
@@ -156,7 +156,7 @@ const ViewTransaction = ({ match, history }) => {
 
   const updateStatus = async () => {
     const { data } = await axios.post(
-      BASE_URL + "apitra/updateTransactionStatus",
+      "apitra/updateTransactionStatus",
       {
         id: TransactionID,
         Active: false,
