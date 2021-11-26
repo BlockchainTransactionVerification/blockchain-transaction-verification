@@ -23,6 +23,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     RepFirstName,
     RepLastName,
     Position,
+    WalletID,
     isSeller,
   } = req.body;
   if (!Username || !Password || !Email) {
