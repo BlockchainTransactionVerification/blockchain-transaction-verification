@@ -62,11 +62,7 @@ export const createSopAction =
       };
 
       console.log("Trying to get data...");
-      const { data } = await axios.post(
-        BASE_URL + "apisop/createSOP",
-        payload,
-        config
-      );
+      const { data } = await axios.post("apisop/createSOP", payload, config);
 
       if (data) {
         console.log("Create Sop res Data " + data);

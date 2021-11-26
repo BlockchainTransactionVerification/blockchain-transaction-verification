@@ -97,7 +97,7 @@ function VerticallyCenteredModal(props) {
 
   const updateStatus = async () => {
     const { data } = await axios.post(
-      BASE_URL + "apitra/updateTransactionStatus",
+      "apitra/updateTransactionStatus",
       {
         id: props.cid,
         Active: true,
