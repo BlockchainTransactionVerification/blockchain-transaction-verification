@@ -9,6 +9,8 @@ export const createSOP = asyncHandler(async (req, res) => {
   // CORS policy allow localhost
   res.set("Access-Control-Allow-Origin", "*");
 
+  console.log("Inside Sop Controller");
+
   const { SupplierID, BuyerID, TransactionID, SopTitle, RequiredDocs } =
     req.body;
 
@@ -24,20 +26,6 @@ export const createSOP = asyncHandler(async (req, res) => {
     }
   }
 
-  const SOP = new sop({
-    SupplierID,
-    BuyerID,
-    TransactionID,
-    SopTitle,
-    RequiredDocs,
-  });
-
-  SOP.save().then((result, err) => {
-    if (err) {
-      return res.status(442).json({ error: err });
-    }
-  });
-
   const supplier = await User.findById(SupplierID);
   if (!supplier) return res.status(442).json({ error: "Supplier not found." });
 
@@ -51,6 +39,20 @@ export const createSOP = asyncHandler(async (req, res) => {
   if (!buyer) {
     return res.status(442).json({ error: "Buyer not found." });
   }
+
+  const SOP = new sop({
+    SupplierID,
+    BuyerID,
+    TransactionID,
+    SopTitle,
+    RequiredDocs,
+  });
+
+  SOP.save().then((result, err) => {
+    if (err) {
+      return res.status(442).json({ error: "Failed to save." });
+    }
+  });
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const hrefLink = process.env.BASE_URL;
@@ -77,6 +79,8 @@ export const createSOP = asyncHandler(async (req, res) => {
     .catch((error) => {
       console.error(error);
     });
+
+  return res.json({ success: true });
 });
 
 // Retrieve SOP Controller
@@ -84,4 +88,39 @@ export const retrieveSOP = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   const SOPs = await sop.find(req.body);
   res.json(SOPs);
+});
+
+// Update SOP required document done field to true
+export const updateSopDoc = asyncHandler(async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  // Wrap this in a try catch
+  try {
+    const SOP = await sop.findById(req.body.id);
+
+    if (!SOP) {
+      return res.status(442).json({ error: "SOP not found." });
+    }
+
+    SOP.RequiredDocs.map((doc) => {
+      if (doc._id == req.body.DocID) {
+        doc.Required = true;
+      }
+    });
+
+    SOP.save().then((result, err) => {
+      if (err) {
+        return res.status(442).json({ error: err });
+      } else {
+        return res.json({
+          success: true,
+          msg: "SOP status has been successfully updated.",
+        });
+      }
+    });
+  } catch {
+    console.log("something happened retrieving the SOP for updates");
+    return res.status(442).json({
+      error: "something happened retrieving the SOP for updates",
+    });
+  }
 });

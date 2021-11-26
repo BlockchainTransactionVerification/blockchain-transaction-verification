@@ -4,8 +4,15 @@ import FileUploader from "../FileUploader/FileUploader.component";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadFileAction } from "../../actions/upload";
 import { getWalletIdAction } from "../../actions/users";
+import { updateSopDocAction } from "../../actions/sop";
 import { createFileAction, getFileCidAction } from "../../actions/file";
-import { init, addBlockToAcl } from "../../components/Web3Client/Web3Client.js";
+import { BASE_URL } from "../../constants/URLConstant";
+import axios from "axios";
+import {
+  init,
+  addBlockToAcl,
+  grantAccessToFile,
+} from "../../components/Web3Client/Web3Client.js";
 
 function UploadFilesModal(props) {
   const [previousHash, setPreviousHash] = useState("");
@@ -24,6 +31,9 @@ function UploadFilesModal(props) {
 
   const fileStatus = useSelector((state) => state.createFileStatus);
   const { createFileStatus } = fileStatus;
+
+  const updateDoc = useSelector((state) => state.updateSopDoc);
+  const { updateSopDoc } = updateDoc;
 
   const dispatch = useDispatch();
 
@@ -88,6 +98,61 @@ function UploadFilesModal(props) {
     );
   };
 
+  const updateDocHandler = async () => {
+    dispatch(updateSopDocAction(props.sopid[0], props.modalrowid));
+
+    const { data } = await axios.post(
+      BASE_URL + "apisop/updateSopDoc",
+      {
+        id: props.sopid[0],
+        DocID: props.modalrowid,
+      },
+      {
+        "Content-type": "application/json",
+      }
+    );
+
+    if (data) {
+      if (data.success == true) {
+        console.log("Required document's Done property has been set to true");
+      }
+    }
+  };
+
+  const grantAccess = async (hash) => {
+    if (props.thisuid.toString() === props.supid[0]) {
+      //dispatch(getWalletIdAction(props.buyid[0]));
+
+      const { data } = await axios.post(
+        BASE_URL + "api/getwalletid",
+        { id: props.supid[0] },
+        { "Content-type": "application/json" }
+      );
+
+      if (data) {
+        console.log("data.WalletID: " + data.WalletID);
+        grantAccessToFile(data.WalletID, hash).catch((err) => {
+          console.log(err);
+        });
+      }
+    } else {
+      //dispatch(getWalletIdAction(props.supid[0]));
+
+      const { data } = await axios.post(
+        BASE_URL + "api/getwalletid",
+        { id: props.buyid[0] },
+        { "Content-type": "application/json" }
+      );
+
+      if (data) {
+        console.log("data.WalletID: " + data.WalletID);
+        grantAccessToFile(data.WalletID, hash).catch((err) => {
+          console.log(err);
+        });
+      }
+    }
+  };
+
   const onClickHandler = () => {
     props.onHide();
     uploadHandler();
@@ -105,9 +170,13 @@ function UploadFilesModal(props) {
       if (fileHash !== previousHash) {
         console.log("Should dispatch create file handler");
         createFileHandler(fileHash);
+        console.log("FileHash before addBlock");
+        console.log(fileHash);
         addBlockToAcl(fileHash).catch((err) => {
           console.log(err);
         });
+        grantAccess(fileHash);
+        updateDocHandler();
         setPreviousHash(fileHash);
       } else {
         console.log("Can't upload file twice");

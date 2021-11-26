@@ -10,6 +10,9 @@ import AddProductModal from "../../components/AddProductModal/AddProductModal";
 function SellerHome({ history }) {
   const [modalShow, setModalShow] = React.useState(false);
   const [AddProductModalShow, setAddProductModalShow] = React.useState(false);
+  const [currentTID, setCurrentTID] = React.useState("");
+  const [currentBID, setCurrentBID] = React.useState("");
+  const [currentSID, setCurrentSID] = React.useState("");
 
   const dispatch = useDispatch();
 
@@ -19,23 +22,39 @@ function SellerHome({ history }) {
   const transactionsList = useSelector((state) => state.getTransactions);
   const { transactions } = transactionsList;
 
+  const acceptHandler = (bid, sid, id) => {
+    console.log("accept handler id " + id);
+    console.log("accept handler bid " + bid);
+    console.log("accept handler sid " + sid);
+    setModalShow(true);
+    setCurrentTID(id);
+    setCurrentBID(bid);
+    setCurrentSID(sid);
+  };
+
   const pendingTransactions =
     transactions &&
-    transactions.map((transaction, id) => {
+    transactions.map((transaction) => {
       if (
         transaction.Pending == true &&
         (transaction.BuyerID === userInfo.id ||
           transaction.SellerID === userInfo.id)
       ) {
         return (
-          <div key={id}>
+          <div key={transaction._id}>
             <ListGroup.Item>
               <div>{transaction.Title}</div>
               <div>
                 <Button
                   variant="primary"
                   style={{ float: "right" }}
-                  onClick={() => setModalShow(true)}
+                  onClick={() =>
+                    acceptHandler(
+                      transaction.BuyerID,
+                      transaction.SellerID,
+                      transaction._id
+                    )
+                  }
                 >
                   Accept
                 </Button>
@@ -56,6 +75,27 @@ function SellerHome({ history }) {
       ) {
         return (
           <div key={id}>
+            <ListGroup.Item>
+              <a href={transaction.TransactionURL}>{transaction.Title}</a>
+            </ListGroup.Item>
+          </div>
+        );
+      }
+    });
+
+  const completeTransactions =
+    transactions &&
+    transactions.map((transaction) => {
+      if (
+        transaction.Active == false &&
+        transaction.Pending == false &&
+        (transaction.BuyerID === userInfo.id ||
+          transaction.SellerID === userInfo.id)
+      ) {
+        console.log("Transaction ID");
+        console.log(transaction._id);
+        return (
+          <div key={transaction._id}>
             <ListGroup.Item>
               <a href={transaction.TransactionURL}>{transaction.Title}</a>
             </ListGroup.Item>
@@ -94,10 +134,14 @@ function SellerHome({ history }) {
           <VerticallyCenteredModal
             show={modalShow}
             onHide={() => setModalShow(false)}
+            buyid={currentBID}
+            supid={currentSID}
+            cid={currentTID}
           />
         </Tab>
         <Tab eventKey="completed" title="Completed Transactions">
           <p>Complete</p>
+          <ListGroup>{completeTransactions}</ListGroup>
         </Tab>
       </Tabs>
       <Button variant="primary" onClick={() => setAddProductModalShow(true)}>

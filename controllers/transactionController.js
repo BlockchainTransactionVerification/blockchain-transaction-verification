@@ -259,21 +259,11 @@ export const setURL = asyncHandler(async (req, res) => {
 
 export const updateTransactionStatus = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  if (!req.body.id)
+  //console.log("Inside transaction controller");
+  if (!req.body.id) {
     return res.status(442).json({
       error: "Transaction ID is empty. Please pass in a Transaction ID",
     });
-
-  if (!req.body.Active || !req.body.Pending) {
-    if (!req.body.Active) {
-      return res.status(442).json({
-        error: "Please set Active to true or false.",
-      });
-    } else {
-      return res.status(442).json({
-        error: "Please set Pending to false.",
-      });
-    }
   }
 
   try {
@@ -286,6 +276,10 @@ export const updateTransactionStatus = asyncHandler(async (req, res) => {
     updates.Active = req.body.Active;
     updates.Pending = req.body.Pending;
 
+    if (req.body.Active == true) {
+      updates.TransactionURL = "transaction/" + req.body.id;
+    }
+
     updates.save().then((result, err) => {
       if (err) {
         return res.status(442).json({ error: err });
@@ -297,9 +291,9 @@ export const updateTransactionStatus = asyncHandler(async (req, res) => {
       }
     });
   } catch {
-    console.log("something happened retrieving the transaction");
-    return res
-      .status(442)
-      .json({ error: "something happened retrieving the transaction" });
+    console.log("something happened retrieving the transaction for updates");
+    return res.status(442).json({
+      error: "something happened retrieving the transaction for updates",
+    });
   }
 });

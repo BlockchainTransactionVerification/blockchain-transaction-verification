@@ -48,7 +48,7 @@ export const createFileAction =
     }
   };
 
-export const getFileCidAction = (cid) => async (dispatch) => {
+export const getFileCidAction = (rid) => async (dispatch) => {
   try {
     dispatch({ type: GET_FILE_CID_REQUEST });
 
@@ -59,10 +59,14 @@ export const getFileCidAction = (cid) => async (dispatch) => {
     };
 
     const payload = {
-      CID: cid,
+      rdid: rid,
     };
 
-    const { data } = await axios.post("apifiles/getcid", payload, config);
+    const { data } = await axios.post(
+      BASE_URL + "apifiles/getcid",
+      payload,
+      config
+    );
 
     dispatch({
       type: GET_FILE_CID_SUCCESS,

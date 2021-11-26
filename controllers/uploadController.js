@@ -17,8 +17,6 @@ export const uploadFiles = asyncHandler(async (req, res) => {
   let form = new multiparty.Form();
 
   form.parse(req, function (err, fields, files) {
-    console.log(files);
-
     Object.keys(files).forEach(function (name) {
       console.log("Got file named " + name);
       console.log("The file name is " + files[name][0].originalFilename);
@@ -46,10 +44,10 @@ export const uploadFiles = asyncHandler(async (req, res) => {
       key: `file-${timestamp}`,
       data,
     };
-    console.log("testFunctionUpload input apikey" + input.apiKey);
+    /*     console.log("testFunctionUpload input apikey" + input.apiKey);
     console.log("testFunctionUpload apisecret" + input.apiSecret);
     console.log("testFunctionUpload key" + input.key);
-    console.log("testFunctionUpload data" + input.data);
+    console.log("testFunctionUpload data" + input.data); */
     try {
       const result = await fleekStorage.upload(input);
       console.log("hash: " + result.hash);

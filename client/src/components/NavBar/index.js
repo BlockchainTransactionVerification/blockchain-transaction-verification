@@ -81,6 +81,9 @@ const Navbar = () => {
           <NavLink to="/contact-us" activeStyle>
             Contact Us
           </NavLink>
+          <NavLink to="/templates" activeStyle>
+            SOP Templates
+          </NavLink>
           <NavLink to="/register" activeStyle>
             Sign Up
           </NavLink>

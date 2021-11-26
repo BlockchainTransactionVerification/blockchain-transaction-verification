@@ -5,6 +5,9 @@ import {
   ADD_TRANSACTION_REQUEST,
   ADD_TRANSACTION_SUCCESS,
   ADD_TRANSACTION_FAIL,
+  UPDATE_TRANSACTION_STATUS_REQUEST,
+  UPDATE_TRANSACTION_STATUS_SUCCESS,
+  UPDATE_TRANSACTION_STATUS_FAIL,
 } from "../constants/transactionConstants";
 import { BASE_URL } from "../constants/URLConstant";
 import axios from "axios";
@@ -90,6 +93,48 @@ export const addTransaction =
           : error.message;
       dispatch({
         type: ADD_TRANSACTION_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+export const updateTransactionStatusAction =
+  (tid, active, pending) => async (dispatch) => {
+    try {
+      dispatch({
+        type: UPDATE_TRANSACTION_STATUS_REQUEST,
+      });
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      console.log("Trying to get transaction data...");
+      const { data } = await axios.post(
+        "apitra/updateTransactionStatus",
+        {
+          id: tid,
+          Active: active,
+          Pending: pending,
+        },
+        config
+      );
+
+      console.log("data " + data);
+
+      dispatch({
+        type: UPDATE_TRANSACTION_STATUS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: UPDATE_TRANSACTION_STATUS_FAIL,
         payload: message,
       });
     }

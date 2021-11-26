@@ -64,11 +64,11 @@ export const retrieveFiles = asyncHandler(async (req, res) => {
 // Get a file's CID controller
 export const getFileCID = asyncHandler(async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  const { CID } = req.body;
-  if (!CID) {
-    return res.status(442).json({ error: "A file CID must be passed in." });
+  const { rdid } = req.body;
+  if (!rdid) {
+    return res.status(442).json({ error: "A file row id must be passed in." });
   }
-  const FILE = await file.findOne({ CID: CID });
+  const FILE = await file.findOne({ RDID: rdid });
 
   if (FILE) {
     var bytes = CryptoJS.AES.decrypt(FILE.CID, process.env.CJS_SECRET);

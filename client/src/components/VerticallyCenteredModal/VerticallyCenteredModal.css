@@ -1,0 +1,32 @@
+.CreateSopModal {
+  max-height: 600px;
+}
+
+#hrSeperators {
+  border: 1px solid black;
+}
+
+.SopTitle {
+  width: 75%;
+  font-weight: bold;
+}
+.sopDocsFG {
+  margin-top: 40px;
+}
+
+.SopFgLabelS {
+  margin-top: 5px;
+}
+
+.SopFgSelect {
+  margin-top: 5px;
+  width: 50%;
+}
+
+.SopFgLabelU {
+  margin-top: 20px;
+}
+
+.SopFgCheck {
+  margin-top: 10px;
+}

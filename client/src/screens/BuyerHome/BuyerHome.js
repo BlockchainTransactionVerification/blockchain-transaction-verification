@@ -60,6 +60,34 @@ function BuyerHome({ history }) {
         return (
           <div key={id}>
             <ListGroup.Item>
+              <Link
+                to={{
+                  pathname: transaction.TransactionURL,
+                  state: { TransactionID: transaction._id },
+                }}
+              >
+                {transaction.Title}
+              </Link>
+            </ListGroup.Item>
+          </div>
+        );
+      }
+    });
+
+  const completeTransactions =
+    transactions &&
+    transactions.map((transaction) => {
+      if (
+        transaction.Active == false &&
+        transaction.Pending == false &&
+        (transaction.BuyerID === userInfo.id ||
+          transaction.SellerID === userInfo.id)
+      ) {
+        console.log("Transaction ID");
+        console.log(transaction._id);
+        return (
+          <div key={transaction._id}>
+            <ListGroup.Item>
               <a href={transaction.TransactionURL}>{transaction.Title}</a>
             </ListGroup.Item>
           </div>
@@ -101,6 +129,7 @@ function BuyerHome({ history }) {
         </Tab>
         <Tab eventKey="completed" title="Completed Transactions">
           <p>Complete</p>
+          <ListGroup>{completeTransactions}</ListGroup>
         </Tab>
         <Tab eventKey="messages" title="Messages">
           <p>Messages</p>
