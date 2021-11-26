@@ -176,10 +176,12 @@ const ViewTransaction = ({ match, history }) => {
       sops.map((sop) => {
         sop.RequiredDocs.map((doc) => {
           console.log("There are docs");
-          if (doc.Required == true) {
-            if (doc.Done == true) {
+          if (doc.Required === true) {
+            if (doc.Done === true) {
+              console.log("Doc done is true");
               allDone.push(true);
             } else {
+              console.log("Doc done is false");
               allDone.push(false);
             }
           }
@@ -188,12 +190,13 @@ const ViewTransaction = ({ match, history }) => {
     }
 
     for (const element of allDone) {
-      if (element == false) {
+      if (element === false) {
         doneFlag = false;
       }
     }
 
-    if (doneFlag == true) {
+    if (doneFlag === true) {
+      console.log("Updating transaction status to complete.");
       updateStatus();
       return <Alert>Transaction complete.</Alert>;
     } else {
