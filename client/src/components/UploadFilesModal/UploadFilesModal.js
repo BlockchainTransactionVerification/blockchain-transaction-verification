@@ -169,14 +169,14 @@ function UploadFilesModal(props) {
       console.log(previousHash);
       if (fileHash !== previousHash) {
         console.log("Should dispatch create file handler");
-        /*         createFileHandler(fileHash);
+        createFileHandler(fileHash);
         console.log("FileHash before addBlock");
         console.log(fileHash);
         addBlockToAcl(fileHash).catch((err) => {
           console.log(err);
         });
         grantAccess(fileHash);
-        updateDocHandler(); */
+        updateDocHandler();
         setPreviousHash(fileHash);
       } else {
         console.log("Can't upload file twice");
