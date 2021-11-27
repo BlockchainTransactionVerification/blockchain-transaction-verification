@@ -21,8 +21,8 @@ html,body,.App,#root,:root,.formContainer{
   display:flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
