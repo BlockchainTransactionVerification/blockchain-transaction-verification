@@ -1,5 +1,9 @@
 import express from "express";
-import { createSOP, retrieveSOP } from "../controllers/sopController.js";
+import {
+  createSOP,
+  retrieveSOP,
+  updateSopDoc,
+} from "../controllers/sopController.js";
 
 const sopRouter = express.Router();
 
