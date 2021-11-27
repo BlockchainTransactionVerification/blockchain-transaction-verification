@@ -102,7 +102,7 @@ function UploadFilesModal(props) {
     dispatch(updateSopDocAction(props.sopid[0], props.modalrowid));
 
     const { data } = await axios.post(
-      BASE_URL + "apisop/updateSopDoc",
+      "apisop/updateSopDoc",
       {
         id: props.sopid[0],
         DocID: props.modalrowid,
@@ -124,7 +124,7 @@ function UploadFilesModal(props) {
       //dispatch(getWalletIdAction(props.buyid[0]));
 
       const { data } = await axios.post(
-        BASE_URL + "api/getwalletid",
+        "api/getwalletid",
         { id: props.supid[0] },
         { "Content-type": "application/json" }
       );
@@ -139,7 +139,7 @@ function UploadFilesModal(props) {
       //dispatch(getWalletIdAction(props.supid[0]));
 
       const { data } = await axios.post(
-        BASE_URL + "api/getwalletid",
+        "api/getwalletid",
         { id: props.buyid[0] },
         { "Content-type": "application/json" }
       );

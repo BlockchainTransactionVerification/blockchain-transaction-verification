@@ -6,9 +6,6 @@ import {
 import { BASE_URL } from "../constants/URLConstant";
 import axios from "axios";
 
-const url = "http://localhost:5000";
-const prod_url = BASE_URL;
-
 export const uploadFileAction = (file) => async (dispatch) => {
   // try
   // dispatch upload request
