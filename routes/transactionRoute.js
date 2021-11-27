@@ -8,6 +8,7 @@ import {
 } from "../controllers/transactionController.js";
 
 import { createSOP, retrieveSOP } from "../controllers/sopController.js";
+import { uploadFiles } from "../controllers/uploadController.js";
 import express from "express";
 
 import transaction from "../models/transactionModel.js";
@@ -40,5 +41,8 @@ transactionRouter.route("/apisop/createSOP").post(createSOP);
 
 // Retrieve SOP
 transactionRouter.route("/apisop/retrieveSOP").post(retrieveSOP);
+
+// Upload file(s)
+transactionRouter.route("/apiupload/files").post(uploadFiles);
 
 export default transactionRouter;
