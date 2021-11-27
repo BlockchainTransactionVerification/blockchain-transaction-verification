@@ -69,6 +69,9 @@ const RegistrationForm = ({ history }) => {
           <Form.Group>
             <Row>
               <div className="formInput">
+                <Form.Label>
+                Enter username
+              </Form.Label>
                 <Form.Control
                   id="Username"
                   type="username"
@@ -79,6 +82,9 @@ const RegistrationForm = ({ history }) => {
               </div>
               <Col>
                 <div className="formInput">
+                  <Form.Label>
+                  Enter Email
+                  </Form.Label>
                   <Form.Control
                     id="Email"
                     type="email"
@@ -90,6 +96,9 @@ const RegistrationForm = ({ history }) => {
               </Col>
               <Col>
                 <div className="formInput">
+                   <Form.Label>
+                Confirm Email
+              </Form.Label>
                   <Form.Control
                     id="Confirm Email"
                     type="email"
@@ -106,6 +115,9 @@ const RegistrationForm = ({ history }) => {
             <Row>
               <Col>
                 <div className="formInput">
+                  <Form.Label>
+                Enter Password
+              </Form.Label>
                   <Form.Control
                     id="Password"
                     type="password"
@@ -117,6 +129,9 @@ const RegistrationForm = ({ history }) => {
               </Col>
               <Col>
                 <div className="formInput">
+                  <Form.Label>
+                Confirm Password
+              </Form.Label>
                   <Form.Control
                     id="Confirm Password"
                     type="password"
@@ -130,6 +145,9 @@ const RegistrationForm = ({ history }) => {
             <Row>
               <Col>
                 <div className="formInput">
+                  <Form.Label>
+                Company Name
+              </Form.Label>
                   <Form.Control
                     id="Company Name"
                     type="CompanyName"
@@ -141,6 +159,9 @@ const RegistrationForm = ({ history }) => {
               </Col>
               <Col>
                 <div className="formInput">
+                  <Form.Label>
+                Company Address
+              </Form.Label>
                   <Form.Control
                     id="Company Address"
                     type="address"
@@ -154,6 +175,9 @@ const RegistrationForm = ({ history }) => {
             <Row>
               <Col>
                 <div className="formInput">
+                  <Form.Label>
+                First Name
+              </Form.Label>
                   <Form.Control
                     id="First Name"
                     type="RepFirstName"
@@ -165,6 +189,9 @@ const RegistrationForm = ({ history }) => {
               </Col>
               <Col>
                 <div className="formInput">
+                  <Form.Label>
+                Last Name
+              </Form.Label>
                   <Form.Control
                     id="Last Name"
                     type="Last Name"
@@ -176,6 +203,9 @@ const RegistrationForm = ({ history }) => {
               </Col>
             </Row>
             <div className="formInput">
+              <Form.Label>
+                Enter your Position in the Company
+              </Form.Label>
               <Form.Control
                 id="Position"
                 type="test"
@@ -185,6 +215,9 @@ const RegistrationForm = ({ history }) => {
               />
             </div>
             <div className="formInput">
+                <Form.Label>
+                Enter your Wallet ID
+              </Form.Label>
               <Form.Control
                 id="WalletID"
                 type="text"
