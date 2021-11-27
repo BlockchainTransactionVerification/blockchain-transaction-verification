@@ -103,7 +103,7 @@ export const updateSopDoc = asyncHandler(async (req, res) => {
 
     SOP.RequiredDocs.map((doc) => {
       if (doc._id == req.body.DocID) {
-        doc.Required = true;
+        doc.Done = true;
       }
     });
 
