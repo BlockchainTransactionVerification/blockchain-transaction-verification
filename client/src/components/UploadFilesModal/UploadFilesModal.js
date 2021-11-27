@@ -125,7 +125,7 @@ function UploadFilesModal(props) {
 
       const { data } = await axios.post(
         "api/getwalletid",
-        { id: props.supid[0] },
+        { id: props.buyid[0] },
         { "Content-type": "application/json" }
       );
 
@@ -140,7 +140,7 @@ function UploadFilesModal(props) {
 
       const { data } = await axios.post(
         "api/getwalletid",
-        { id: props.buyid[0] },
+        { id: props.supid[0] },
         { "Content-type": "application/json" }
       );
 
