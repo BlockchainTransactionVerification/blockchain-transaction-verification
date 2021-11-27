@@ -15,4 +15,7 @@ sopRouter.route("/retrieveSOP").post(retrieveSOP);
 // Delete SOP
 //sopRouter.route("deleteSOP").delete(deleteSOP);
 
+// Update Required Document
+sopRouter.route("/updateSopDoc").post(updateSopDoc);
+
 export default sopRouter;
