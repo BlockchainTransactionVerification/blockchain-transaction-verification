@@ -75,7 +75,7 @@ const ViewTransaction = ({ match, history }) => {
 
     if (account) {
       const { data } = await axios.post(
-        BASE_URL + "apifiles/getcid",
+        "apifiles/getcid",
         {
           rdid: rowID,
         },
