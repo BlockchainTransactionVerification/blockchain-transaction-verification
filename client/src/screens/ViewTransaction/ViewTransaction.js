@@ -10,6 +10,7 @@ import { GrDocumentVerified } from "react-icons/gr";
 import UploadFilesModal from "../../components/UploadFilesModal/UploadFilesModal";
 import axios from "axios";
 import { BASE_URL } from "../../constants/URLConstant";
+import "./ViewTransaction.css";
 import {
   init,
   getSelectedAccount,
@@ -74,7 +75,7 @@ const ViewTransaction = ({ match, history }) => {
 
     if (account) {
       const { data } = await axios.post(
-        "apifiles/getcid",
+        BASE_URL + "apifiles/getcid",
         {
           rdid: rowID,
         },
@@ -111,13 +112,13 @@ const ViewTransaction = ({ match, history }) => {
                   <td>
                     Completed
                     <div className="completed-action">
-                      <GrDocumentVerified size="2em" />
+                      <GrDocumentVerified size="1.5em" />
                     </div>
                   </td>
                   <td>
                     <Button
-                      variant="primary"
-                      style={{ float: "right" }}
+                      className="vtViewBtn"
+                      variant="success"
                       onClick={() => handleViewDoc(doc._id)}
                     >
                       View
@@ -138,8 +139,8 @@ const ViewTransaction = ({ match, history }) => {
                   </td>
                   <td>
                     <Button
-                      variant="primary"
-                      style={{ float: "right" }}
+                      className="vtUploadBtn"
+                      variant="outline-success"
                       onClick={() => openModal(true, doc._id)}
                     >
                       Upload
@@ -156,7 +157,7 @@ const ViewTransaction = ({ match, history }) => {
 
   const updateStatus = async () => {
     const { data } = await axios.post(
-      "apitra/updateTransactionStatus",
+      BASE_URL + "apitra/updateTransactionStatus",
       {
         id: TransactionID,
         Active: false,
@@ -200,9 +201,17 @@ const ViewTransaction = ({ match, history }) => {
     if (doneFlag === true) {
       console.log("Updating transaction status to complete.");
       updateStatus();
-      return <Alert>Transaction complete.</Alert>;
+      return (
+        <Alert variant="success" id="alertC">
+          Transaction complete.
+        </Alert>
+      );
     } else {
-      return <Alert>Please upload all required files.</Alert>;
+      return (
+        <Alert variant="warning" id="alertP">
+          Please upload all required files.
+        </Alert>
+      );
     }
   };
 
@@ -218,20 +227,20 @@ const ViewTransaction = ({ match, history }) => {
 
   //<tbody>{displaySOP}</tbody>
   return (
-    <div>
-      <h2>{displaySopTitle}</h2>
-      <CheckIfComplete />
-      <Table striped bordered hover>
-        <thead>
+    <div className="bgimg">
+      <h1 className="vtTitle">{displaySopTitle}</h1>
+      <Table striped bordered hover id="vtTable">
+        <thead className="vtHead">
           <tr>
-            <th>Document Type</th>
-            <th>Responsible Party</th>
-            <th>Status</th>
-            <th>File</th>
+            <th className="vtHeadText">Document Type</th>
+            <th className="vtHeadText">Responsible Party</th>
+            <th className="vtHeadText">Status</th>
+            <th className="vtHeadText">File</th>
           </tr>
         </thead>
         <tbody>{displaySOP}</tbody>
       </Table>
+      <CheckIfComplete />
       <UploadFilesModal
         show={modalShow}
         onHide={handleClose}
