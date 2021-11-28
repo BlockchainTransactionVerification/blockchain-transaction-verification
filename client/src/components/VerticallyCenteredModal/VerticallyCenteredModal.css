@@ -1,21 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap");
+
 .CreateSopModal {
   max-height: 600px;
 }
 
 #hrSeperators {
-  border: 1px solid black;
+  border: 1px solid lightgrey;
+}
+
+#stLabel {
+  font-weight: bold;
+  font-family: "Open Sans Medium", sans-serif;
 }
 
 .SopTitle {
-  width: 75%;
-  font-weight: bold;
+  width: 55%;
+  font-family: "Open Sans Regular", sans-serif;
 }
+
+.SopFgLabelT {
+  font-weight: bold;
+  font-family: "Open Sans Regular", sans-serif;
+}
+
 .sopDocsFG {
   margin-top: 40px;
 }
 
 .SopFgLabelS {
   margin-top: 5px;
+  font-family: "Open Sans Regular", sans-serif;
 }
 
 .SopFgSelect {

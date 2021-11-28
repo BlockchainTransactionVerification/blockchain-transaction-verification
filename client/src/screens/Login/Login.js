@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/users";
 import { Form, Button } from "react-bootstrap";
+import "./Login.css";
 
 const Login = ({ history }) => {
   const [username, setUsername] = useState("");
