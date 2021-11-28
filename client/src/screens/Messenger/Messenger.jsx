@@ -3,21 +3,34 @@ import Topbar from "../../components/Header/header";
 import Conversation from "../../components/Conversations/Conversation.jsx";
 import Message from "../../components/message/Message";
 //import MatchesList from "../../components/matches/Matches";
-import { useContext, useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { AuthContext } from "../../context/AuthContext";
+import React,  { useContext, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+//import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { io } from 'socket.io-client';
 
-export default function Messenger() {
-  const [conversations, setConversations] = useState([]);
-  const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [arrivalMessage, setArrivalMessage] = useState(null);
+
+  function Messenger({ history }) {
+    // ithink its [] not ""
+    const [conversations, setConversations] = React.useState([]);
+    // it was null before so i dodnt think false is right
+    const [currentChat, setCurrentChat] = React.useState(null);
+    //i think its [] not ""
+    const [messages, setMessages] = React.useState([]);
+
+    const [newMessage, setNewMessage] = React.useState("");
+    // i think its null not false
+    const [arrivalMessage, setArrivalMessage] = React.useState(null);
+  
+    const dispatch = useDispatch();
+  
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+  
   //const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useRef();
-  const { user } = useContext(AuthContext);
+  //const { user } = useContext(AuthContext);
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -46,17 +59,17 @@ export default function Messenger() {
     //});
   }, [user]);*/
 
-  /*useEffect(() => {
+  useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get("/conversations/" + user._id);
+        const res = await axios.get("/conversations/" + userInfo.id);
         setConversations(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getConversations();
-  }, [user._id]);*/
+  }, [userInfo.id]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -73,17 +86,17 @@ export default function Messenger() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
-      sender: user._id,
+      sender: userInfo.id,
       text: newMessage,
       conversationId: currentChat._id,
     };
 
     const receiverId = currentChat.members.find(
-      (member) => member !== user._id
+      (member) => member !== userInfo.id
     );
 
     socket.current.emit("sendMessage", {
-      senderId: user._id,
+      senderId: userInfo.id,
       receiverId,
       text: newMessage,
     });
@@ -107,10 +120,10 @@ export default function Messenger() {
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="Search for friends" className="chatMenuInput" />
+            <input placeholder="Search" className="chatMenuInput" />
             {conversations.map((c) => (
               <div onClick={() => setCurrentChat(c)}>
-                <Conversation conversation={c} currentUser={user} />
+                <Conversation conversation={c} currentUser={userInfo} />
               </div>
             ))}
           </div>
@@ -122,7 +135,7 @@ export default function Messenger() {
                 <div className="chatBoxTop">
                   {messages.map((m) => (
                     <div ref={scrollRef}>
-                      <Message message={m} own={m.sender === user._id} />
+                      <Message message={m} own={m.sender === userInfo.id} />
                     </div>
                   ))}
                 </div>
@@ -150,3 +163,5 @@ export default function Messenger() {
     </>
   );
 }
+
+export default Messenger;

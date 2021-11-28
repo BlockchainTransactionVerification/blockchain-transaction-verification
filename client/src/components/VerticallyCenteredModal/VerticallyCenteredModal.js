@@ -95,6 +95,20 @@ function VerticallyCenteredModal(props) {
     }
   };
 
+// call is made to create new conversation 
+const createConvo = async () => {
+  const { dataConvo } = await axios.post(
+    "api/conversations",
+    {
+      senderId: props.buyid,
+      receiverId: props.supid
+    },
+    {
+      "Content-type": "application/json",
+    }
+  );
+};
+
   const updateStatus = async () => {
     const { data } = await axios.post(
       "apitra/updateTransactionStatus",
@@ -116,6 +130,7 @@ function VerticallyCenteredModal(props) {
     );
 
     updateStatus();
+    //createConvo();
   };
 
   const listDocs = docs.map((doc, id) => {

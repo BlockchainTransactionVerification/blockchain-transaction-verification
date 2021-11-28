@@ -1,4 +1,5 @@
 import {
+  getUser,
   registerUser,
   loginUser,
   deleteUser,
@@ -15,6 +16,9 @@ import {
 } from "../controllers/userController.js";
 import express from "express";
 const router = express.Router();
+
+// express router method to get user object via userId or username
+router.route("/").get(getUser);
 
 // express router method to create route for registering users
 router.route("/register").post(registerUser);

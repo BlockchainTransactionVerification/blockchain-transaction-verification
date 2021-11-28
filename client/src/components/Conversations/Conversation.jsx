@@ -7,7 +7,10 @@ export default function Conversation({ conversation, currentUser }) {
   //const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
-    const friendId = conversation.members.find((m) => m !== currentUser._id);
+    // ****** change this ****
+    // grabinnghte other person in the convo, in memebers array for each memeber find 
+    // if it eaquals current users id
+    const friendId = conversation.members.find((m) => m !== currentUser.id);
 
     const getUser = async () => {
       try {

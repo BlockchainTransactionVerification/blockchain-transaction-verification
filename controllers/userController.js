@@ -5,6 +5,23 @@ import jwt from "jsonwebtoken";
 import sgMail from "@sendgrid/mail";
 import mongoose from "mongoose";
 
+// get user function to grab a user object via a user id or username
+// input - user id or user name
+
+export const getUser = asyncHandler(async (req, res) => {
+  const userId = req.query.userId;
+  const username = req.query.username;
+  try {
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
+    const { password, updatedAt, ...other } = user._doc;
+    res.status(200).json(other);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //register function to register a user
 //input - Username, Password, Email, CompanyName, BusinessAddress, RepFirstName, RepLastName, Position
 //output -
