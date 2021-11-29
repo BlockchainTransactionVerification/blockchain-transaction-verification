@@ -6,6 +6,7 @@ import { Button, Tabs, Tab, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import VerticallyCenteredModal from "../../components/VerticallyCenteredModal/VerticallyCenteredModal";
 import AddProductModal from "../../components/AddProductModal/AddProductModal";
+import "./SellerHome.css";
 
 function SellerHome({ history }) {
   const [modalShow, setModalShow] = React.useState(false);
@@ -120,7 +121,11 @@ function SellerHome({ history }) {
   return (
     <div className="bgimg">
       <h1 id="shHeader">Welcome, {userInfo.firstName}</h1>
-      <Button variant="primary" onClick={() => setAddProductModalShow(true)}>
+      <Button
+        id="addProductBtn"
+        variant="primary"
+        onClick={() => setAddProductModalShow(true)}
+      >
         Add Product
       </Button>
       <AddProductModal
