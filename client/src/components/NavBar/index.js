@@ -56,6 +56,10 @@ const Navbar = () => {
           Messages
         </NavLink>
       );
+    } else {
+      <NavLink to="/login" activeStyle>
+        Messages
+      </NavLink>;
     }
   };
 
