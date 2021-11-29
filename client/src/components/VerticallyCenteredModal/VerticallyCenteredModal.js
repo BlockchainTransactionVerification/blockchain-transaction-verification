@@ -95,23 +95,9 @@ function VerticallyCenteredModal(props) {
     }
   };
 
-// call is made to create new conversation 
-const createConvo = async () => {
-  const { dataConvo } = await axios.post(
-    "api/conversations",
-    {
-      senderId: props.buyid,
-      receiverId: props.supid
-    },
-    {
-      "Content-type": "application/json",
-    }
-  );
-};
-
   const updateStatus = async () => {
     const { data } = await axios.post(
-      "apitra/updateTransactionStatus",
+      BASE_URL + "apitra/updateTransactionStatus",
       {
         id: props.cid,
         Active: true,
@@ -130,7 +116,7 @@ const createConvo = async () => {
     );
 
     updateStatus();
-    //createConvo();
+    window.location.reload(false);
   };
 
   const listDocs = docs.map((doc, id) => {
@@ -143,11 +129,13 @@ const createConvo = async () => {
         <Form.Control
           className="SopFgSelect"
           as="select"
+          aria-label="Default select example"
           onChange={(e) => {
             console.log("e.target.value", e.target.value);
             selectHandler(e.target.value, { id });
           }}
         >
+          <option>Choose one...</option>
           <option value="Buyer">Buyer</option>
           <option value="Supplier">Supplier</option>
         </Form.Control>
@@ -181,7 +169,7 @@ const createConvo = async () => {
       <Modal.Body id="CheckListBody">
         <Form>
           <Form.Group controlId="title">
-            <Form.Label>SOP Title</Form.Label>
+            <Form.Label id="stLabel">SOP Title</Form.Label>
             <Form.Control
               className="SopTitle"
               type="sopTitle"
