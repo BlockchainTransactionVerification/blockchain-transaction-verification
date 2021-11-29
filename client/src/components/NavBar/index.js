@@ -49,6 +49,16 @@ const Navbar = () => {
     }
   };
 
+  const DisplayMesssages = () => {
+    if (!userInfo) {
+      return (
+        <NavLink to="/messages" activeStyle>
+          Messages
+        </NavLink>
+      );
+    }
+  };
+
   const DisplayLoginOrLogout = () => {
     if (!userInfo) {
       return <NavBtnLink to="/login">Sign In</NavBtnLink>;
@@ -81,6 +91,7 @@ const Navbar = () => {
           <NavLink to="/templates" activeStyle>
             SOP Templates
           </NavLink>
+          <DisplayMesssages />
           <NavLink to="/register" activeStyle>
             Sign Up
           </NavLink>

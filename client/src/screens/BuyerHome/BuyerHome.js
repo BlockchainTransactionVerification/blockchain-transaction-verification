@@ -131,9 +131,6 @@ function BuyerHome({ history }) {
           <p>Complete</p>
           <ListGroup>{completeTransactions}</ListGroup>
         </Tab>
-        <Tab eventKey="messages" title="Messages">
-          <p>Messages</p>
-        </Tab>
         <Tab eventKey="item search" title="Item Search">
           <Search details={SupplyInfo}></Search>
         </Tab>
