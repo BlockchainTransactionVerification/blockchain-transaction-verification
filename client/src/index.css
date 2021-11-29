@@ -17,7 +17,7 @@ html,body,.App,#root,:root,.loginContainer{
 }
 .loginContainer{
   display: flex; justify-content: center;
-  background: url("./images/mask_background.jpg");
+  background: url("./images/jc-gellidon-xX0NVbJy8a8-unsplash.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
