@@ -121,13 +121,6 @@ function SellerHome({ history }) {
   return (
     <div className="bgimg">
       <h1 id="shHeader">Welcome, {userInfo.firstName}</h1>
-      <Button
-        id="addProductBtn"
-        variant="primary"
-        onClick={() => setAddProductModalShow(true)}
-      >
-        Add Product
-      </Button>
       <AddProductModal
         show={AddProductModalShow}
         onHide={() => setAddProductModalShow(false)}
@@ -163,6 +156,13 @@ function SellerHome({ history }) {
             <ListGroup>{completeTransactions}</ListGroup>
           </Tab>
         </Tabs>
+        <Button
+          id="addProductBtn"
+          variant="primary"
+          onClick={() => setAddProductModalShow(true)}
+        >
+          Add Product
+        </Button>
       </div>
     </div>
   );

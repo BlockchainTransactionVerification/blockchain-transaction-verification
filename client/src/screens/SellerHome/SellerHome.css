@@ -18,12 +18,6 @@ bgimg {
   font-family: "Open Sans Medium", sans-serif;
 }
 
-#addProdBtn {
-  position: relative;
-  bottom: 300px;
-  left: 240px;
-}
-
 #addProdBtn:hover {
   background-color: #39853b;
 }
