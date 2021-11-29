@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap");
+
+bgimg {
+  padding: 20em;
+  background-image: url("../../images/simple_white_background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 91.45vh;
+  width: 100vw;
+}
+
+#shHeader {
+  position: relative;
+  bottom: 280px;
+  right: 220px;
+  font-family: "Open Sans Medium", sans-serif;
+}
+
+#addProdBtn {
+  background-color: #4caf50; /* Green */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  position: relative;
+  bottom: 250px;
+  left: 240px;
+}
+
+#addProdBtn:hover {
+  background-color: #39853b;
+}
+
+#tabContainer {
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  bottom: 200px;
+  box-shadow: 5px 5px 50px grey;
+  width: 60%;
+  left: 200px;
+}
+
+#uncontrolled-tab-example {
+  background-color: white;
+  bottom: 200px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.shTab {
+  margin: 0px;
+  padding: 0px;
+}
+
+#lgActive {
+  padding: 10px;
+}
+
+#lgPending {
+  padding: 10px;
+}
+
+#pTitle {
+  display: inline-block;
+}
+
+#pAcceptBtn {
+  display: inline-block;
+  float: right;
+  margin: 0px;
+}
+
+#lgComplete {
+  padding: 10px;
+}

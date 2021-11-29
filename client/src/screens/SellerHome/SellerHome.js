@@ -42,23 +42,22 @@ function SellerHome({ history }) {
       ) {
         return (
           <div key={transaction._id}>
-            <ListGroup.Item>
-              <div>{transaction.Title}</div>
-              <div>
-                <Button
-                  variant="primary"
-                  style={{ float: "right" }}
-                  onClick={() =>
-                    acceptHandler(
-                      transaction.BuyerID,
-                      transaction.SellerID,
-                      transaction._id
-                    )
-                  }
-                >
-                  Accept
-                </Button>
-              </div>
+            <ListGroup.Item id="lgPending">
+              <div id="pTitle">{transaction.Title}</div>
+              <Button
+                id="pAcceptBtn"
+                size="sm"
+                variant="primary"
+                onClick={() =>
+                  acceptHandler(
+                    transaction.BuyerID,
+                    transaction.SellerID,
+                    transaction._id
+                  )
+                }
+              >
+                Accept
+              </Button>
             </ListGroup.Item>
           </div>
         );
@@ -67,15 +66,17 @@ function SellerHome({ history }) {
 
   const activeTransactions =
     transactions &&
-    transactions.map((transaction, id) => {
+    transactions.map((transaction) => {
       if (
         transaction.Active == true &&
         (transaction.BuyerID === userInfo.id ||
           transaction.SellerID === userInfo.id)
       ) {
+        console.log("Transaction ID");
+        console.log(transaction._id);
         return (
-          <div key={id}>
-            <ListGroup.Item>
+          <div key={transaction._id}>
+            <ListGroup.Item id="lgAcitve">
               <a href={transaction.TransactionURL}>{transaction.Title}</a>
             </ListGroup.Item>
           </div>
@@ -96,7 +97,7 @@ function SellerHome({ history }) {
         console.log(transaction._id);
         return (
           <div key={transaction._id}>
-            <ListGroup.Item>
+            <ListGroup.Item id="lgComplete">
               <a href={transaction.TransactionURL}>{transaction.Title}</a>
             </ListGroup.Item>
           </div>
@@ -117,33 +118,8 @@ function SellerHome({ history }) {
   };
 
   return (
-    <div>
-      {userInfo.username} is loggged in
-      <Tabs
-        defaultActiveKey="active"
-        id="uncontrolled-tab-example"
-        className="mb-3"
-      >
-        <Tab eventKey="active" title="Active Transactions">
-          <p>Active</p>
-          <ListGroup>{activeTransactions}</ListGroup>
-        </Tab>
-        <Tab eventKey="pending" title="Pending Transactions">
-          <p>Pending</p>
-          <ListGroup>{pendingTransactions}</ListGroup>
-          <VerticallyCenteredModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            buyid={currentBID}
-            supid={currentSID}
-            cid={currentTID}
-          />
-        </Tab>
-        <Tab eventKey="completed" title="Completed Transactions">
-          <p>Complete</p>
-          <ListGroup>{completeTransactions}</ListGroup>
-        </Tab>
-      </Tabs>
+    <div className="bgimg">
+      <h1 id="shHeader">Welcome, {userInfo.firstName}</h1>
       <Button variant="primary" onClick={() => setAddProductModalShow(true)}>
         Add Product
       </Button>
@@ -151,6 +127,38 @@ function SellerHome({ history }) {
         show={AddProductModalShow}
         onHide={() => setAddProductModalShow(false)}
       />
+      <div id="tabContainer">
+        <Tabs
+          defaultActiveKey="active"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+        >
+          <Tab className="shTab" eventKey="active" title="Active Transactions">
+            <ListGroup>{activeTransactions}</ListGroup>
+          </Tab>
+          <Tab
+            className="shTab"
+            eventKey="pending"
+            title="Pending Transactions"
+          >
+            <ListGroup>{pendingTransactions}</ListGroup>
+            <VerticallyCenteredModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              buyid={currentBID}
+              supid={currentSID}
+              cid={currentTID}
+            />
+          </Tab>
+          <Tab
+            className="shTab"
+            eventKey="completed"
+            title="Completed Transactions"
+          >
+            <ListGroup>{completeTransactions}</ListGroup>
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   );
 }

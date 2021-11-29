@@ -78,9 +78,6 @@ const Navbar = () => {
         <Bars />
         <NavMenu>
           <PushHome />
-          <NavLink to="/contact-us" activeStyle>
-            Contact Us
-          </NavLink>
           <NavLink to="/templates" activeStyle>
             SOP Templates
           </NavLink>
