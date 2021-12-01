@@ -53,7 +53,7 @@ function UploadFilesModal(props) {
           try {
             dispatch(uploadFileAction(formdata));
           } catch {
-            setUploadError("true");
+            console.log("Upload etag error.");
           }
         }
       }
