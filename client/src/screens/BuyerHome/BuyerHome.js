@@ -109,7 +109,7 @@ function BuyerHome({ history }) {
 
   return (
     <div>
-      {userInfo.username} is loggged in
+      {userInfo.username} is logged in
       <Tabs
         defaultActiveKey="active"
         id="uncontrolled-tab-example"
