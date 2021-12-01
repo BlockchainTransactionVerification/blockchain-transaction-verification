@@ -30,7 +30,7 @@ function VerticallyCenteredModal(props) {
       Done: false,
     },
     {
-      Type: "Letter of Authority (LOA)",
+      Type: "Letter of Attestation (LOA)",
       Required: false,
       Responsible: "",
       Done: false,

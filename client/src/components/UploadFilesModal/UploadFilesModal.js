@@ -50,7 +50,11 @@ function UploadFilesModal(props) {
             console.log(p);
           }
           //console.log(documents.docs[0].name);
-          dispatch(uploadFileAction(formdata));
+          try {
+            dispatch(uploadFileAction(formdata));
+          } catch {
+            setUploadError("true");
+          }
         }
       }
     }
@@ -185,8 +189,6 @@ function UploadFilesModal(props) {
   } else {
     console.log("no res fleek info yet");
   }
-
-  // make a function to display a message if file is successful (createFileStatus.success == true)
 
   useEffect(() => {
     init();

@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap");
 
-bgimg {
+.bgimg {
   padding: 20em;
   background-image: url("../../images/simple_white_background.jpg");
   background-repeat: no-repeat;

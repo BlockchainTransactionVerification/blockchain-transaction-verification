@@ -8,7 +8,9 @@ import {
   UPDATE_DOC_REQUEST,
   UPDATE_DOC_SUCCESS,
   UPDATE_DOC_FAIL,
+  VIEW_DOCS_UPDATE,
 } from "../constants/sopConstants";
+import { MAKE_TRANSACTION_ACTIVE } from "../constants/transactionConstants";
 import { BASE_URL } from "../constants/URLConstant";
 import axios from "axios";
 
@@ -71,6 +73,11 @@ export const createSopAction =
       }
 
       dispatch({
+        type: MAKE_TRANSACTION_ACTIVE,
+        payload: tid,
+      });
+
+      dispatch({
         type: CREATE_SOP_SUCCESS,
         payload: data,
       });
@@ -113,6 +120,11 @@ export const updateSopDocAction = (sopid, docid) => async (dispatch) => {
     dispatch({
       type: UPDATE_DOC_SUCCESS,
       payload: data,
+    });
+
+    dispatch({
+      type: VIEW_DOCS_UPDATE,
+      payload: { id: sopid, DocID: docid },
     });
   } catch (error) {
     const message =

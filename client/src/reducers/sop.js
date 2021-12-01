@@ -8,6 +8,7 @@ import {
   UPDATE_DOC_REQUEST,
   UPDATE_DOC_SUCCESS,
   UPDATE_DOC_FAIL,
+  VIEW_DOCS_UPDATE,
 } from "../constants/sopConstants";
 
 export const retrieveSopReducer = (state = {}, action) => {
@@ -18,6 +19,19 @@ export const retrieveSopReducer = (state = {}, action) => {
       return { sops: action.payload };
     case RETRIEVE_SOP_FAIL:
       return { error: action.payload };
+    case VIEW_DOCS_UPDATE:
+      const sop_id = action.payload.id;
+      const tempSopList = [...state.sops];
+      const sopFound = tempSopList.find((sop) => sop._id == sop_id);
+      sopFound.RequiredDocs.map((doc) => {
+        if (doc._id == action.payload.DocID) {
+          doc.Done = true;
+        }
+      });
+      console.log("SOP found. ", sopFound);
+
+      console.log(tempSopList);
+      return { sops: tempSopList };
     default:
       return state;
   }

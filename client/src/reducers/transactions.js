@@ -8,6 +8,7 @@ import {
   UPDATE_TRANSACTION_STATUS_REQUEST,
   UPDATE_TRANSACTION_STATUS_SUCCESS,
   UPDATE_TRANSACTION_STATUS_FAIL,
+  MAKE_TRANSACTION_ACTIVE,
 } from "../constants/transactionConstants";
 
 export const getTransactionReducer = (state = { transactions: [] }, action) => {
@@ -18,6 +19,17 @@ export const getTransactionReducer = (state = { transactions: [] }, action) => {
       return { transactions: action.payload };
     case GET_TRANSACTION_FAIL:
       return { error: action.payload };
+    case MAKE_TRANSACTION_ACTIVE:
+      const transaction_id = action.payload;
+      const tempTransactionList = [...state.transactions];
+      const transactionFound = tempTransactionList.find(
+        (transaction) => transaction._id == transaction_id
+      );
+      console.log("Transaction found. ", transactionFound);
+      transactionFound.Active = true;
+      transactionFound.Pending = false;
+      console.log(tempTransactionList);
+      return { transactions: tempTransactionList };
     default:
       return state;
   }
@@ -28,7 +40,10 @@ export const addTransactionReducer = (state = { transactions: [] }, action) => {
     case ADD_TRANSACTION_REQUEST:
       return {};
     case ADD_TRANSACTION_SUCCESS:
-      return { transactions: action.payload };
+      console.log("action.payload add transaction ", action.payload);
+      return {
+        transactions: action.payload,
+      };
     case ADD_TRANSACTION_FAIL:
       return {};
     default:
