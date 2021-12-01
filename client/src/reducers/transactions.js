@@ -28,7 +28,7 @@ export const getTransactionReducer = (state = { transactions: [] }, action) => {
       console.log("Transaction found. ", transactionFound);
       transactionFound.Active = true;
       transactionFound.Pending = false;
-      transactionFound.URL = "transaction/" + transactionFound.__id;
+      transactionFound.TransactionURL = "transaction/" + transactionFound.__id;
       console.log(tempTransactionList);
       return { transactions: tempTransactionList };
     default:
