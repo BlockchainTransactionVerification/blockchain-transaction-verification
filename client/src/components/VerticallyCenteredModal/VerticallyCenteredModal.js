@@ -116,7 +116,6 @@ function VerticallyCenteredModal(props) {
     );
 
     updateStatus();
-    window.location.reload(false);
   };
 
   const listDocs = docs.map((doc, id) => {
