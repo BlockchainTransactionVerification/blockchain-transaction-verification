@@ -36,6 +36,9 @@ export const uploadFileAction = (file) => async (dispatch) => {
 
     dispatch({ type: UPLOAD_FILE_SUCCESS, payload: data });
   } catch (error) {
+    alert(
+      "An error occured uploading your file. Please upload the file again."
+    );
     const message =
       error.response && error.response.data.message
         ? error.response.data.message

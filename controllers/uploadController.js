@@ -54,6 +54,10 @@ export const uploadFiles = asyncHandler(async (req, res) => {
       return res.json({ hash: result.hash });
     } catch (e) {
       console.log("error", e);
+      return res.json({
+        error:
+          "An error occured uploading your file. Please upload the file again.",
+      });
     }
   };
 });
