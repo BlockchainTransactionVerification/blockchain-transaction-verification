@@ -97,7 +97,7 @@ function VerticallyCenteredModal(props) {
 
   const updateStatus = async () => {
     const { data } = await axios.post(
-      BASE_URL + "apitra/updateTransactionStatus",
+      "apitra/updateTransactionStatus",
       {
         id: props.cid,
         Active: true,
@@ -114,8 +114,6 @@ function VerticallyCenteredModal(props) {
     dispatch(
       createSopAction(props.supid, props.buyid, props.cid, sopTitle, docs)
     );
-
-    updateStatus();
   };
 
   const listDocs = docs.map((doc, id) => {
