@@ -19,6 +19,11 @@ export const getTransactionReducer = (state = { transactions: [] }, action) => {
       return { transactions: action.payload };
     case GET_TRANSACTION_FAIL:
       return { error: action.payload };
+    case ADD_TRANSACTION_SUCCESS:
+      console.log("transactions success");
+      return {
+        transactions: [action.payload.transaction, ...state.transactions],
+      };
     case MAKE_TRANSACTION_ACTIVE:
       const transaction_id = action.payload;
       const tempTransactionList = [...state.transactions];

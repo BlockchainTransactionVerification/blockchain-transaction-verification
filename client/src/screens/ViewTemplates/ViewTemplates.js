@@ -41,7 +41,7 @@ const ViewTemplates = () => {
             </a>
           </ListGroup.Item>
           <ListGroup.Item>
-            <h2 className="tHeader">Letter of Authority (LOA):</h2>
+            <h2 className="tHeader">Letter of Attestation (LOA):</h2>
             <a
               href="https://ipfs.fleek.co/ipfs/bafybeidz4uiz3h4w2qitla2b5itrj5f4rfxpslxnmx6fcxnvf3xodlv7ua"
               target="_blank"
