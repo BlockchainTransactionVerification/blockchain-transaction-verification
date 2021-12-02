@@ -10,6 +10,7 @@ import Search from "../../components/SearchFind/Search";
 import SupplyInfo from "../../components/SearchFind/SupplyInfo";
 import { getItems } from "../../actions/products";
 import axios from "axios";
+import "./BuyerHome.css";
 
 function BuyerHome({ history }) {
   const [modalShow, setModalShow] = useState(false);
@@ -108,7 +109,7 @@ function BuyerHome({ history }) {
   };
 
   return (
-    <div>
+    <div className = "bgimage">
       {userInfo.username} is logged in
       <Tabs
         defaultActiveKey="active"
