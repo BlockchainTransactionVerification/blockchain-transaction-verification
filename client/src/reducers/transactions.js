@@ -25,10 +25,11 @@ export const getTransactionReducer = (state = { transactions: [] }, action) => {
       const transactionFound = tempTransactionList.find(
         (transaction) => transaction._id == transaction_id
       );
-      console.log("Transaction found. ", transactionFound);
+      //console.log("Transaction found. ", transactionFound);
       transactionFound.Active = true;
       transactionFound.Pending = false;
       transactionFound.TransactionURL = "transaction/" + transactionFound._id;
+      console.log("Transaction in reducer. ", transactionFound.Active);
       console.log(tempTransactionList);
       return { transactions: tempTransactionList };
     default:
