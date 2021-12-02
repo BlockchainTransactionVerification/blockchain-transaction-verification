@@ -9,14 +9,18 @@ import mongoose from "mongoose";
 // input - user id or user name
 
 export const getUser = asyncHandler(async (req, res) => {
+  console.log("hereeee"+req)
   const userId = req.query.userId;
   const username = req.query.username;
+  console.log("in user control  getuser funct");
   try {
     const user = userId
       ? await User.findById(userId)
       : await User.findOne({ username: username });
     const { password, updatedAt, ...other } = user._doc;
-    res.status(200).json(other);
+    console.log(user);
+     res.status(200).json(user);
+    
   } catch (err) {
     res.status(500).json(err);
   }
@@ -87,7 +91,7 @@ export const registerUser = asyncHandler(async (req, res) => {
             console.log(err);
           });
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const hrefLink = `http://wownice.club/api/verify/${Users.temporarytoken}`;
+        const hrefLink = `http://pegasustransactionverification.com/api/verify/${Users.temporarytoken}`;
         //"http://localhost:5000/api/verify/" + Users.temporarytoken;
         console.log("href : " + hrefLink);
         console.log("token : " + Users.temporarytoken);

@@ -65,7 +65,7 @@ export const addTransaction = asyncHandler(async (req, res) => {
     });
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    const hrefLink = process.env.BASE_URL;
+    const hrefLink = "pegasustransactionverification.com";
     const msg = {
       to: seller.Email, // Change to your recipient
       from: "BlockChainUCFSD@gmail.com", // Change to your verified sender
