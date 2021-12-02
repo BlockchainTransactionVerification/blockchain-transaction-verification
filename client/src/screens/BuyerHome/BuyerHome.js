@@ -110,7 +110,8 @@ function BuyerHome({ history }) {
 
   return (
     <div className = "bgimage">
-      {userInfo.username} is logged in
+      Welcome, {userInfo.username} 
+   <h1 id="shHeader">Welcome, {userInfo.firstName}</h1>
       <Tabs
         defaultActiveKey="active"
         id="uncontrolled-tab-example"
