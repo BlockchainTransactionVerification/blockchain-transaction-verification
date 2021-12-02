@@ -114,6 +114,8 @@ function VerticallyCenteredModal(props) {
     dispatch(
       createSopAction(props.supid, props.buyid, props.cid, sopTitle, docs)
     );
+
+    updateStatus();
   };
 
   const listDocs = docs.map((doc, id) => {
