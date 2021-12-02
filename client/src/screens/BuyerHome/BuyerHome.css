@@ -10,3 +10,10 @@
   height: 115vh;
   width: 100vw;
 }
+
+#shHeader {
+  position: relative;
+  bottom: 350px;
+  right: 220px;
+  font-family: "Open Sans Medium", sans-serif;
+}
