@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap");
+
+#bgimg {
+  padding: 20em;
+  background-image: url("../../images/simple_white_background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 91.45vh;
+  width: 100vw;
+}
+
+#TemplatesTitle {
+  color: black;
+  position: relative;
+  float: left;
+  bottom: 265px;
+  padding: 0px;
+  margin: 0px;
+  font-family: "Open Sans Medium", sans-serif;
+  left: 70px;
+}
+
+#TemplateContainer {
+  background-color: white;
+  position: relative;
+  bottom: 170px;
+  width: 55vw;
+  height: auto;
+  padding: 50px 75px 75px 75px;
+  box-shadow: 5px 5px 50px grey;
+  border-radius: 10px;
+  left: 70px;
+}
+
+.tHeader {
+  font-family: "Open Sans Regular", sans-serif;
+  margin: 10px 0px 10px 0px;
+  padding: 0px;
+  font-size: 22px;
+  display: inline-block;
+  color: #2d2d2d;
+}
+
+.tLink {
+  margin: 10px 0px 10px 20px;
+  padding: 0px;
+  font-family: "Open Sans Light", sans-serif;
+  font-size: 20px;
+  display: inline-block;
+}

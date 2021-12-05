@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap");
+
+.bgimg {
+  padding: 20em;
+  background-image: url("../../images/simple_white_background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 91.45vh;
+  width: 100vw;
+}
+
+.vtTitle {
+  color: black;
+  position: relative;
+  float: left;
+  bottom: 265px;
+  padding: 0px;
+  margin: 0px 0px 10px 0px;
+  font-family: "Open Sans Medium", sans-serif;
+  left: 100px;
+}
+
+#vtTable {
+  position: relative;
+  background-color: white;
+  height: auto;
+  width: 55vw;
+  bottom: 190px;
+  box-shadow: 5px 5px 50px grey;
+  left: 100px;
+  margin-top: 0px;
+}
+
+#alertP {
+  display: flex;
+  position: relative;
+  bottom: 145px;
+  width: 16rem;
+  left: 100px;
+  margin: 20px 0px 5px 0px;
+  box-shadow: 5px 5px 50px grey;
+}
+
+#alertC {
+  display: flex;
+  position: relative;
+  bottom: 145px;
+  width: 16rem;
+  left: 100px;
+  margin: 20px 0px 10px 0px;
+}
+
+.vtHeadText {
+  font-family: "Open Sans Regular", sans-serif;
+}
+
+.completed-action {
+  display: inline-block;
+  margin: 0px 0px 0px 8px;
+}
+
+.pending-action {
+  display: inline-block;
+  margin: 0px 0px 0px 8px;
+}
+
+.vtViewBtn {
+  float: right;
+  margin-right: 50px;
+}
+
+.vtUploadBtn {
+  float: right;
+  margin-right: 50px;
+}

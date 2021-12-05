@@ -1,0 +1,9 @@
+#formContainer {
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  height: 290px;
+  padding: 30px;
+  top: 200px;
+  box-shadow: 5px 5px 50px grey;
+}
